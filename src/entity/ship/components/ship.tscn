@@ -1,0 +1,91 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/input/player_controller_reader.gd" type="Script" id=1]
+[ext_resource path="res://src/entity/ship/components/h_jet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/texture/ship.png" type="Texture" id=3]
+[ext_resource path="res://src/entity/ship.gd" type="Script" id=4]
+[ext_resource path="res://src/entity/input_state.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/entity/ship/components/trigger_on_down.gd" type="Script" id=6]
+[ext_resource path="res://src/entity/ship/components/trigger_on_side.gd" type="Script" id=7]
+[ext_resource path="res://src/entity/ship/components/trigger_on_up.gd" type="Script" id=8]
+[ext_resource path="res://src/entity/ship/components/trigger_on_B_just_pressed.gd" type="Script" id=9]
+[ext_resource path="res://src/entity/ship/components/slot.gd" type="Script" id=10]
+[ext_resource path="res://src/entity/ship/components/gun.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/entity/ship/components/rotate_to_direction.gd" type="Script" id=12]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 7, 6 )
+
+[node name="ship" type="KinematicBody2D"]
+collision_layer = 3
+script = ExtResource( 4 )
+water_gravity = -75.0
+water_damping = 3.0
+
+[node name="input_state" parent="." instance=ExtResource( 5 )]
+
+[node name="player_controller" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
+shape = SubResource( 10 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="pivot" type="Node2D" parent="."]
+
+[node name="rear_slot" type="Node2D" parent="pivot"]
+position = Vector2( -6, 2 )
+script = ExtResource( 10 )
+
+[node name="trigger_on_side" type="Node" parent="pivot/rear_slot"]
+script = ExtResource( 7 )
+
+[node name="h_jet" parent="pivot/rear_slot" instance=ExtResource( 2 )]
+power = 200.0
+
+[node name="down_slot" type="Node2D" parent="pivot"]
+position = Vector2( 0, -4 )
+rotation = 1.5708
+script = ExtResource( 10 )
+
+[node name="trigger_on_down" type="Node" parent="pivot/down_slot"]
+script = ExtResource( 6 )
+
+[node name="h_jet" parent="pivot/down_slot" instance=ExtResource( 2 )]
+power = 200.0
+
+[node name="up_slot" type="Node2D" parent="pivot"]
+position = Vector2( 0, 6 )
+rotation = -1.5708
+script = ExtResource( 10 )
+
+[node name="trigger_on_up" type="Node" parent="pivot/up_slot"]
+script = ExtResource( 8 )
+
+[node name="h_jet" parent="pivot/up_slot" instance=ExtResource( 2 )]
+power = 200.0
+
+[node name="gun_slot" type="Node2D" parent="pivot"]
+script = ExtResource( 10 )
+
+[node name="trigger_on_B_just_pressed" type="Node" parent="pivot/gun_slot"]
+script = ExtResource( 9 )
+
+[node name="rotate_to_direction" type="Node" parent="pivot/gun_slot"]
+script = ExtResource( 12 )
+
+[node name="gun" parent="pivot/gun_slot" instance=ExtResource( 11 )]
+position = Vector2( 4, 0 )
+
+[connection signal="release" from="pivot/rear_slot" to="pivot/rear_slot/h_jet" method="stop"]
+[connection signal="trigger" from="pivot/rear_slot" to="pivot/rear_slot/h_jet" method="start"]
+[connection signal="release" from="pivot/down_slot" to="pivot/down_slot/h_jet" method="stop"]
+[connection signal="trigger" from="pivot/down_slot" to="pivot/down_slot/h_jet" method="start"]
+[connection signal="release" from="pivot/up_slot" to="pivot/up_slot/h_jet" method="stop"]
+[connection signal="trigger" from="pivot/up_slot" to="pivot/up_slot/h_jet" method="start"]
