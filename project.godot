@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/util/controller/button_state.gd"
 }, {
+"base": "State",
+"class": "CharacterState",
+"language": "GDScript",
+"path": "res://src/entity/state/CharacterState.gd"
+}, {
 "base": "Reference",
 "class": "ColorUtils",
 "language": "GDScript",
@@ -119,6 +124,7 @@ _global_script_class_icons={
 "AudioCrossfadePlayer": "",
 "Bool": "",
 "ButtonState": "",
+"CharacterState": "",
 "ColorUtils": "",
 "GeometryUtils": "",
 "InputState": "",
@@ -141,12 +147,14 @@ _global_script_class_icons={
 [application]
 
 config/name="GWJ53"
+run/main_scene="res://main.tscn"
 config/icon="res://assets/texture/icon.png"
 
 [autoload]
 
 GlobalInputs="res://src/global/GlobalInputs.gd"
 Controller="*res://src/global/player_controller.tscn"
+Shake="*res://src/global/Shake.tscn"
 
 [display]
 
@@ -202,6 +210,12 @@ R={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="terrain"
+2d_physics/layer_2="entity"
+2d_physics/layer_3="hurtbox"
 
 [physics]
 

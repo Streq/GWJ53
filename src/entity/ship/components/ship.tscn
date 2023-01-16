@@ -17,7 +17,8 @@
 extents = Vector2( 7, 6 )
 
 [node name="ship" type="KinematicBody2D"]
-collision_layer = 3
+z_index = 1
+collision_layer = 2
 script = ExtResource( 4 )
 water_gravity = -75.0
 water_damping = 3.0
@@ -33,9 +34,6 @@ texture = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
 shape = SubResource( 10 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
 
 [node name="pivot" type="Node2D" parent="."]
 
@@ -89,3 +87,5 @@ position = Vector2( 4, 0 )
 [connection signal="trigger" from="pivot/down_slot" to="pivot/down_slot/h_jet" method="start"]
 [connection signal="release" from="pivot/up_slot" to="pivot/up_slot/h_jet" method="stop"]
 [connection signal="trigger" from="pivot/up_slot" to="pivot/up_slot/h_jet" method="start"]
+[connection signal="release" from="pivot/gun_slot" to="pivot/gun_slot/gun" method="stop"]
+[connection signal="trigger" from="pivot/gun_slot" to="pivot/gun_slot/gun" method="start"]

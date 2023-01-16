@@ -1,11 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/entity/ship/components/gun.gd" type="Script" id=1]
 [ext_resource path="res://assets/texture/gun.png" type="Texture" id=2]
 [ext_resource path="res://assets/texture/diagonal_gun.png" type="Texture" id=3]
+[ext_resource path="res://src/bullet/bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/entity/ship/components/muzzle.gd" type="Script" id=5]
+[ext_resource path="res://src/entity/ship/components/screen_shake.gd" type="Script" id=6]
+[ext_resource path="res://assets/texture/gun_blast.png" type="Texture" id=7]
+[ext_resource path="res://src/entity/ship/components/gun_blast.gd" type="Script" id=8]
 
 [node name="gun" type="Node2D"]
 script = ExtResource( 1 )
+BULLET = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
@@ -19,3 +25,24 @@ texture = ExtResource( 3 )
 
 [node name="exit" type="Node2D" parent="."]
 position = Vector2( 5, 0 )
+
+[node name="muzzle" type="Node2D" parent="."]
+position = Vector2( 5, 0 )
+script = ExtResource( 5 )
+amount = 10
+spread_degrees = 10.0
+recoil = 15.0
+BULLET = ExtResource( 4 )
+
+[node name="screen_shake" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="blast" type="Sprite" parent="."]
+visible = false
+position = Vector2( 10, 0 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
+
+[connection signal="fire" from="." to="muzzle" method="shoot"]
+[connection signal="fire" from="." to="screen_shake" method="trigger"]
+[connection signal="fire" from="." to="blast" method="trigger"]

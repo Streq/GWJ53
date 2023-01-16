@@ -12,18 +12,24 @@ export var damping := 0.1
 export var water_damping := 1.0
 export var in_water := false
 
-
 onready var pivot: Node2D = $pivot
 onready var input_state: Node = $input_state
 
 
-export (float, -1.0, 1.0, 2.0) onready var facing_dir := 1.0 setget set_facing_dir
+export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir
+
+func _ready() -> void:
+	set_facing_dir(facing_dir)
 
 func set_facing_dir(val):
 	val = sign(val)
-	if val != 0.0 and facing_dir != val:
-		facing_dir = val
-		pivot.scale.x = abs(pivot.scale.x)*facing_dir
+	if val == 0.0 or facing_dir == val:
+		return
+	facing_dir = val
+
+	if !is_inside_tree():
+		return
+	pivot.scale.x = abs(pivot.scale.x)*facing_dir
 
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
@@ -31,8 +37,8 @@ func _physics_process(delta: float) -> void:
 	
 	if direction.x:
 		set_facing_dir(direction.x)
+		
 	var _gravity = gravity if !in_water else water_gravity
-	
 	velocity.y += _gravity*delta
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
