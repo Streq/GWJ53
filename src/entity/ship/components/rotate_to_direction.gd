@@ -5,3 +5,4 @@ func _physics_process(delta: float) -> void:
 		var direction = owner.input_state.dir
 		direction.x*=owner.facing_dir
 		get_parent().rotation = direction.angle()
+		print(get_parent().rotation_degrees)

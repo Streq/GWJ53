@@ -13,7 +13,8 @@ export var water_damping := 1.0
 export var in_water := false
 
 onready var pivot: Node2D = $pivot
-onready var input_state: Node = $input_state
+onready var input_state: InputState = $input_state
+onready var pilot_seat: Node2D = $pivot/pilot_seat
 
 
 export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir
@@ -32,7 +33,7 @@ func set_facing_dir(val):
 	pivot.scale.x = abs(pivot.scale.x)*facing_dir
 
 func _physics_process(delta: float) -> void:
-	var direction = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+	var direction = input_state.dir
 #	velocity += direction*jet_power*delta
 	
 	if direction.x:
@@ -46,3 +47,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x,0.0,ground_friction*delta)
 	var _damping = damping if !in_water else water_damping
 	velocity *= 1-delta*_damping
+
+func enter_pilot(pilot):
+	pilot_seat.seat(pilot)
+	emit_signal("pilot_entered", pilot)
+	

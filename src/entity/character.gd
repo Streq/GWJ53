@@ -1,7 +1,7 @@
 extends KinematicBody2D
 signal in_water()
 signal out_of_water()
-
+signal dead()
 
 
 onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -73,3 +73,8 @@ func _physics_process(delta: float) -> void:
 	velocity *= 1-delta*_damping
 	
 	state_machine.physics_update(delta)
+
+func die():
+	emit_signal("dead")
+	state_machine._change_state("swim_dead")
+	

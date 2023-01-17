@@ -24,3 +24,10 @@ func copy_from(input_state: InputState):
 	R.copy_from(input_state.R)
 	dir = input_state.dir
 
+func clear():
+	A.clear()
+	B.clear()
+	L.clear()
+	R.clear()
+	dir = Vector2()
+

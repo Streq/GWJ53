@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://src/input/player_controller_reader.gd" type="Script" id=1]
+[ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
 [ext_resource path="res://src/entity/ship/components/h_jet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/texture/ship.png" type="Texture" id=3]
 [ext_resource path="res://src/entity/ship.gd" type="Script" id=4]
@@ -12,21 +12,23 @@
 [ext_resource path="res://src/entity/ship/components/slot.gd" type="Script" id=10]
 [ext_resource path="res://src/entity/ship/components/gun.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/entity/ship/components/rotate_to_direction.gd" type="Script" id=12]
+[ext_resource path="res://src/entity/ship/components/pilot_control.gd" type="Script" id=13]
+[ext_resource path="res://assets/texture/ship_seat_front.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7, 6 )
 
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 7, 6 )
+
 [node name="ship" type="KinematicBody2D"]
-z_index = 1
+z_index = -1
 collision_layer = 2
 script = ExtResource( 4 )
 water_gravity = -75.0
 water_damping = 3.0
 
 [node name="input_state" parent="." instance=ExtResource( 5 )]
-
-[node name="player_controller" type="Node" parent="."]
-script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
@@ -36,6 +38,17 @@ position = Vector2( 0, 2 )
 shape = SubResource( 10 )
 
 [node name="pivot" type="Node2D" parent="."]
+
+[node name="pilot_seat" type="Node2D" parent="pivot"]
+script = ExtResource( 1 )
+
+[node name="pilot_control" type="Node" parent="pivot/pilot_seat"]
+process_priority = -100000
+script = ExtResource( 13 )
+
+[node name="Sprite" type="Sprite" parent="pivot/pilot_seat"]
+z_index = 1
+texture = ExtResource( 14 )
 
 [node name="rear_slot" type="Node2D" parent="pivot"]
 position = Vector2( -6, 2 )
@@ -81,6 +94,16 @@ script = ExtResource( 12 )
 [node name="gun" parent="pivot/gun_slot" instance=ExtResource( 11 )]
 position = Vector2( 4, 0 )
 
+[node name="ship_area" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ship_area"]
+position = Vector2( 0, 2 )
+shape = SubResource( 11 )
+
+[connection signal="pilot_off" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_off"]
+[connection signal="pilot_on" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_on"]
 [connection signal="release" from="pivot/rear_slot" to="pivot/rear_slot/h_jet" method="stop"]
 [connection signal="trigger" from="pivot/rear_slot" to="pivot/rear_slot/h_jet" method="start"]
 [connection signal="release" from="pivot/down_slot" to="pivot/down_slot/h_jet" method="stop"]

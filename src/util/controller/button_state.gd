@@ -24,3 +24,7 @@ func stale():
 func copy_from(state: ButtonState):
 	pressed = state.pressed
 	just_updated = state.just_updated
+
+func clear():
+	pressed = false
+	just_updated = false
