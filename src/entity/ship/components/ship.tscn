@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
 [ext_resource path="res://src/entity/ship/components/h_jet.tscn" type="PackedScene" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://src/entity/ship/components/rotate_to_direction.gd" type="Script" id=12]
 [ext_resource path="res://src/entity/ship/components/pilot_control.gd" type="Script" id=13]
 [ext_resource path="res://assets/texture/ship_seat_front.png" type="Texture" id=14]
+[ext_resource path="res://src/entity/ship/components/dome.gd" type="Script" id=15]
+[ext_resource path="res://assets/texture/dome.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7, 6 )
@@ -22,7 +24,7 @@ extents = Vector2( 7, 6 )
 extents = Vector2( 7, 6 )
 
 [node name="ship" type="KinematicBody2D"]
-z_index = -1
+z_index = -3
 collision_layer = 2
 script = ExtResource( 4 )
 water_gravity = -75.0
@@ -93,6 +95,14 @@ script = ExtResource( 12 )
 
 [node name="gun" parent="pivot/gun_slot" instance=ExtResource( 11 )]
 position = Vector2( 4, 0 )
+z_index = 2
+
+[node name="dome" type="Node2D" parent="pivot"]
+z_index = 2
+script = ExtResource( 15 )
+
+[node name="Sprite" type="Sprite" parent="pivot/dome"]
+texture = ExtResource( 16 )
 
 [node name="ship_area" type="Area2D" parent="."]
 collision_layer = 16

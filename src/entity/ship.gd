@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+signal pilot_entered(pilot)
 
 export var gravity := 50.0
 export var water_gravity := -30.0
@@ -52,3 +53,5 @@ func enter_pilot(pilot):
 	pilot_seat.seat(pilot)
 	emit_signal("pilot_entered", pilot)
 	
+func get_pilot():
+	return pilot_seat.pilot

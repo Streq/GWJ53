@@ -15,3 +15,6 @@ func _physics_process(delta: float) -> void:
 		emit_signal("not_full")
 	else:
 		bar.value += delta * 10.0
+
+func fill(amount):
+	bar.value+=amount

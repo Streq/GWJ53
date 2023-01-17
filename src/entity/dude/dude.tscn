@@ -614,6 +614,7 @@ collision_mask = 16
 shape = SubResource( 13 )
 
 [node name="oxygen" type="Node" parent="." index="5"]
+unique_name_in_owner = true
 script = ExtResource( 12 )
 
 [node name="bar" type="Node" parent="oxygen" index="0"]
