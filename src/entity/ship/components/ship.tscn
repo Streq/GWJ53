@@ -55,6 +55,7 @@ texture = ExtResource( 14 )
 [node name="rear_slot" type="Node2D" parent="pivot"]
 position = Vector2( -6, 2 )
 script = ExtResource( 10 )
+type = "REAR"
 
 [node name="trigger_on_side" type="Node" parent="pivot/rear_slot"]
 script = ExtResource( 7 )
@@ -66,6 +67,7 @@ power = 200.0
 position = Vector2( 0, -4 )
 rotation = 1.5708
 script = ExtResource( 10 )
+type = "DOWN"
 
 [node name="trigger_on_down" type="Node" parent="pivot/down_slot"]
 script = ExtResource( 6 )
@@ -77,6 +79,7 @@ power = 200.0
 position = Vector2( 0, 6 )
 rotation = -1.5708
 script = ExtResource( 10 )
+type = "UP"
 
 [node name="trigger_on_up" type="Node" parent="pivot/up_slot"]
 script = ExtResource( 8 )
@@ -86,6 +89,7 @@ power = 200.0
 
 [node name="gun_slot" type="Node2D" parent="pivot"]
 script = ExtResource( 10 )
+type = "GUN"
 
 [node name="trigger_on_B_just_pressed" type="Node" parent="pivot/gun_slot"]
 script = ExtResource( 9 )

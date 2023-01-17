@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/dude/state/idle.gd" type="Script" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://src/HUD/bar/bar.gd" type="Script" id=14]
 [ext_resource path="res://assets/texture/oxygen_bar_back.png" type="Texture" id=15]
 [ext_resource path="res://src/entity/dude/enter_ship.gd" type="Script" id=16]
+[ext_resource path="res://src/entity/dude/pickup_grabber.tscn" type="PackedScene" id=17]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 2.0
@@ -613,6 +614,8 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/ship_enter/ship_detect" index="0"]
 shape = SubResource( 13 )
 
+[node name="pickup_grabber" parent="pivot" index="3" instance=ExtResource( 17 )]
+
 [node name="oxygen" type="Node" parent="." index="5"]
 unique_name_in_owner = true
 script = ExtResource( 12 )
@@ -631,11 +634,9 @@ position = Vector2( 0, -2 )
 shape = SubResource( 11 )
 
 [node name="oxygen_bar" type="TextureProgress" parent="." index="7"]
-visible = false
 margin_left = -8.0
-margin_top = -14.0
+margin_top = -16.0
 margin_right = 8.0
-margin_bottom = 2.0
 step = 0.0
 value = 100.0
 texture_under = ExtResource( 15 )

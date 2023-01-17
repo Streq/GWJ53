@@ -94,6 +94,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/util/geometry/rope/rope_utils.gd"
 }, {
+"base": "Node2D",
+"class": "ShipComponent",
+"language": "GDScript",
+"path": "res://src/entity/ship/components/component.gd"
+}, {
+"base": "Node2D",
+"class": "ShipSlot",
+"language": "GDScript",
+"path": "res://src/entity/ship/components/slot.gd"
+}, {
 "base": "Node",
 "class": "StackFiniteStateMachine",
 "language": "GDScript",
@@ -137,6 +147,8 @@ _global_script_class_icons={
 "RenderUtils": "",
 "Rope": "",
 "RopeUtils": "",
+"ShipComponent": "",
+"ShipSlot": "",
 "StackFiniteStateMachine": "",
 "State": "",
 "StateMachine": "",
@@ -219,6 +231,7 @@ R={
 2d_physics/layer_4="water"
 2d_physics/layer_5="ship"
 2d_physics/layer_6="player"
+2d_physics/layer_7="pickup"
 
 [physics]
 

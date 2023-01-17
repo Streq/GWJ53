@@ -25,3 +25,7 @@ func stop():
 func _physics_process(delta: float) -> void:
 	if firing:
 		owner.velocity += exit.global_position.direction_to(global_position)*power*delta
+
+func connect_to_slot(slot):
+	slot.connect("release",self,"stop")
+	slot.connect("trigger",self,"start")

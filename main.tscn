@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/map/water_area.gd" type="Script" id=1]
 [ext_resource path="res://assets/texture/terrain.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/input/player_controller.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/entity/dude/dude.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/camera/camera.gd" type="Script" id=6]
+[ext_resource path="res://src/pickup/component_pickup.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
@@ -330,7 +331,7 @@ tile_data = PoolIntArray( 196626, 0, 65537, 196627, 0, 65538, 196628, 0, 65539, 
 [node name="water_area" type="Area2D" parent="terrain"]
 z_index = -2
 collision_layer = 8
-collision_mask = 2
+collision_mask = 66
 script = ExtResource( 1 )
 
 [node name="water" type="TileMap" parent="terrain/water_area"]
@@ -351,6 +352,9 @@ position = Vector2( 44, 97 )
 [node name="Camera2D" type="Camera2D" parent="dude"]
 current = true
 script = ExtResource( 6 )
+
+[node name="component_pickup" parent="." instance=ExtResource( 7 )]
+position = Vector2( 37, 48 )
 
 [connection signal="body_entered" from="terrain/water_area" to="terrain/water_area" method="_on_water_area_body_entered"]
 [connection signal="body_exited" from="terrain/water_area" to="terrain/water_area" method="_on_water_area_body_exited"]
