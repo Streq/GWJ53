@@ -60,6 +60,11 @@ type = "REAR"
 [node name="trigger_on_side" type="Node" parent="pivot/slots/rear_slot"]
 script = ExtResource( 7 )
 
+[node name="teleport_slot" type="Node2D" parent="pivot/slots"]
+position = Vector2( -6, 2 )
+script = ExtResource( 10 )
+type = "TELEPORT"
+
 [node name="down_slot" type="Node2D" parent="pivot/slots"]
 position = Vector2( 0, -4 )
 rotation = 1.5708

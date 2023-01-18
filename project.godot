@@ -164,10 +164,13 @@ config/icon="res://assets/texture/icon.png"
 
 [autoload]
 
+GlobalPalette="*res://src/util/color/GlobalPalette.tscn"
 GlobalInputs="res://src/global/GlobalInputs.gd"
 Controller="*res://src/global/player_controller.tscn"
 Shake="*res://src/global/Shake.tscn"
 Text="*res://src/global/HUD/Text.tscn"
+Background="res://src/global/Background.tscn"
+Foreground="res://src/global/Foreground.tscn"
 
 [display]
 
