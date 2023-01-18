@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
-[ext_resource path="res://src/entity/ship/components/h_jet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/texture/ship.png" type="Texture" id=3]
 [ext_resource path="res://src/entity/ship.gd" type="Script" id=4]
 [ext_resource path="res://src/entity/input_state.tscn" type="PackedScene" id=5]
@@ -10,12 +9,9 @@
 [ext_resource path="res://src/entity/ship/components/trigger_on_up.gd" type="Script" id=8]
 [ext_resource path="res://src/entity/ship/components/trigger_on_B_just_pressed.gd" type="Script" id=9]
 [ext_resource path="res://src/entity/ship/components/slot.gd" type="Script" id=10]
-[ext_resource path="res://src/entity/ship/components/gun.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/entity/ship/components/rotate_to_direction.gd" type="Script" id=12]
 [ext_resource path="res://src/entity/ship/components/pilot_control.gd" type="Script" id=13]
 [ext_resource path="res://assets/texture/ship_seat_front.png" type="Texture" id=14]
-[ext_resource path="res://src/entity/ship/components/dome.gd" type="Script" id=15]
-[ext_resource path="res://assets/texture/dome.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7, 6 )
@@ -52,61 +48,48 @@ script = ExtResource( 13 )
 z_index = 1
 texture = ExtResource( 14 )
 
-[node name="rear_slot" type="Node2D" parent="pivot"]
+[node name="slots" type="Node2D" parent="pivot"]
+
+[node name="rear_slot" type="Node2D" parent="pivot/slots"]
 position = Vector2( -6, 2 )
 script = ExtResource( 10 )
 type = "REAR"
 
-[node name="trigger_on_side" type="Node" parent="pivot/rear_slot"]
+[node name="trigger_on_side" type="Node" parent="pivot/slots/rear_slot"]
 script = ExtResource( 7 )
 
-[node name="h_jet" parent="pivot/rear_slot" instance=ExtResource( 2 )]
-power = 200.0
-
-[node name="down_slot" type="Node2D" parent="pivot"]
+[node name="down_slot" type="Node2D" parent="pivot/slots"]
 position = Vector2( 0, -4 )
 rotation = 1.5708
 script = ExtResource( 10 )
 type = "DOWN"
 
-[node name="trigger_on_down" type="Node" parent="pivot/down_slot"]
+[node name="trigger_on_down" type="Node" parent="pivot/slots/down_slot"]
 script = ExtResource( 6 )
 
-[node name="h_jet" parent="pivot/down_slot" instance=ExtResource( 2 )]
-power = 200.0
-
-[node name="up_slot" type="Node2D" parent="pivot"]
+[node name="up_slot" type="Node2D" parent="pivot/slots"]
 position = Vector2( 0, 6 )
 rotation = -1.5708
 script = ExtResource( 10 )
 type = "UP"
 
-[node name="trigger_on_up" type="Node" parent="pivot/up_slot"]
+[node name="trigger_on_up" type="Node" parent="pivot/slots/up_slot"]
 script = ExtResource( 8 )
 
-[node name="h_jet" parent="pivot/up_slot" instance=ExtResource( 2 )]
-power = 200.0
-
-[node name="gun_slot" type="Node2D" parent="pivot"]
+[node name="gun_slot" type="Node2D" parent="pivot/slots"]
 script = ExtResource( 10 )
 type = "GUN"
 
-[node name="trigger_on_B_just_pressed" type="Node" parent="pivot/gun_slot"]
+[node name="trigger_on_B_just_pressed" type="Node" parent="pivot/slots/gun_slot"]
 script = ExtResource( 9 )
 
-[node name="rotate_to_direction" type="Node" parent="pivot/gun_slot"]
+[node name="rotate_to_direction" type="Node" parent="pivot/slots/gun_slot"]
 script = ExtResource( 12 )
 
-[node name="gun" parent="pivot/gun_slot" instance=ExtResource( 11 )]
-position = Vector2( 4, 0 )
-z_index = 2
-
-[node name="dome" type="Node2D" parent="pivot"]
-z_index = 2
-script = ExtResource( 15 )
-
-[node name="Sprite" type="Sprite" parent="pivot/dome"]
-texture = ExtResource( 16 )
+[node name="dome_slot" type="Node2D" parent="pivot/slots"]
+rotation = -1.5708
+script = ExtResource( 10 )
+type = "DOME"
 
 [node name="ship_area" type="Area2D" parent="."]
 collision_layer = 16
@@ -118,11 +101,3 @@ shape = SubResource( 11 )
 
 [connection signal="pilot_off" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_off"]
 [connection signal="pilot_on" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_on"]
-[connection signal="release" from="pivot/rear_slot" to="pivot/rear_slot/h_jet" method="stop"]
-[connection signal="trigger" from="pivot/rear_slot" to="pivot/rear_slot/h_jet" method="start"]
-[connection signal="release" from="pivot/down_slot" to="pivot/down_slot/h_jet" method="stop"]
-[connection signal="trigger" from="pivot/down_slot" to="pivot/down_slot/h_jet" method="start"]
-[connection signal="release" from="pivot/up_slot" to="pivot/up_slot/h_jet" method="stop"]
-[connection signal="trigger" from="pivot/up_slot" to="pivot/up_slot/h_jet" method="start"]
-[connection signal="release" from="pivot/gun_slot" to="pivot/gun_slot/gun" method="stop"]
-[connection signal="trigger" from="pivot/gun_slot" to="pivot/gun_slot/gun" method="start"]

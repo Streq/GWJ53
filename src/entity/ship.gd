@@ -16,6 +16,7 @@ export var in_water := false
 onready var pivot: Node2D = $pivot
 onready var input_state: InputState = $input_state
 onready var pilot_seat: Node2D = $pivot/pilot_seat
+onready var slots: Node2D = $pivot/slots
 
 
 export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir

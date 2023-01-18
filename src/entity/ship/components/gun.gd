@@ -6,7 +6,7 @@ export var firing := false setget set_firing
 var shooting_muzzles = 0
 
 onready var exit: Node2D = $exit
-
+onready var wearer = owner if !wearer else wearer
 
 func set_firing(val):
 	firing = val

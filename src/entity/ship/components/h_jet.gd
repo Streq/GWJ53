@@ -7,6 +7,8 @@ onready var animation_player: AnimationPlayer = $AnimationPlayer
 export onready var firing := false setget set_firing  
 onready var exit: Node2D = $exit
 
+onready var ship = owner
+
 func set_firing(val):
 	firing = val
 	if firing:
@@ -24,8 +26,15 @@ func stop():
 
 func _physics_process(delta: float) -> void:
 	if firing:
-		owner.velocity += exit.global_position.direction_to(global_position)*power*delta
+		ship.velocity += exit.global_position.direction_to(global_position)*power*delta
 
 func connect_to_slot(slot):
 	slot.connect("release",self,"stop")
 	slot.connect("trigger",self,"start")
+
+
+func _on_connected_to(slot) -> void:
+	ship = slot.owner
+
+func _on_disconnected_from(slot) -> void:
+	ship = null

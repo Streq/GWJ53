@@ -43,4 +43,4 @@ func has_ship_near():
 func get_ship():
 	return ship_detect_area.get_overlapping_areas()[0].get_parent()
 func put_on_ship(ship):
-	pass
+	current.connect_to_ship(ship)

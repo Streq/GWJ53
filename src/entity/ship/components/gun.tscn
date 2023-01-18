@@ -22,7 +22,6 @@ position = Vector2( 5, 0 )
 script = ExtResource( 5 )
 amount = 10
 spread_degrees = 10.0
-recoil = 15.0
 BULLET = ExtResource( 4 )
 
 [node name="screen_shake" type="Node" parent="."]

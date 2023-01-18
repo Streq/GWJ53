@@ -633,17 +633,25 @@ collision_mask = 8
 position = Vector2( 0, -2 )
 shape = SubResource( 11 )
 
-[node name="oxygen_bar" type="TextureProgress" parent="." index="7"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
+
+[node name="oxygen_bar" type="TextureProgress" parent="CanvasLayer" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 margin_left = -8.0
-margin_top = -16.0
+margin_top = -22.0
 margin_right = 8.0
+margin_bottom = -6.0
 step = 0.0
 value = 100.0
 texture_under = ExtResource( 15 )
 texture_progress = ExtResource( 13 )
 script = ExtResource( 14 )
 
+[connection signal="dead" from="." to="CanvasLayer" method="hide"]
 [connection signal="drown" from="oxygen" to="." method="die"]
-[connection signal="not_full" from="oxygen" to="oxygen_bar" method="show"]
-[connection signal="full" from="oxygen/bar" to="oxygen_bar" method="hide"]
-[connection signal="value_changed" from="oxygen/bar" to="oxygen_bar" method="set_values"]
+[connection signal="not_full" from="oxygen" to="CanvasLayer/oxygen_bar" method="show"]
+[connection signal="full" from="oxygen/bar" to="CanvasLayer/oxygen_bar" method="hide"]
+[connection signal="value_changed" from="oxygen/bar" to="CanvasLayer/oxygen_bar" method="set_values"]

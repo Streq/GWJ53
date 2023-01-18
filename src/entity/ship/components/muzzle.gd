@@ -28,7 +28,8 @@ var shooting = false
 func _ready() -> void:
 #	pool = Group.get_one(pool_name)
 	pass	
-func shoot(wearer = owner.owner):
+func shoot():
+	var wearer = owner.wearer
 	var min_angle = deg2rad(-spread_degrees)
 	var max_angle = deg2rad(spread_degrees)
 	
@@ -48,7 +49,7 @@ func shoot(wearer = owner.owner):
 	owner.shooting_muzzles -= 1
 	emit_signal("fired_shot")
 func shoot_bullet(wearer = owner, angle = 0.0, power = 0.0):
-	var bullet = instance_bullet()
+	var bullet = instance_bullet(wearer)
 	if bullet:
 		bullet.global_position = global_position
 		var bullet_vel = Vector2.RIGHT.rotated(angle)*power
@@ -67,8 +68,8 @@ func shoot_bullet(wearer = owner, angle = 0.0, power = 0.0):
 		if override_knockback >= 0.0:
 			bullet.knockback = override_knockback
 	emit_signal("fired_bullet")
-func instance_bullet():
+func instance_bullet(wearer):
 #	return pool.get_one()
 	var bullet = BULLET.instance()
-	owner.owner.get_parent().add_child(bullet)
+	wearer.get_parent().add_child(bullet)
 	return bullet

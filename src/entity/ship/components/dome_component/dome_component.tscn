@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/entity/ship/components/component.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/entity/ship/components/dome.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/texture/dome.png" type="Texture" id=3]
+[ext_resource path="res://src/entity/ship/components/set_ship_as_wearer.tscn" type="PackedScene" id=4]
+
+[node name="dome_component" instance=ExtResource( 1 )]
+type = "DOME"
+texture = ExtResource( 3 )
+
+[node name="dome" parent="." index="0" instance=ExtResource( 2 )]
+position = Vector2( 0, 0 )
+rotation = 0.0
+
+[node name="set_ship_as_wearer" parent="dome" index="1" instance=ExtResource( 4 )]
+
+[connection signal="owned_by" from="." to="dome/set_ship_as_wearer" method="set_as_wearer"]

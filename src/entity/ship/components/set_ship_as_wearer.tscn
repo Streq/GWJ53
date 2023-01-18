@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/entity/ship/components/gun_component/set_ship_as_wearer.gd" type="Script" id=1]
+
+[node name="set_ship_as_wearer" type="Node"]
+script = ExtResource( 1 )

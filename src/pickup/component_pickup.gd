@@ -16,11 +16,19 @@ var grabbed := false setget set_grabbed
 
 export var COMPONENT : PackedScene
 
+var ship_component = null
+
+onready var sprite: Sprite = $Sprite
 onready var panel: Sprite = $panel
 onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 onready var pickedup_panel: Sprite = $pickedup_panel
 
 var in_water = false
+
+func _init() -> void:
+	yield(self,"ready")
+	ship_component = COMPONENT.instance()
+	sprite.texture = ship_component.texture
 
 func set_grabbed(val):
 	grabbed = val
@@ -42,4 +50,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, delta*floor_friction)
 
 func connect_to_ship(ship):
-	pass
+	for slot in ship.slots.get_children():
+		if slot.type == ship_component.type:
+			NodeUtils.reparent_or_add(ship_component, slot)
+			ship_component.connect_to_slot(slot)
+			queue_free()
