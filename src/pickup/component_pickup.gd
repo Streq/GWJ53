@@ -1,10 +1,15 @@
 extends KinematicBody2D
 
-export var gravity := 100.0
-export var water_gravity := -20
+export var gravity := 5.0
+export var damping := 0.0
 
-export var damping := 1.0
+export var in_water = false
+export var water_gravity := -20
 export var water_damping := 2.0
+
+export var in_air := false
+export var air_gravity := 100.0
+export var air_damping := 1.0
 
 export var floor_friction := 10.0
 
@@ -23,7 +28,6 @@ onready var panel: Sprite = $panel
 onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 onready var pickedup_panel: Sprite = $pickedup_panel
 
-var in_water = false
 
 func _init() -> void:
 	yield(self,"ready")
@@ -40,9 +44,9 @@ func set_grabbed(val):
 func _physics_process(delta: float) -> void:
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
-	var _gravity = gravity if !in_water else water_gravity
+	var _gravity = water_gravity if in_water else air_gravity if in_air else gravity 
 	velocity.y += _gravity*delta
-	var _damping = damping if !in_water else water_damping
+	var _damping =  water_damping if in_water else air_damping if in_air else damping
 	velocity *= 1-delta*_damping
 	
 	velocity.y = min(velocity.y, max_fall_speed)

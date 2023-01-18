@@ -167,6 +167,7 @@ config/icon="res://assets/texture/icon.png"
 GlobalInputs="res://src/global/GlobalInputs.gd"
 Controller="*res://src/global/player_controller.tscn"
 Shake="*res://src/global/Shake.tscn"
+Text="*res://src/global/HUD/Text.tscn"
 
 [display]
 
@@ -232,6 +233,7 @@ R={
 2d_physics/layer_5="ship"
 2d_physics/layer_6="player"
 2d_physics/layer_7="pickup"
+2d_physics/layer_8="air"
 
 [physics]
 

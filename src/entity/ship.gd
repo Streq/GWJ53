@@ -2,16 +2,22 @@ extends KinematicBody2D
 
 signal pilot_entered(pilot)
 
-export var gravity := 50.0
-export var water_gravity := -30.0
 
 export var jump := 100.0
 export var velocity := Vector2()
 export var jet_power := 200.0 
 export var ground_friction := 100.0
-export var damping := 0.1
-export var water_damping := 1.0
+
+export var damping := 0.0
+export var gravity := 0.0
+
 export var in_water := false
+export var water_gravity := -30.0
+export var water_damping := 1.0
+
+export var in_air := false
+export var air_damping := 0.1
+export var air_gravity := 50.0
 
 onready var pivot: Node2D = $pivot
 onready var input_state: InputState = $input_state
@@ -41,13 +47,15 @@ func _physics_process(delta: float) -> void:
 	if direction.x:
 		set_facing_dir(direction.x)
 		
-	var _gravity = gravity if !in_water else water_gravity
+	
+	var _gravity = water_gravity if in_water else air_gravity if in_air else gravity
 	velocity.y += _gravity*delta
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	if is_on_floor():
 		velocity.x = move_toward(velocity.x,0.0,ground_friction*delta)
-	var _damping = damping if !in_water else water_damping
+	
+	var _damping = water_damping if in_water else air_damping if in_air else damping
 	velocity *= 1-delta*_damping
 
 func enter_pilot(pilot):

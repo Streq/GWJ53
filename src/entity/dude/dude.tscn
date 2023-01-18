@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/dude/state/idle.gd" type="Script" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://assets/texture/oxygen_bar_back.png" type="Texture" id=15]
 [ext_resource path="res://src/entity/dude/enter_ship.gd" type="Script" id=16]
 [ext_resource path="res://src/entity/dude/pickup_grabber.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/entity/dude/state/air_dead.gd" type="Script" id=18]
+[ext_resource path="res://src/entity/dude/state/dead.gd" type="Script" id=19]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 2.0
@@ -87,6 +89,69 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 6.0 ]
+}
+
+[sub_resource type="Animation" id=14]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivot/Sprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivot/Sprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("pivot/Sprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 13.0 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -521,6 +586,7 @@ radius = 1.41421
 collision_layer = 2
 speed = 40.0
 jump_speed = 50.0
+gravity = 5.0
 water_gravity = -20.0
 water_damping = 2.0
 swim_acceleration = 50.0
@@ -531,6 +597,7 @@ shape = SubResource( 5 )
 [node name="AnimationPlayer" parent="." index="1"]
 anims/RESET = SubResource( 10 )
 anims/air = SubResource( 2 )
+anims/dead = SubResource( 14 )
 anims/idle = SubResource( 3 )
 anims/ledge_up = SubResource( 9 )
 anims/run = SubResource( 4 )
@@ -561,11 +628,19 @@ animation = "swim_idle"
 script = ExtResource( 10 )
 animation = "swim_dead"
 
-[node name="swim_move" type="Node" parent="state_machine" index="5"]
+[node name="air_dead" type="Node" parent="state_machine" index="5"]
+script = ExtResource( 18 )
+animation = "swim_dead"
+
+[node name="dead" type="Node" parent="state_machine" index="6"]
+script = ExtResource( 19 )
+animation = "dead"
+
+[node name="swim_move" type="Node" parent="state_machine" index="7"]
 script = ExtResource( 7 )
 animation = "swim_move"
 
-[node name="ledge_up" type="Node" parent="state_machine" index="6"]
+[node name="ledge_up" type="Node" parent="state_machine" index="8"]
 script = ExtResource( 9 )
 animation = "ledge_up"
 on_finish_goto_state = "idle"
@@ -625,15 +700,23 @@ script = ExtResource( 11 )
 value = 10.0
 max_value = 10.0
 
-[node name="head" type="Area2D" parent="." index="6"]
+[node name="breathe_obstructor_detect" type="Area2D" parent="." index="6"]
 collision_layer = 0
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="head" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="breathe_obstructor_detect" index="0"]
 position = Vector2( 0, -2 )
 shape = SubResource( 11 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
+[node name="breathe_air_detect" type="Area2D" parent="." index="7"]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="breathe_air_detect" index="0"]
+position = Vector2( 0, -2 )
+shape = SubResource( 11 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
 [node name="oxygen_bar" type="TextureProgress" parent="CanvasLayer" index="0"]
 anchor_left = 0.5
@@ -641,9 +724,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -8.0
-margin_top = -22.0
+margin_top = -19.0
 margin_right = 8.0
-margin_bottom = -6.0
+margin_bottom = -3.0
 step = 0.0
 value = 100.0
 texture_under = ExtResource( 15 )
