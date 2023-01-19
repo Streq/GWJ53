@@ -1,5 +1,5 @@
 extends ColorRect
-
+tool
 
 export var palette : PoolColorArray
 
