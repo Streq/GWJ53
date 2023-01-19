@@ -8,6 +8,7 @@
 [node name="dome_component" instance=ExtResource( 1 )]
 type = "DOME"
 texture = ExtResource( 3 )
+label_name = "Dome"
 
 [node name="dome" parent="." index="0" instance=ExtResource( 2 )]
 position = Vector2( 0, 0 )

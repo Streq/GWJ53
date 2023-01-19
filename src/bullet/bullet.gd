@@ -11,5 +11,6 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		emit_signal("collision", collision)
 		emit_signal("hit")
+		collision.collider.terrain_get_hit(self, collision)
 		queue_free()
 	

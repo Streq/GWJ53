@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/dude/state/idle.gd" type="Script" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://src/entity/dude/ledge_grab.gd" type="Script" id=8]
 [ext_resource path="res://src/entity/dude/state/ledge_up.gd" type="Script" id=9]
 [ext_resource path="res://src/entity/dude/swim_dead.gd" type="Script" id=10]
-[ext_resource path="res://src/entity/dude/bar.gd" type="Script" id=11]
+[ext_resource path="res://src/entity/bar.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/entity/dude/oxygen.gd" type="Script" id=12]
 [ext_resource path="res://assets/texture/oxygen_bar.png" type="Texture" id=13]
 [ext_resource path="res://src/HUD/bar/bar.gd" type="Script" id=14]
@@ -19,6 +19,14 @@
 [ext_resource path="res://src/entity/dude/pickup_grabber.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/entity/dude/state/air_dead.gd" type="Script" id=18]
 [ext_resource path="res://src/entity/dude/state/dead.gd" type="Script" id=19]
+[ext_resource path="res://assets/shader/palette.gdshader" type="Shader" id=20]
+[ext_resource path="res://src/util/color/palette_client.tscn" type="PackedScene" id=21]
+[ext_resource path="res://src/entity/dude/teleport_action.gd" type="Script" id=22]
+[ext_resource path="res://src/entity/dude/trigger_on_R.gd" type="Script" id=23]
+[ext_resource path="res://src/entity/health.gd" type="Script" id=24]
+[ext_resource path="res://src/entity/dude/hurtbox.gd" type="Script" id=25]
+[ext_resource path="res://assets/texture/health_bar.png" type="Texture" id=26]
+[ext_resource path="res://assets/texture/health_bar_back.png" type="Texture" id=27]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 2.0
@@ -71,7 +79,7 @@ tracks/3/path = NodePath("pivot/Sprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -134,7 +142,7 @@ tracks/3/path = NodePath("pivot/Sprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -197,7 +205,7 @@ tracks/3/path = NodePath("pivot/Sprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -363,7 +371,7 @@ tracks/3/path = NodePath("pivot/Sprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -426,7 +434,7 @@ tracks/3/path = NodePath("pivot/Sprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -489,7 +497,7 @@ tracks/3/path = NodePath("pivot/Sprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -553,7 +561,7 @@ tracks/3/path = NodePath("pivot/Sprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = false
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -573,6 +581,29 @@ tracks/4/keys = {
 "values": [ 8.0, 9.0 ]
 }
 
+[sub_resource type="Image" id=35]
+data = {
+"data": PoolByteArray( 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
+"format": "RGBA8",
+"height": 1,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="ImageTexture" id=33]
+flags = 0
+flags = 0
+image = SubResource( 35 )
+size = Vector2( 4, 1 )
+
+[sub_resource type="ShaderMaterial" id=34]
+resource_local_to_scene = true
+shader = ExtResource( 20 )
+shader_param/palette_size = 4
+shader_param/offset = 0
+shader_param/blue_index_offset = 0.0
+shader_param/palette = SubResource( 33 )
+
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 2, 3 )
 
@@ -582,7 +613,174 @@ extents = Vector2( 3, 4 )
 [sub_resource type="CircleShape2D" id=11]
 radius = 1.41421
 
-[node name="dude" instance=ExtResource( 1 )]
+[sub_resource type="Animation" id=18]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite/palette_client:index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "deteleport"
+length = 1.2
+tracks/0/type = "animation"
+tracks/0/path = NodePath("shake_animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "slow_shake", "RESET" ),
+"times": PoolRealArray( 0, 1.2 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/Sprite/palette_client:index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 1, 0 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "teleport"
+length = 1.2
+tracks/0/type = "animation"
+tracks/0/path = NodePath("shake_animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "shake", "RESET" ),
+"times": PoolRealArray( 0, 1.2 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/Sprite/palette_client:index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 3, 2, 0 ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "RESET"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "shake"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 1, 0 ), Vector2( -1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "slow_shake"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 1, 0 ), Vector2( -1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "hurt"
+length = 2.0
+tracks/0/type = "animation"
+tracks/0/path = NodePath("blink_animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "play", "RESET" ),
+"times": PoolRealArray( 0, 2 )
+}
+
+[sub_resource type="Animation" id=27]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "play"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="RectangleShape2D" id=29]
+extents = Vector2( 3, 4 )
+
+[node name="dude" groups=["player"] instance=ExtResource( 1 )]
 collision_layer = 2
 speed = 40.0
 jump_speed = 50.0
@@ -627,14 +825,17 @@ animation = "swim_idle"
 [node name="swim_dead" type="Node" parent="state_machine" index="4"]
 script = ExtResource( 10 )
 animation = "swim_dead"
+is_dead_state = true
 
 [node name="air_dead" type="Node" parent="state_machine" index="5"]
 script = ExtResource( 18 )
 animation = "swim_dead"
+is_dead_state = true
 
 [node name="dead" type="Node" parent="state_machine" index="6"]
 script = ExtResource( 19 )
 animation = "dead"
+is_dead_state = true
 
 [node name="swim_move" type="Node" parent="state_machine" index="7"]
 script = ExtResource( 7 )
@@ -646,9 +847,11 @@ animation = "ledge_up"
 on_finish_goto_state = "idle"
 
 [node name="Sprite" type="Sprite" parent="pivot" index="0"]
+material = SubResource( 34 )
 texture = ExtResource( 3 )
 hframes = 4
 vframes = 4
+frame = 8
 __meta__ = {
 "_aseprite_wizard_config_": {
 "layer": "",
@@ -661,6 +864,8 @@ __meta__ = {
 "source": "res://assets/aseprite/dude.aseprite"
 }
 }
+
+[node name="palette_client" parent="pivot/Sprite" index="0" instance=ExtResource( 21 )]
 
 [node name="ledge_grab" type="Node2D" parent="pivot" index="1"]
 unique_name_in_owner = true
@@ -695,10 +900,7 @@ shape = SubResource( 13 )
 unique_name_in_owner = true
 script = ExtResource( 12 )
 
-[node name="bar" type="Node" parent="oxygen" index="0"]
-script = ExtResource( 11 )
-value = 10.0
-max_value = 10.0
+[node name="bar" parent="oxygen" index="0" instance=ExtResource( 11 )]
 
 [node name="breathe_obstructor_detect" type="Area2D" parent="." index="6"]
 collision_layer = 0
@@ -733,8 +935,70 @@ texture_under = ExtResource( 15 )
 texture_progress = ExtResource( 13 )
 script = ExtResource( 14 )
 
+[node name="health_bar" type="TextureProgress" parent="CanvasLayer" index="1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -23.0
+margin_right = 8.0
+margin_bottom = -7.0
+step = 0.0
+value = 100.0
+texture_under = ExtResource( 27 )
+texture_progress = ExtResource( 26 )
+script = ExtResource( 14 )
+
+[node name="teleport_animation" type="AnimationPlayer" parent="." index="9"]
+playback_process_mode = 0
+anims/RESET = SubResource( 18 )
+anims/deteleport = SubResource( 23 )
+anims/teleport = SubResource( 15 )
+
+[node name="shake_animation" type="AnimationPlayer" parent="." index="10"]
+playback_process_mode = 0
+anims/RESET = SubResource( 17 )
+anims/shake = SubResource( 16 )
+anims/slow_shake = SubResource( 25 )
+
+[node name="teleport_action" type="Node" parent="." index="11"]
+unique_name_in_owner = true
+script = ExtResource( 22 )
+
+[node name="trigger_on_R" type="Node" parent="teleport_action" index="0"]
+script = ExtResource( 23 )
+
+[node name="health" type="Node" parent="." index="12"]
+unique_name_in_owner = true
+script = ExtResource( 24 )
+
+[node name="bar" parent="health" index="0" instance=ExtResource( 11 )]
+value = 4.0
+max_value = 4.0
+
+[node name="hurt_animation" type="AnimationPlayer" parent="." index="13"]
+anims/hurt = SubResource( 31 )
+
+[node name="blink_animation" type="AnimationPlayer" parent="." index="14"]
+anims/RESET = SubResource( 27 )
+anims/play = SubResource( 28 )
+
+[node name="hurtbox" type="Area2D" parent="." index="15"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 25 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" index="0"]
+shape = SubResource( 29 )
+
 [connection signal="dead" from="." to="CanvasLayer" method="hide"]
 [connection signal="drown" from="oxygen" to="." method="die"]
 [connection signal="not_full" from="oxygen" to="CanvasLayer/oxygen_bar" method="show"]
 [connection signal="full" from="oxygen/bar" to="CanvasLayer/oxygen_bar" method="hide"]
 [connection signal="value_changed" from="oxygen/bar" to="CanvasLayer/oxygen_bar" method="set_values"]
+[connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]
+[connection signal="full" from="health/bar" to="CanvasLayer/health_bar" method="hide"]
+[connection signal="not_full" from="health/bar" to="CanvasLayer/health_bar" method="show"]
+[connection signal="value_changed" from="health/bar" to="CanvasLayer/health_bar" method="set_values"]
+[connection signal="hurt" from="hurtbox" to="hurt_animation" method="play" binds= [ "hurt" ]]

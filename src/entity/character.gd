@@ -87,9 +87,13 @@ func _physics_process(delta: float) -> void:
 	velocity *= 1-delta*_damping
 	
 	state_machine.physics_update(delta)
+	animation_player.advance(delta)
+	
+	if dead:
+		die()
 
 func die():
-	if dead:
+	if state_machine.current.is_dead_state:
 		return
 	dead = true
 	emit_signal("dead")

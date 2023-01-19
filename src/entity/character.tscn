@@ -18,7 +18,7 @@ position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_process_mode = 0
+playback_process_mode = 2
 anims/RESET = SubResource( 2 )
 
 [node name="state_machine" parent="." instance=ExtResource( 1 )]

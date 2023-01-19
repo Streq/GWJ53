@@ -12,7 +12,7 @@ script = ExtResource( 1 )
 position = Vector2( 0, -5 )
 
 [node name="pickup_detect_area" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 256
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_detect_area"]

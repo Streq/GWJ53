@@ -27,13 +27,14 @@ onready var sprite: Sprite = $Sprite
 onready var panel: Sprite = $panel
 onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 onready var pickedup_panel: Sprite = $pickedup_panel
+onready var label: Label = $"%Label"
 
 
 func _init() -> void:
 	yield(self,"ready")
 	ship_component = COMPONENT.instance()
 	sprite.texture = ship_component.texture
-
+	label.text = ship_component.label_name
 func set_grabbed(val):
 	grabbed = val
 	panel.visible = !grabbed

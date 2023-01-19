@@ -171,6 +171,7 @@ Shake="*res://src/global/Shake.tscn"
 Text="*res://src/global/HUD/Text.tscn"
 Background="res://src/global/Background.tscn"
 Foreground="res://src/global/Foreground.tscn"
+Group="*res://src/global/group.gd"
 
 [display]
 
@@ -237,6 +238,7 @@ R={
 2d_physics/layer_6="player"
 2d_physics/layer_7="pickup"
 2d_physics/layer_8="air"
+2d_physics/layer_9="pickup_grabber"
 
 [physics]
 
@@ -248,5 +250,5 @@ quality/driver/driver_name="GLES2"
 2d/snapping/use_gpu_pixel_snap=true
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-environment/default_clear_color=Color( 0, 0, 0, 1 )
+environment/default_clear_color=Color( 1, 1, 0, 1 )
 environment/default_environment="res://default_env.tres"

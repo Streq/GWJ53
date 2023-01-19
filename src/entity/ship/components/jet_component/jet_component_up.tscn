@@ -7,6 +7,7 @@
 [node name="jet_component_up" instance=ExtResource( 1 )]
 type = "UP"
 texture = ExtResource( 3 )
+label_name = "elevation jet"
 
 [node name="h_jet" parent="." index="0" instance=ExtResource( 2 )]
 

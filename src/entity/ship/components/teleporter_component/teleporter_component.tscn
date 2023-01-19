@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/entity/ship/components/component.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/entity/ship/components/teleporter_component/teleporter.gd" type="Script" id=2]
+[ext_resource path="res://assets/texture/teleporter.png" type="Texture" id=3]
+
+[node name="component" instance=ExtResource( 1 )]
+type = "TELEPORTER"
+texture = ExtResource( 3 )
+label_name = "Teleporter"
+
+[node name="teleporter" type="Node2D" parent="." index="0" groups=["teleporter"]]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="teleporter" index="0"]
+texture = ExtResource( 3 )
+
+[connection signal="owned_by" from="." to="teleporter" method="_on_owned_by"]

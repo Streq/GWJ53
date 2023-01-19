@@ -4,3 +4,4 @@
 
 [node name="jet_component_rear" instance=ExtResource( 1 )]
 type = "REAR"
+label_name = "Rear Jet"

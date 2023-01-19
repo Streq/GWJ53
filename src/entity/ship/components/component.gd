@@ -9,7 +9,7 @@ signal release()
 
 export var type := ""
 export var texture : Texture
-
+export var label_name := ""
 
 var slot = null
 

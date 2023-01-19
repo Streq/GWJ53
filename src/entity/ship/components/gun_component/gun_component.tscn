@@ -8,6 +8,7 @@
 [node name="gun_component" instance=ExtResource( 1 )]
 type = "GUN"
 texture = ExtResource( 4 )
+label_name = "Gun"
 
 [node name="gun" parent="." index="0" instance=ExtResource( 2 )]
 position = Vector2( 5, 0 )

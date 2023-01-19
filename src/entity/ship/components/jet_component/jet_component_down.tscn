@@ -4,3 +4,4 @@
 
 [node name="jet_component_down" instance=ExtResource( 1 )]
 type = "DOWN"
+label_name = "Dive Jet"

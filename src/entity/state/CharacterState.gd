@@ -4,10 +4,13 @@ class_name CharacterState
 export var animation := ""
 export var on_finish_goto_state := ""
 
+export var is_dead_state := false
+
 func enter(params):
 	root.animation_player.play("RESET")
 	root.animation_player.advance(0.0)
 	root.animation_player.play(animation)
+	root.animation_player.advance(0.0)
 	root.animation_player.connect("animation_finished", self, "_on_animation_finished")
 	.enter(params)
 
