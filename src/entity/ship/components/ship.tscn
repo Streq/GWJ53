@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
+[ext_resource path="res://src/entity/health.gd" type="Script" id=2]
 [ext_resource path="res://assets/texture/ship.png" type="Texture" id=3]
 [ext_resource path="res://src/entity/ship.gd" type="Script" id=4]
 [ext_resource path="res://src/entity/input_state.tscn" type="PackedScene" id=5]
@@ -9,15 +10,73 @@
 [ext_resource path="res://src/entity/ship/components/trigger_on_up.gd" type="Script" id=8]
 [ext_resource path="res://src/entity/ship/components/trigger_on_B_just_pressed.gd" type="Script" id=9]
 [ext_resource path="res://src/entity/ship/components/slot.gd" type="Script" id=10]
+[ext_resource path="res://src/entity/dude/hurtbox.gd" type="Script" id=11]
 [ext_resource path="res://src/entity/ship/components/rotate_to_direction.gd" type="Script" id=12]
 [ext_resource path="res://src/entity/ship/components/pilot_control.gd" type="Script" id=13]
 [ext_resource path="res://assets/texture/ship_seat_front.png" type="Texture" id=14]
+[ext_resource path="res://src/entity/bar.tscn" type="PackedScene" id=15]
+[ext_resource path="res://src/entity/dude/hurt_invincibility.gd" type="Script" id=16]
+[ext_resource path="res://src/HUD/bar/bar.gd" type="Script" id=17]
+[ext_resource path="res://src/entity/ship/components/pilot_healer.gd" type="Script" id=18]
+[ext_resource path="res://assets/texture/health_bar_ship.png" type="Texture" id=19]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7, 6 )
 
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 6, 5 )
+
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 7, 6 )
+
+[sub_resource type="Animation" id=13]
+resource_name = "hurt"
+length = 2.0
+tracks/0/type = "animation"
+tracks/0/path = NodePath("blink_animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "play", "RESET" ),
+"times": PoolRealArray( 0, 2 )
+}
+
+[sub_resource type="Animation" id=14]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "play"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="StreamTexture" id=17]
+load_path = "res://.import/health_bar_back.png-275becf8f6ae85a3fa6f17f000d198f1.stex"
 
 [node name="ship" type="KinematicBody2D" groups=["ship"]]
 z_index = -3
@@ -30,14 +89,14 @@ air_gravity = 100.0
 
 [node name="input_state" parent="." instance=ExtResource( 5 )]
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 3 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
 shape = SubResource( 10 )
 
 [node name="pivot" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="pivot"]
+texture = ExtResource( 3 )
 
 [node name="pilot_seat" type="Node2D" parent="pivot"]
 script = ExtResource( 1 )
@@ -49,6 +108,13 @@ script = ExtResource( 13 )
 [node name="Sprite" type="Sprite" parent="pivot/pilot_seat"]
 z_index = 1
 texture = ExtResource( 14 )
+
+[node name="pilot_healer" type="Node" parent="pivot/pilot_seat"]
+script = ExtResource( 18 )
+
+[node name="heal_cooldown" type="Timer" parent="pivot/pilot_seat/pilot_healer"]
+process_mode = 0
+one_shot = true
 
 [node name="slots" type="Node2D" parent="pivot"]
 
@@ -98,6 +164,18 @@ rotation = -1.5708
 script = ExtResource( 10 )
 type = "DOME"
 
+[node name="hurtbox" type="Area2D" parent="pivot"]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource( 11 )
+invulnerability_counter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hurtbox"]
+position = Vector2( 0, 1 )
+shape = SubResource( 16 )
+
 [node name="ship_area" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 0
@@ -106,5 +184,59 @@ collision_mask = 0
 position = Vector2( 0, 2 )
 shape = SubResource( 11 )
 
+[node name="health" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 2 )
+
+[node name="bar" parent="health" instance=ExtResource( 15 )]
+value = 8.0
+max_value = 8.0
+
+[node name="hurt_animation" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+playback_process_mode = 0
+method_call_mode = 1
+anims/hurt = SubResource( 13 )
+
+[node name="blink_animation" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+playback_process_mode = 0
+method_call_mode = 1
+anims/RESET = SubResource( 14 )
+anims/play = SubResource( 15 )
+
+[node name="hurt_invincibility" type="Node" parent="."]
+script = ExtResource( 16 )
+
+[node name="health_bar" type="TextureProgress" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = 7.0
+margin_right = 8.0
+margin_bottom = 23.0
+step = 0.0
+texture_under = SubResource( 17 )
+texture_progress = ExtResource( 19 )
+script = ExtResource( 17 )
+
+[node name="full_visible_time" type="Timer" parent="health_bar"]
+process_mode = 0
+one_shot = true
+
+[connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/hurtbox" method="make_invulnerable"]
+[connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_healer" method="pilot_exited"]
+[connection signal="occupied" from="pivot/pilot_seat" to="pivot/hurtbox" method="make_vulnerable"]
 [connection signal="pilot_off" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_off"]
 [connection signal="pilot_on" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_on"]
+[connection signal="pilot_on" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_healer" method="trigger"]
+[connection signal="hurt" from="pivot/hurtbox" to="hurt_animation" method="play" binds= [ "hurt" ]]
+[connection signal="hurt" from="pivot/hurtbox" to="hurt_invincibility" method="trigger"]
+[connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]
+[connection signal="full" from="health/bar" to="health_bar/full_visible_time" method="start"]
+[connection signal="not_full" from="health/bar" to="health_bar" method="show"]
+[connection signal="not_full" from="health/bar" to="health_bar/full_visible_time" method="stop"]
+[connection signal="value_changed" from="health/bar" to="health_bar" method="set_values"]
+[connection signal="timeout" from="health_bar/full_visible_time" to="health_bar" method="hide"]

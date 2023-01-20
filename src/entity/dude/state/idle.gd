@@ -1,6 +1,7 @@
 extends CharacterState
 
 onready var ship_enter: Node2D = $"%ship_enter"
+onready var ship_repair: Node2D = $"%ship_repair"
 
 
 func _physics_update(delta):
@@ -10,6 +11,7 @@ func _physics_update(delta):
 			ship_enter.enter_ship(ship)
 			return
 	
+	
 	if root.in_water:
 		goto("swim_idle")
 		return
@@ -17,6 +19,12 @@ func _physics_update(delta):
 	if !root.is_on_floor():
 		goto("air")
 		return
+	
+	if root.input_state.B.is_just_pressed():
+		var ship = ship_repair.get_ship()
+		if ship:
+			goto("repair")
+			return
 	
 	if root.input_state.A.is_just_pressed():
 		root.velocity.y -= root.jump_speed

@@ -5,7 +5,10 @@ var A : ButtonState = ButtonState.new()
 var B : ButtonState = ButtonState.new()
 var L : ButtonState = ButtonState.new()
 var R : ButtonState = ButtonState.new()
-var dir := Vector2()
+var dir := Vector2() setget set_dir
+
+func set_dir(val:Vector2):
+	dir = val.limit_length()
 
 
 func _physics_process(delta: float) -> void:

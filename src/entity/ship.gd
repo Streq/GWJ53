@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal pilot_entered(pilot)
 
+signal dead()
 
 export var jump := 100.0
 export var velocity := Vector2()
@@ -24,6 +25,7 @@ onready var input_state: InputState = $input_state
 onready var pilot_seat: Node2D = $pivot/pilot_seat
 onready var slots: Node2D = $pivot/slots
 
+export var team := 0
 
 export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir
 
@@ -64,3 +66,7 @@ func enter_pilot(pilot):
 	
 func get_pilot():
 	return pilot_seat.pilot
+
+func die():
+	queue_free()
+	emit_signal("dead")

@@ -1,0 +1,151 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
+[ext_resource path="res://src/HUD/death_screen/death_screen.gd" type="Script" id=2]
+[ext_resource path="res://src/HUD/death_screen/quotes.gd" type="Script" id=3]
+[ext_resource path="res://assets/texture/white_square.png" type="Texture" id=4]
+
+[node name="death_screen" type="CanvasLayer"]
+layer = 100
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="quotes" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="default" type="Label" parent="quotes"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -4.0
+margin_right = 90.0
+margin_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 1 )
+text = "You are dead."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="enemy" type="Label" parent="quotes"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -15.0
+margin_right = 90.0
+margin_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 1 )
+text = "The vultures of this world have
+destroyed you"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="ship" type="Label" parent="quotes"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -37.0
+margin_right = 90.0
+margin_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 1 )
+text = "Your precious ship is no more!
+May you get used to the soil 
+under your feet.
+For you will never leave it."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="drowned_goofy" type="Label" parent="quotes"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -15.0
+margin_right = 90.0
+margin_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 1 )
+text = "Your goofy ass done drowned itself to death"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="drowned" type="Label" parent="quotes"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -9.5
+margin_right = 90.0
+margin_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 1 )
+text = "You died due to lack of oxygen."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="fall_damage" type="Label" parent="quotes"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -26.0
+margin_right = 90.0
+margin_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 1 )
+text = "Research on the claim about the gravity of this planet being as deadly as Earth's
+STATUS: CONFIRMED"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="restart" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -98.5
+margin_top = 51.0
+margin_right = 98.5
+margin_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 1 )
+text = "Press ENTER to restart."
+align = 1
+valign = 1
+autowrap = true

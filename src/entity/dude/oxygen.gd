@@ -22,11 +22,14 @@ func _physics_process(delta: float) -> void:
 	
 	var obstructors = breathe_obstructor_detect.get_overlapping_areas()
 	if obstructors:
-		var obstructor = obstructors[0]
-		bar.value -= delta
+		frames_since_oxygen += 1
+		if frames_since_oxygen > GRACE_FRAMES:
+			var obstructor = obstructors[0]
+			bar.value -= delta
 	elif air_pockets:
 		for air_pocket in air_pockets:
-			bar.value += delta * air_pocket.oxygen_repletion_rate
+			if bar.value != bar.max_value:
+				bar.value += delta * air_pocket.oxygen_repletion_rate
 		frames_since_oxygen = 0
 	else:
 		frames_since_oxygen += 1
@@ -38,3 +41,4 @@ func _physics_process(delta: float) -> void:
 	
 func fill(amount):
 	bar.value+=amount
+	frames_since_oxygen = 0

@@ -51,6 +51,7 @@ func shoot():
 func shoot_bullet(wearer = owner, angle = 0.0, power = 0.0):
 	var bullet = instance_bullet(wearer)
 	if bullet:
+		bullet.team = wearer.team
 		bullet.global_position = global_position
 		var bullet_vel = Vector2.RIGHT.rotated(angle)*power
 		bullet.velocity = bullet_vel + carried_inertia_from_shooter*wearer.velocity

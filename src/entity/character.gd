@@ -34,6 +34,9 @@ export var horizontal_air_decceleration := 10.0
 export var swim_speed := 30.0
 export var swim_acceleration := 300.0
 
+export var team := 0
+
+
 var in_water := false setget set_in_water
 var in_air := false setget set_in_air
 
@@ -55,11 +58,6 @@ func set_in_air(val):
 		emit_signal("in_air")
 	else:
 		emit_signal("out_of_air")
-#export var health := 3
-#export var max_health := 3
-#export var invulnerable := false
-#export var pass_through := false
-#export var team := 0
 
 
 export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir
@@ -97,4 +95,4 @@ func die():
 		return
 	dead = true
 	emit_signal("dead")
-	state_machine._change_state("swim_dead")
+	state_machine._change_state("air_dead")
