@@ -17,7 +17,7 @@ func _physics_update(delta):
 	
 	if root.is_on_floor():
 		if root.previous_velocity.y > 90.0:
-			hurtbox.take_damage(floor((root.previous_velocity.y-90.0)/25.0)+1.0)
+			hurtbox.take_damage(floor((root.previous_velocity.y-90.0)/30.0)+1.0)
 		goto("idle")
 		return
 	

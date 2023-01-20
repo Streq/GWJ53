@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/map/water_area.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/texture/terrain.png" type="Texture" id=2]
@@ -15,12 +15,13 @@
 [ext_resource path="res://src/entity/ship/components/teleporter_component/teleporter_component.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/map/terrain.tres" type="TileSet" id=14]
 [ext_resource path="res://src/map/terrain.gd" type="Script" id=15]
-[ext_resource path="res://src/entity/enemy/eye/eye.tscn" type="PackedScene" id=16]
 [ext_resource path="res://src/map/water_tiles.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/map/air_tiles.tscn" type="PackedScene" id=18]
 [ext_resource path="res://main.gd" type="Script" id=19]
 [ext_resource path="res://src/entity/enemy/spike/spike.tscn" type="PackedScene" id=20]
 [ext_resource path="res://src/entity/enemy/spike/invulnerable_spike.tscn" type="PackedScene" id=21]
+[ext_resource path="res://src/entity/enemy/fish/fish.tscn" type="PackedScene" id=22]
+[ext_resource path="res://src/entity/enemy/fish/patrol_controller.gd" type="Script" id=23]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
@@ -368,7 +369,7 @@ tile_data = PoolIntArray( 1703959, 0, 0, 1703960, 0, 0, 1703961, 0, 0, 1703962, 
 position = Vector2( 114, 152 )
 
 [node name="dude" parent="." instance=ExtResource( 5 )]
-position = Vector2( 196, 112 )
+position = Vector2( 112, 148 )
 
 [node name="player_controller" parent="dude" instance=ExtResource( 4 )]
 
@@ -377,60 +378,27 @@ current = true
 script = ExtResource( 6 )
 
 [node name="component_pickup" parent="." instance=ExtResource( 9 )]
-position = Vector2( 127, 154 )
+position = Vector2( 248, 120 )
 
 [node name="component_pickup2" parent="." instance=ExtResource( 9 )]
-position = Vector2( 124, 96 )
+position = Vector2( 248, 116 )
 COMPONENT = ExtResource( 7 )
 
 [node name="component_pickup3" parent="." instance=ExtResource( 9 )]
-position = Vector2( 17, 96 )
+position = Vector2( 248, 116 )
 COMPONENT = ExtResource( 8 )
 
 [node name="component_pickup4" parent="." instance=ExtResource( 9 )]
-position = Vector2( 145, 153 )
+position = Vector2( 252, 120 )
 COMPONENT = ExtResource( 10 )
 
 [node name="component_pickup5" parent="." instance=ExtResource( 9 )]
-position = Vector2( 241, 151 )
+position = Vector2( 248, 116 )
 COMPONENT = ExtResource( 11 )
 
 [node name="component_pickup6" parent="." instance=ExtResource( 9 )]
-position = Vector2( 221, 137 )
+position = Vector2( 244, 120 )
 COMPONENT = ExtResource( 13 )
-
-[node name="eye" parent="." instance=ExtResource( 16 )]
-position = Vector2( 102, 154 )
-
-[node name="eye3" parent="." instance=ExtResource( 16 )]
-position = Vector2( -177, 28 )
-
-[node name="eye4" parent="." instance=ExtResource( 16 )]
-position = Vector2( -86, -49 )
-
-[node name="eye5" parent="." instance=ExtResource( 16 )]
-position = Vector2( 198, -105 )
-
-[node name="eye6" parent="." instance=ExtResource( 16 )]
-position = Vector2( -221, 271 )
-
-[node name="eye7" parent="." instance=ExtResource( 16 )]
-position = Vector2( 369, 248 )
-
-[node name="eye8" parent="." instance=ExtResource( 16 )]
-position = Vector2( 460, 245 )
-
-[node name="eye9" parent="." instance=ExtResource( 16 )]
-position = Vector2( 407, 253 )
-
-[node name="eye10" parent="." instance=ExtResource( 16 )]
-position = Vector2( 729, 83 )
-
-[node name="eye11" parent="." instance=ExtResource( 16 )]
-position = Vector2( 490, -85 )
-
-[node name="eye2" parent="." instance=ExtResource( 16 )]
-position = Vector2( 384, 32 )
 
 [node name="spike" parent="." instance=ExtResource( 20 )]
 position = Vector2( 180, 156 )
@@ -443,6 +411,22 @@ position = Vector2( 252, 188 )
 
 [node name="invulnerable_spike" parent="." instance=ExtResource( 21 )]
 position = Vector2( 220, 156 )
+
+[node name="patrol" type="Node2D" parent="."]
+
+[node name="Position2D" type="Position2D" parent="patrol"]
+position = Vector2( 407, 236 )
+
+[node name="fish_enemy" parent="patrol/Position2D" instance=ExtResource( 22 )]
+position = Vector2( -75, 0 )
+
+[node name="controller" type="Node2D" parent="patrol/Position2D/fish_enemy"]
+script = ExtResource( 23 )
+stop_time = 1.0
+patrol = NodePath("../../..")
+
+[node name="Position2D2" type="Position2D" parent="patrol"]
+position = Vector2( 332, 236 )
 
 [connection signal="dead" from="ship" to="." method="_on_ship_dead"]
 [connection signal="dead" from="dude" to="." method="_on_dude_dead"]
