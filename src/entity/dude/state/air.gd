@@ -1,6 +1,7 @@
 extends CharacterState
 onready var ledge_grab: Node2D = $"%ledge_grab"
 onready var ship_enter: Node2D = $"%ship_enter"
+onready var hurtbox: Area2D = $"%hurtbox"
 
 func _physics_update(delta):
 	if root.input_state.A.is_just_pressed():
@@ -15,6 +16,8 @@ func _physics_update(delta):
 	
 	
 	if root.is_on_floor():
+		if root.previous_velocity.y > 90.0:
+			hurtbox.take_damage(floor((root.previous_velocity.y-90.0)/25.0)+1.0)
 		goto("idle")
 		return
 	

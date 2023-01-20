@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/eye.png-b32463526ba9a72c0f3afc0f966138c9.stex"
+path="res://.import/invulnerable_spike.png-fc618fc227b15c6101e80d007777dad4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/entity/enemy/eye.png"
-dest_files=[ "res://.import/eye.png-b32463526ba9a72c0f3afc0f966138c9.stex" ]
+source_file="res://src/entity/enemy/spike/invulnerable_spike.png"
+dest_files=[ "res://.import/invulnerable_spike.png-fc618fc227b15c6101e80d007777dad4.stex" ]
 
 [params]
 

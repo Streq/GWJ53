@@ -7,9 +7,12 @@ export var invulnerability_counter = 0
 func get_hurt(hitbox):
 	if invulnerability_counter > 0:
 		return
-	health.take_damage(hitbox.damage)
-	emit_signal("hurt")
+	take_damage(hitbox.damage)
 	hitbox.register_hit()
+
+func take_damage(amount):
+	health.take_damage(amount)
+	emit_signal("hurt")
 
 func get_team():
 	return owner.team

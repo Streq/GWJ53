@@ -1099,6 +1099,7 @@ anims/RESET = SubResource( 27 )
 anims/play = SubResource( 28 )
 
 [node name="hurt_invincibility" type="Node" parent="." index="15"]
+unique_name_in_owner = true
 script = ExtResource( 28 )
 
 [connection signal="dead" from="." to="CanvasLayer" method="hide"]

@@ -3,6 +3,8 @@ extends CharacterState
 onready var ship_enter: Node2D = $"%ship_enter"
 onready var ship_repair: Node2D = $"%ship_repair"
 
+onready var hurt_invincibility: Node = $"%hurt_invincibility"
+
 func _enter(params):
 	var ship = ship_repair.get_ship()
 	if !ship:
@@ -31,7 +33,7 @@ func _physics_update(delta):
 		root.velocity.y -= root.jump_speed
 		return
 		
-	if !root.input_state.B.is_pressed() or !ship_repair.get_ship():
+	if !root.input_state.B.is_pressed() or !ship_repair.get_ship() or hurt_invincibility.active:
 		goto("idle")
 		return
 	

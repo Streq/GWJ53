@@ -24,7 +24,7 @@ func trigger():
 	timer.start(lifetime*2.0)
 
 func initialize_from_collision(collision:KinematicCollision2D):
-	global_rotation = collision.normal.angle()
+	global_rotation = -collision.normal.angle()
 	
 
 func _ready() -> void:

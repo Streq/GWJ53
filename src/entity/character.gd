@@ -27,6 +27,8 @@ export var air_damping := 0.0
 
 export var max_fall_speed := 100.0
 
+var previous_velocity := Vector2()
+
 export var horizontal_acceleration := 500.0
 export var horizontal_air_acceleration := 200.0
 export var horizontal_decceleration := 500.0
@@ -77,6 +79,7 @@ func _ready() -> void:
 	state_machine.initialize()
 
 func _physics_process(delta: float) -> void:
+	previous_velocity = velocity
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	var _gravity = water_gravity if in_water else air_gravity if in_air else gravity
