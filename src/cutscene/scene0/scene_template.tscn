@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/cutscene/appearing_label.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/cutscene/scene.gd" type="Script" id=3]
+
+[node name="scene0" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="center_of_scene" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="appearing_label" parent="." instance=ExtResource( 2 )]
+margin_top = -72.0
+margin_bottom = -8.0

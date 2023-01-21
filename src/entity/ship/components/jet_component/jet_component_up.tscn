@@ -10,6 +10,7 @@ texture = ExtResource( 3 )
 label_name = "elevation jet"
 
 [node name="h_jet" parent="." index="0" instance=ExtResource( 2 )]
+power = 250.0
 
 [connection signal="connected_to" from="." to="h_jet" method="_on_connected_to"]
 [connection signal="disconnected_from" from="." to="h_jet" method="_on_disconnected_from"]

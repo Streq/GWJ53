@@ -36,6 +36,15 @@ func unseat():
 	emit_signal("pilot_off", ejected_pilot)
 	emit_signal("deoccupied")
 
+func unseat_on_frame():
+	if !is_instance_valid(pilot):
+		return
+	pilot.disconnect("dead",self,"unseat")
+	remove_child(pilot)
+	var ejected_pilot = pilot
+	emit_signal("pilot_off", ejected_pilot)
+	emit_signal("deoccupied")
+
 func eject():
 	var ejected_pilot = pilot
 	var direction = owner.input_state.dir

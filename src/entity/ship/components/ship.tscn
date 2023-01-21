@@ -209,6 +209,7 @@ anims/play = SubResource( 15 )
 script = ExtResource( 16 )
 
 [node name="health_bar" type="TextureProgress" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -226,8 +227,8 @@ script = ExtResource( 17 )
 process_mode = 0
 one_shot = true
 
-[connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/hurtbox" method="make_invulnerable"]
 [connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_healer" method="pilot_exited"]
+[connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/hurtbox" method="make_invulnerable"]
 [connection signal="occupied" from="pivot/pilot_seat" to="pivot/hurtbox" method="make_vulnerable"]
 [connection signal="pilot_off" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_off"]
 [connection signal="pilot_on" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_on"]

@@ -35,3 +35,11 @@ func trigger():
 	emit_signal("trigger")
 func release():
 	emit_signal("release")
+
+func _ready() -> void:
+	if !owner:
+		return
+	yield(owner,"ready")
+	if "type" in get_parent() and type == get_parent().type:
+		connect_to_slot(get_parent())
+	

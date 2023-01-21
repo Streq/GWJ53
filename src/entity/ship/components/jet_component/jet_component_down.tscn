@@ -5,3 +5,9 @@
 [node name="jet_component_down" instance=ExtResource( 1 )]
 type = "DOWN"
 label_name = "Dive Jet"
+
+[node name="h_jet" parent="." index="0"]
+__meta__ = {
+"_edit_pinned_properties_": [ "power" ]
+}
+power = 200.0

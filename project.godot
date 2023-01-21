@@ -159,7 +159,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GWJ53"
-run/main_scene="res://main.tscn"
+run/main_scene="res://src/cutscene/intro.tscn"
 config/icon="res://assets/texture/icon.png"
 
 [autoload]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://src/map/water_area.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/texture/terrain.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://src/entity/ship/components/teleporter_component/teleporter_component.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/map/terrain.tres" type="TileSet" id=14]
 [ext_resource path="res://src/map/terrain.gd" type="Script" id=15]
+[ext_resource path="res://src/entity/ship/full_ship.tscn" type="PackedScene" id=16]
 [ext_resource path="res://src/map/water_tiles.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/map/air_tiles.tscn" type="PackedScene" id=18]
 [ext_resource path="res://main.gd" type="Script" id=19]
@@ -427,6 +428,9 @@ patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol"]
 position = Vector2( 332, 236 )
+
+[node name="ship2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 140, 152 )
 
 [connection signal="dead" from="ship" to="." method="_on_ship_dead"]
 [connection signal="dead" from="dude" to="." method="_on_dude_dead"]
