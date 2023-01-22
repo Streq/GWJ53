@@ -116,7 +116,7 @@ func _on_saw_down_jet_triggered() -> void:
 
 func _on_saw_gun_triggered() -> void:
 	Text.say(
-		"The GUN will allow the ship to move GUN",7.5
+		"The GUN will allow the ship to GUN",7.5
 	)
 
 

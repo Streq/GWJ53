@@ -29,8 +29,9 @@ func clear():
 
 func say_and_wait_for_input(text):
 	#FOR DEBUG
-	emit_signal("finished")
-	return
+	if OS.is_debug_build():
+		emit_signal("finished")
+		return
 	#FOR DEBUG
 	
 	if queue:

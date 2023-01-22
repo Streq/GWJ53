@@ -6,7 +6,7 @@ onready var pickup_grabber: Node2D = $"../pivot/pickup_grabber"
 func trigger():
 	if !Group.exists("teleporter") or owner.dead or !owner.is_physics_processing():
 		return
-	pickup_grabber.drop()
+#	pickup_grabber.drop()
 	pickup_grabber.disabled = true
 	owner.set_physics_process(false)
 	teleport_animation.play("teleport")

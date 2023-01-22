@@ -11,6 +11,7 @@ export var disabled := false
 func _physics_process(delta: float) -> void:
 	if disabled:
 		return
+	
 	if owner.input_state.B.is_just_pressed():
 		if is_holding_pickup():
 			if has_ship_near():
@@ -19,7 +20,7 @@ func _physics_process(delta: float) -> void:
 				drop()
 		else:
 			attempt_grab()
-
+	
 
 func attempt_grab():
 	var pickups = pickup_detect_area.get_overlapping_bodies()
@@ -34,7 +35,7 @@ func grab(pickup):
 
 
 func drop():
-	if is_instance_valid(current):
+	if is_holding_pickup():
 		NodeUtils.reparent_keep_transform(current, owner.get_parent())
 		current.velocity = owner.velocity
 		current.grabbed = false
@@ -42,6 +43,8 @@ func drop():
 	
 func is_holding_pickup():
 	return is_instance_valid(current)
+func has_pickup_near():
+	return !pickup_detect_area.get_overlapping_bodies().empty()
 func has_ship_near():
 	return !ship_detect_area.get_overlapping_areas().empty()
 func get_ship():
