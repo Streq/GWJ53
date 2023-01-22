@@ -203,5 +203,11 @@ func _on_rear_done() -> void:
 func _on_down_done() -> void:
 	
 	Text.say(
-		"Great, this jet will allow us to dive into deep waters, now for the Dome and we're good to go!",7.5
+		"Great, this jet will allow us to dive into deep waters, now for the Dome and we're good to go!",10.0
+	)
+
+
+func _on_gun_done() -> void:
+	Text.say(
+		"Now we can fend for ourselves",5.0
 	)
