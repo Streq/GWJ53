@@ -19,5 +19,6 @@ func off():
 	ship.disconnect("dead",self,"revive")
 	
 func revive():
+	yield(get_tree().create_timer(2.0), "timeout")
 	Text.say("Oh it was just some vivid thought, thank goodness!", 5.0)
 	get_tree().reload_current_scene()

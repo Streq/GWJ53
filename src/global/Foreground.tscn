@@ -248,7 +248,7 @@ material = SubResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-palette = PoolColorArray( 0, 0, 0, 1, 1, 0.211765, 0, 1, 0.176471, 0.356863, 0.109804, 1, 0.239216, 0.321569, 1, 1 )
+palette = PoolColorArray( 0, 0, 0, 1, 1, 0.211765, 0, 1, 0.176471, 0.356863, 0.109804, 1, 0, 0.278431, 1, 1 )
 
 [node name="colorblind1" type="ColorRect" parent="palettes"]
 visible = false
@@ -272,7 +272,7 @@ material = SubResource( 42 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-palette = PoolColorArray( 0, 0, 0, 1, 1, 0.533333, 0, 1, 0.611765, 0.2, 0, 1, 1, 0.960784, 0.380392, 1 )
+palette = PoolColorArray( 0, 0, 0, 1, 1, 0.533333, 0, 1, 1, 0.960784, 0.380392, 1, 0.611765, 0.2, 0, 1 )
 
 [node name="mono" type="ColorRect" parent="palettes"]
 visible = false

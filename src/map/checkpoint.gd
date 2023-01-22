@@ -34,11 +34,14 @@ func revive():
 	player.revive()
 	ship.global_position = ship_spawn.global_position
 	ship.revive()
+	player.velocity = Vector2()
+	ship.velocity = Vector2()
+	
 	get_tree().call_group("pickup","respawn")
 
+	
 func _on_checkpoint_body_entered(body: Node) -> void:
 	player = body
 	ship = Group.get_one("ship")
-	
 	on()
 	

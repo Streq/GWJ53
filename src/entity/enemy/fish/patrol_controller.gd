@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	match state:
 		MOVE:
 			var target = points[current].global_position
-			if global_position.distance_squared_to(target)<100.0:
+			if global_position.distance_squared_to(target)<1.0:
 				owner.input_state.dir = Vector2()
 				current = (current+1)%points.size()
 				state = IDLE

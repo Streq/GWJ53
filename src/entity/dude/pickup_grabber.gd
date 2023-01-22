@@ -6,7 +6,11 @@ onready var ship_detect_area: Area2D = $ship_detect_area
 
 var current = null
 
+export var disabled := false
+
 func _physics_process(delta: float) -> void:
+	if disabled:
+		return
 	if owner.input_state.B.is_just_pressed():
 		if is_holding_pickup():
 			if has_ship_near():

@@ -28,6 +28,11 @@ func clear():
 
 
 func say_and_wait_for_input(text):
+	#FOR DEBUG
+	emit_signal("finished")
+	return
+	#FOR DEBUG
+	
 	if queue:
 		queue.append(text)
 		return
