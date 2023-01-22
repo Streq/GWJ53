@@ -6,18 +6,21 @@ signal player_pressed_A()
 onready var label: Label = $Label
 onready var continue_label: Control = $continue
 
+export var skip_on_debug := false
+
 var queue = []
-var texts_requested = 0
+var latest_stamp = 0
 
 func say(text, time := -1.0):
 	label.text = text
 	label.visible_characters = -1
-	texts_requested += 1
-	var current_stamp = texts_requested
+	latest_stamp += 1
+	var current_stamp = latest_stamp
 	if time>0.0:
 		yield(get_tree().create_timer(time),"timeout")
-		if texts_requested == current_stamp:
+		if latest_stamp == current_stamp:
 			label.text = ""
+			
 #	label.trigger()
 
 func add(text):
@@ -29,7 +32,9 @@ func clear():
 
 func say_and_wait_for_input(text):
 	#FOR DEBUG
-	if OS.is_debug_build():
+	if skip_on_debug and OS.is_debug_build():
+		print(text)
+		yield(get_tree(),"idle_frame")
 		emit_signal("finished")
 		return
 	#FOR DEBUG
@@ -41,7 +46,7 @@ func say_and_wait_for_input(text):
 	queue.append(text)
 	get_tree().paused = true
 	while !queue.empty():
-		texts_requested += 1
+		latest_stamp += 1
 		var next_text = queue.front()
 		label.text = next_text
 		label.trigger()

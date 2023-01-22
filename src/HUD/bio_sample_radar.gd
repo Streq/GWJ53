@@ -1,17 +1,20 @@
 extends Node2D
 
 var samples = []
+
+export var GROUP := "bio_sample"
+
 export var indicator : Texture
 func _ready() -> void:
 	yield(owner,"ready")
-	samples = get_tree().get_nodes_in_group("bio_sample")
+	samples = get_tree().get_nodes_in_group(GROUP)
 	
 	
 func _process(delta: float) -> void:
 	update()
 func _draw() -> void:
 	for sample in samples:
-		if is_instance_valid(sample):
+		if is_instance_valid(sample) and "global_position" in sample:
 			draw_arrow(sample.global_position)
 
 

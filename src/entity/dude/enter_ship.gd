@@ -1,7 +1,7 @@
 extends Node2D
 signal entered_ship()
 signal exited_ship()
-
+signal entered(ship)
 var pilot_seat = null
 onready var ship_detect: Area2D = $ship_detect
 
@@ -17,6 +17,7 @@ func enter_ship(ship):
 	pilot_seat = ship.pilot_seat
 	pilot_seat.connect("pilot_off",self, "_on_exit_ship")
 	emit_signal("entered_ship")
+	emit_signal("entered", ship)
 
 
 func _on_exit_ship(pilot):

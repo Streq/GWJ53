@@ -32,7 +32,9 @@ func _ready() -> void:
 	yield(owner,"ready")
 	
 	ship_components_hud.observe_ship(ship)
-
+	
+	Text.say("Ok let's see where the ship is", 5.0)
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
 		emit_signal("player_pressed_A")
@@ -48,7 +50,7 @@ func _on_closer_look_triggered() -> void:
 		"At least tell me the healing system is still working"
 	])
 	yield(Text,"finished")
-	Text.say("get inside the ship by pressing Z")
+	Text.say("Get inside the ship to heal by pressing Z")
 
 
 func _on_ship_pilot_entered(pilot) -> void:
@@ -62,14 +64,14 @@ func _on_ship_pilot_entered(pilot) -> void:
 		"The teleport antenna isn't there, the gun is nowhere to be seen,",
 		"and none of the jets are present. Also the dome is missing!",
 		"If I wanna get home and also not be fired, I'm gonna have to find every component and get the hell out.",
-		"But let's begin by repairing this mess (by pressing and holding X)"
+		"But let's begin by repairing this mess first"
 	])
 	
 	yield(Text,"finished")
 	
 	set_health_to.trigger()
 	
-	Text.say("Enter and exit the ship with Z, repair by holding X (while outside the ship, and not being attacked)")
+	Text.say("Exit the ship with Z, once outside, repair by holding X (you can't repair if you've just been hurt)")
 	
 	player_controller.disabled = false
 	
@@ -91,7 +93,8 @@ func _on_ship_health_full() -> void:
 	
 	yield(get_tree().create_timer(0.5),"timeout")
 	Text.say_array([
-		"Now that's more like it, it's still a useless potato, but it's also healthy now!",
+		"Now that's more like it!",
+		"It's still a useless potato, but at least now it's not on the brink of falling apart!",
 		"Let's see if we can find the rest of the ship components"
 	])
 	yield(Text,"finished")
@@ -131,7 +134,65 @@ func _on_saw_teleporter_triggered() -> void:
 	)
 
 
+onready var teleport_observer: Node = $"%teleport_observer"
 func _on_teleporter_done() -> void:
 	Text.say(
 		"Great, now if I'm away from the ship, I can get back to it by pressing S"
+	)
+	yield(teleport_observer,"teleported")
+	Text.say("Okay, this is epic", 4.0)
+
+
+func _on_up_done() -> void:
+	Text.say(
+		"Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no DOME to keep the air inside the ship",15.0
+	)
+
+onready var bio_sample_hud: Label = $"%bio_sample_HUD"
+
+onready var bio_sample_radar: Node2D = $"%bio_sample_radar"
+
+func _on_ship_components_HUD_ship_complete() -> void:
+	Text.say_array([
+		"Well that's it! I'm done here",
+		"Let's power the ship and get out",
+		"...",
+		"...",
+		"Oh right, the bio samples.",
+		"Ok, let's just uhhhh", 
+		"let's collect 10 flowers and call it a day", 
+		"I conveniently got a flower radar in this thing so let's just get it over with",
+		])
+	yield(Text,"finished")
+	bio_sample_hud.show()
+	bio_sample_radar.show()
+	
+	get_tree().call_group("bio_sample","make_important")
+	
+	yield(bio_sample_hud,"done")
+	
+	Text.say_array([
+		"Well that's it! I'm done here",
+		"Let's power the ship and get out",
+		"...",
+		"...",
+		"Oh right, the FTL Drive.",
+		"No I'm just kidding I got no idea what that is", 
+		"Ok let's bounce"
+		])
+
+onready var eye_spawner: Node2D = $"%eye_spawner"
+
+func _on_down_jet_pickup_picked_up() -> void:
+	Shake.shake(Vector2.RIGHT)
+	yield(get_tree().create_timer(1.0),"timeout")
+	Text.say_array(["Something's wrong", "I feel like I've awakened something"])
+	eye_spawner.spawn()
+
+
+
+
+func _on_rear_done() -> void:
+	Text.say(
+		"Ok, let's see if we can get the ship to move",7.5
 	)

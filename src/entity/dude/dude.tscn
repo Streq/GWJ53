@@ -986,6 +986,7 @@ process_mode = 0
 one_shot = true
 
 [node name="pickup_grabber" parent="pivot" index="4" instance=ExtResource( 17 )]
+unique_name_in_owner = true
 
 [node name="hurtbox" type="Area2D" parent="pivot" index="5"]
 unique_name_in_owner = true
@@ -1112,6 +1113,7 @@ script = ExtResource( 32 )
 [connection signal="revived" from="." to="oxygen/bar" method="fill"]
 [connection signal="revived" from="." to="HUD" method="show"]
 [connection signal="revived" from="." to="health/bar" method="fill"]
+[connection signal="entered" from="pivot/ship_enter" to="pivot/pickup_grabber" method="put_on_ship"]
 [connection signal="entered_ship" from="pivot/ship_enter" to="pivot/hurtbox" method="make_invulnerable"]
 [connection signal="entered_ship" from="pivot/ship_enter" to="blink_animation" method="play" binds= [ "RESET" ]]
 [connection signal="exited_ship" from="pivot/ship_enter" to="pivot/hurtbox" method="make_vulnerable"]

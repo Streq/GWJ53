@@ -9,7 +9,8 @@ func release():
 	
 func teleport():
 	var player = Group.get_one("player")
-	ship.enter_pilot(player)
+	player.get_node("%ship_enter").enter_ship(ship)
+#	ship.enter_pilot(player)
 
 func _on_owned_by(new_ship) -> void:
 	ship = new_ship

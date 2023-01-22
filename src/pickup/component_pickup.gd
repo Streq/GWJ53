@@ -1,5 +1,5 @@
 extends KinematicBody2D
-
+signal picked_up
 export var spawn_pos = Vector2()
 
 export var gravity := 5.0
@@ -39,12 +39,17 @@ func _init() -> void:
 	ship_component = COMPONENT.instance()
 	sprite.texture = ship_component.texture
 	label.text = ship_component.label_name
+
 func set_grabbed(val):
+	if grabbed == val:
+		return
 	grabbed = val
 	panel.visible = !grabbed
 	pickedup_panel.visible = grabbed
 	set_physics_process(!grabbed)
 	collision_shape_2d.disabled = grabbed
+	if grabbed:
+		emit_signal("picked_up")
 
 func _physics_process(delta: float) -> void:
 	velocity = move_and_slide(velocity, Vector2.UP)

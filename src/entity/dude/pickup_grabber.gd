@@ -21,6 +21,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			attempt_grab()
 	
+func attempt_put():
+	if is_holding_pickup():
+		if has_ship_near():
+			put_on_ship(get_ship())
+			return true
+	return false
+
 
 func attempt_grab():
 	var pickups = pickup_detect_area.get_overlapping_bodies()
@@ -50,4 +57,6 @@ func has_ship_near():
 func get_ship():
 	return ship_detect_area.get_overlapping_areas()[0].get_parent()
 func put_on_ship(ship):
+	if !is_instance_valid(current):
+		return
 	current.connect_to_ship(ship)

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/map/protected_tiles.tres" type="TileSet" id=1]
+
+[node name="protected_tiles" type="TileMap"]
+tile_set = ExtResource( 1 )
+collision_use_parent = true
+format = 1
