@@ -8,6 +8,11 @@ var component = null
 signal trigger()
 signal release()
 
+signal coupled()
+signal decoupled()
+
+var coupled := false
+
 func trigger():
 	emit_signal("trigger")
 func release():
@@ -15,3 +20,12 @@ func release():
 
 func swap_in(new_component):
 	pass
+
+func add_component(new_component):
+	component = new_component
+	coupled = true
+	emit_signal("coupled")
+	
+func remove_component(component):
+	coupled = false
+	emit_signal("decoupled")

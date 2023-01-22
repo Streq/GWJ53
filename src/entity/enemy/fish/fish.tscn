@@ -205,6 +205,7 @@ __meta__ = {
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 3 )
+damage = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hitbox" index="0"]
 position = Vector2( 0.5, 0 )

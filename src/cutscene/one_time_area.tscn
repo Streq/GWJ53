@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/cutscene/one_time_area.gd" type="Script" id=1]
+
+[node name="saw_ship_area" type="Area2D"]
+pause_mode = 2
+collision_layer = 0
+collision_mask = 32
+script = ExtResource( 1 )

@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal pilot_entered(pilot)
 
 signal dead()
+signal revived()
 
 export var jump := 100.0
 export var velocity := Vector2()
@@ -68,5 +69,7 @@ func get_pilot():
 	return pilot_seat.pilot
 
 func die():
-	queue_free()
 	emit_signal("dead")
+
+func revive():
+	emit_signal("revived")

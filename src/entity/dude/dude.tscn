@@ -853,7 +853,7 @@ tracks/0/keys = {
 speed = 40.0
 jump_speed = 50.0
 gravity = 5.0
-water_gravity = -20.0
+water_gravity = -15.0
 water_damping = 2.0
 swim_acceleration = 50.0
 
@@ -1084,8 +1084,8 @@ unique_name_in_owner = true
 script = ExtResource( 24 )
 
 [node name="bar" parent="health" index="0" instance=ExtResource( 11 )]
-value = 4.0
-max_value = 4.0
+value = 2.0
+max_value = 2.0
 
 [node name="hurt_animation" type="AnimationPlayer" parent="." index="13"]
 unique_name_in_owner = true
@@ -1108,6 +1108,10 @@ script = ExtResource( 28 )
 script = ExtResource( 32 )
 
 [connection signal="dead" from="." to="HUD" method="hide"]
+[connection signal="dying" from="." to="pivot/pickup_grabber" method="drop"]
+[connection signal="revived" from="." to="oxygen/bar" method="fill"]
+[connection signal="revived" from="." to="HUD" method="show"]
+[connection signal="revived" from="." to="health/bar" method="fill"]
 [connection signal="entered_ship" from="pivot/ship_enter" to="pivot/hurtbox" method="make_invulnerable"]
 [connection signal="entered_ship" from="pivot/ship_enter" to="blink_animation" method="play" binds= [ "RESET" ]]
 [connection signal="exited_ship" from="pivot/ship_enter" to="pivot/hurtbox" method="make_vulnerable"]

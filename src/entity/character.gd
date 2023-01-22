@@ -4,7 +4,8 @@ signal out_of_water()
 signal in_air()
 signal out_of_air()
 signal dead()
-
+signal revived()
+signal dying()
 
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var state_machine: Node = $state_machine
@@ -97,5 +98,11 @@ func die():
 	if state_machine.current.is_dead_state:
 		return
 	dead = true
-	emit_signal("dead")
 	state_machine._change_state("air_dead")
+	emit_signal("dying")
+	emit_signal("dead")
+
+func revive():
+	dead = false
+	emit_signal("revived")
+	state_machine._change_state("idle")

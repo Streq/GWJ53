@@ -47,8 +47,8 @@ func trigger() -> void:
 
 	for text in [
 		"He was supposed to bring back some bio samples from the closest earth like planet or something like that.",
-		"But he spent the whole time playing FTL on his phone.",
-		"(we got the mobile version in this reality)",
+#		"But he spent the whole time playing FTL on his phone.",
+		"But he spent the whole time on his phone arguing online.",
 		"So now it's late, the day is almost over, and he has to make it back quickly",
 		"So he was pulling up to a planet that seemed to fit the criteria"
 	]:

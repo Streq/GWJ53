@@ -6,3 +6,4 @@ func _physics_process(delta: float) -> void:
 	if !player:
 		return
 	owner.input_state.dir = player.global_position-owner.global_position
+	

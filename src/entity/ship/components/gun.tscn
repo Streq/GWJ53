@@ -50,6 +50,11 @@ texture = ExtResource( 3 )
 script = ExtResource( 9 )
 hide_when = 1
 
+[node name="cooldown" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.1
+one_shot = true
+
 [connection signal="fire" from="." to="muzzle" method="shoot"]
 [connection signal="fire" from="." to="screen_shake" method="trigger"]
 [connection signal="fire" from="." to="blast" method="trigger"]

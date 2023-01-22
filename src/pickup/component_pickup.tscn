@@ -14,7 +14,7 @@ radius = 12.0416
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 1 )
 
-[node name="component_pickup" type="KinematicBody2D"]
+[node name="component_pickup" type="KinematicBody2D" groups=["pickup"]]
 collision_layer = 64
 script = ExtResource( 2 )
 COMPONENT = ExtResource( 4 )

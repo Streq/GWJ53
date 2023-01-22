@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
 [ext_resource path="res://src/entity/health.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://src/HUD/bar/bar.gd" type="Script" id=17]
 [ext_resource path="res://src/entity/ship/components/pilot_healer.gd" type="Script" id=18]
 [ext_resource path="res://assets/texture/health_bar_ship.png" type="Texture" id=19]
+[ext_resource path="res://src/entity/ship/components/slots.gd" type="Script" id=20]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7, 6 )
@@ -117,6 +118,8 @@ process_mode = 0
 one_shot = true
 
 [node name="slots" type="Node2D" parent="pivot"]
+unique_name_in_owner = true
+script = ExtResource( 20 )
 
 [node name="rear_slot" type="Node2D" parent="pivot/slots"]
 position = Vector2( -6, 2 )
@@ -227,6 +230,7 @@ script = ExtResource( 17 )
 process_mode = 0
 one_shot = true
 
+[connection signal="revived" from="." to="health/bar" method="fill"]
 [connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_healer" method="pilot_exited"]
 [connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/hurtbox" method="make_invulnerable"]
 [connection signal="occupied" from="pivot/pilot_seat" to="pivot/hurtbox" method="make_vulnerable"]

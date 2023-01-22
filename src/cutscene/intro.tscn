@@ -39,7 +39,7 @@ tracks/0/keys = {
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 4 )
-scene_on_finish = "res://initial_level.tscn"
+scene_on_finish = "res://src/initial_level.tscn"
 
 [node name="scenes" type="Control" parent="."]
 anchor_right = 1.0

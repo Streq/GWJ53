@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+export var spawn_pos = Vector2()
+
 export var gravity := 5.0
 export var damping := 0.0
 
@@ -29,6 +31,8 @@ onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 onready var pickedup_panel: Sprite = $pickedup_panel
 onready var label: Label = $"%Label"
 
+func _ready() -> void:
+	spawn_pos = global_position
 
 func _init() -> void:
 	yield(self,"ready")
@@ -60,3 +64,6 @@ func connect_to_ship(ship):
 			NodeUtils.reparent_or_add(ship_component, slot)
 			ship_component.connect_to_slot(slot)
 			queue_free()
+func respawn():
+	global_position = spawn_pos
+	velocity = Vector2()
