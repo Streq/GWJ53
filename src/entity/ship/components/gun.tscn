@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/entity/ship/components/gun.gd" type="Script" id=1]
 [ext_resource path="res://assets/texture/gun.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/texture/gun_blast.png" type="Texture" id=7]
 [ext_resource path="res://src/entity/ship/components/gun_blast.gd" type="Script" id=8]
 [ext_resource path="res://src/bullet/hide_if_diagonal.gd" type="Script" id=9]
+[ext_resource path="res://assets/audio/sfx/shotgun_sound4.wav" type="AudioStream" id=10]
 
 [node name="gun" type="Node2D"]
 script = ExtResource( 1 )
@@ -55,6 +56,11 @@ process_mode = 0
 wait_time = 0.1
 one_shot = true
 
+[node name="gun_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+volume_db = -32.0
+
 [connection signal="fire" from="." to="muzzle" method="shoot"]
 [connection signal="fire" from="." to="screen_shake" method="trigger"]
 [connection signal="fire" from="." to="blast" method="trigger"]
+[connection signal="fire" from="." to="gun_sound" method="play"]

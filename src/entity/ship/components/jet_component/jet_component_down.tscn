@@ -11,3 +11,5 @@ __meta__ = {
 "_edit_pinned_properties_": [ "power" ]
 }
 power = 200.0
+
+[editable path="h_jet"]

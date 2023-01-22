@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
 [ext_resource path="res://src/entity/health.gd" type="Script" id=2]
@@ -20,6 +20,11 @@
 [ext_resource path="res://src/entity/ship/components/pilot_healer.gd" type="Script" id=18]
 [ext_resource path="res://assets/texture/health_bar_ship.png" type="Texture" id=19]
 [ext_resource path="res://src/entity/ship/components/slots.gd" type="Script" id=20]
+[ext_resource path="res://assets/audio/sfx/water_splash4.wav" type="AudioStream" id=21]
+[ext_resource path="res://assets/audio/sfx/hit_hurt3.wav" type="AudioStream" id=22]
+[ext_resource path="res://assets/audio/sfx/ledge.wav" type="AudioStream" id=23]
+[ext_resource path="res://src/entity/dude/splash_decider.gd" type="Script" id=24]
+[ext_resource path="res://assets/audio/sfx/landed2.wav" type="AudioStream" id=25]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7, 6 )
@@ -230,6 +235,31 @@ script = ExtResource( 17 )
 process_mode = 0
 one_shot = true
 
+[node name="step" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 25 )
+volume_db = -12.0
+
+[node name="landed" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 25 )
+volume_db = -12.0
+
+[node name="ledge" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 23 )
+volume_db = -12.0
+
+[node name="water_splash_sound" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource( 21 )
+volume_db = -12.0
+
+[node name="splash_decider" type="Node" parent="water_splash_sound"]
+script = ExtResource( 24 )
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 22 )
+volume_db = -24.0
+
+[connection signal="in_water" from="." to="water_splash_sound/splash_decider" method="decide"]
 [connection signal="revived" from="." to="health/bar" method="fill"]
 [connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_healer" method="pilot_exited"]
 [connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/hurtbox" method="make_invulnerable"]
@@ -239,6 +269,7 @@ one_shot = true
 [connection signal="pilot_on" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_healer" method="trigger"]
 [connection signal="hurt" from="pivot/hurtbox" to="hurt_animation" method="play" binds= [ "hurt" ]]
 [connection signal="hurt" from="pivot/hurtbox" to="hurt_invincibility" method="trigger"]
+[connection signal="hurt" from="pivot/hurtbox" to="hurt" method="play"]
 [connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]
 [connection signal="full" from="health/bar" to="health_bar/full_visible_time" method="start"]
 [connection signal="not_full" from="health/bar" to="health_bar" method="show"]

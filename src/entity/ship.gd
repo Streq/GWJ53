@@ -4,7 +4,8 @@ signal pilot_entered(pilot)
 
 signal dead()
 signal revived()
-
+signal in_water()
+signal out_of_water()
 export var jump := 100.0
 export var velocity := Vector2()
 export var jet_power := 200.0 
@@ -13,7 +14,7 @@ export var ground_friction := 100.0
 export var damping := 0.0
 export var gravity := 0.0
 
-export var in_water := false
+export var in_water := false setget set_in_water
 export var water_gravity := -30.0
 export var water_damping := 1.0
 
@@ -29,6 +30,15 @@ onready var slots: Node2D = $pivot/slots
 export var team := 0
 
 export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir
+
+func set_in_water(val):
+	if val == in_water:
+		return
+	in_water = val
+	if in_water:
+		emit_signal("in_water")
+	else:
+		emit_signal("out_of_water")
 
 func _ready() -> void:
 	set_facing_dir(facing_dir)

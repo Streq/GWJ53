@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/dude/state/idle.gd" type="Script" id=2]
@@ -32,6 +32,14 @@
 [ext_resource path="res://src/entity/ship/components/pilot_healer.gd" type="Script" id=30]
 [ext_resource path="res://src/entity/dude/repair.gd" type="Script" id=31]
 [ext_resource path="res://src/entity/dude/seat_checker.gd" type="Script" id=32]
+[ext_resource path="res://assets/audio/sfx/landed2.wav" type="AudioStream" id=33]
+[ext_resource path="res://assets/audio/sfx/ledge.wav" type="AudioStream" id=34]
+[ext_resource path="res://assets/audio/sfx/water_splash4.wav" type="AudioStream" id=35]
+[ext_resource path="res://src/entity/dude/splash_decider.gd" type="Script" id=36]
+[ext_resource path="res://assets/audio/sfx/hit_hurt3.wav" type="AudioStream" id=37]
+[ext_resource path="res://assets/audio/sfx/teleport.wav" type="AudioStream" id=38]
+[ext_resource path="res://assets/audio/sfx/component_coupled2.wav" type="AudioStream" id=39]
+[ext_resource path="res://assets/audio/sfx/component_coupled.wav" type="AudioStream" id=40]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 2.0
@@ -40,6 +48,18 @@ height = 2.0
 [sub_resource type="Animation" id=10]
 resource_name = "RESET"
 length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("step:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 0.2
@@ -458,6 +478,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 5.0, 0.0, 6.0, 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("step:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.2, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -924,7 +956,7 @@ material = SubResource( 38 )
 texture = ExtResource( 3 )
 hframes = 4
 vframes = 4
-frame = 8
+frame = 5
 __meta__ = {
 "_aseprite_wizard_config_": {
 "layer": "",
@@ -987,6 +1019,10 @@ one_shot = true
 
 [node name="pickup_grabber" parent="pivot" index="4" instance=ExtResource( 17 )]
 unique_name_in_owner = true
+
+[node name="coupled_something" type="AudioStreamPlayer2D" parent="pivot/pickup_grabber" index="4"]
+stream = ExtResource( 39 )
+volume_db = -18.0
 
 [node name="hurtbox" type="Area2D" parent="pivot" index="5"]
 unique_name_in_owner = true
@@ -1108,17 +1144,55 @@ script = ExtResource( 28 )
 [node name="seat_checker" type="Node" parent="." index="16"]
 script = ExtResource( 32 )
 
+[node name="step" type="AudioStreamPlayer2D" parent="." index="17"]
+stream = ExtResource( 33 )
+volume_db = -12.0
+
+[node name="landed" type="AudioStreamPlayer2D" parent="." index="18"]
+stream = ExtResource( 33 )
+volume_db = -12.0
+
+[node name="ledge" type="AudioStreamPlayer2D" parent="." index="19"]
+stream = ExtResource( 34 )
+volume_db = -12.0
+
+[node name="water_splash_sound" type="AudioStreamPlayer2D" parent="." index="20"]
+unique_name_in_owner = true
+stream = ExtResource( 35 )
+volume_db = -12.0
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="." index="21"]
+stream = ExtResource( 37 )
+volume_db = -24.0
+
+[node name="teleport" type="AudioStreamPlayer2D" parent="." index="22"]
+stream = ExtResource( 38 )
+volume_db = -24.0
+
+[node name="splash_decider" type="Node" parent="." index="23"]
+script = ExtResource( 36 )
+
+[node name="get_in_ship" type="AudioStreamPlayer2D" parent="." index="24"]
+stream = ExtResource( 40 )
+volume_db = -12.0
+
 [connection signal="dead" from="." to="HUD" method="hide"]
 [connection signal="dying" from="." to="pivot/pickup_grabber" method="drop"]
+[connection signal="in_water" from="." to="splash_decider" method="decide"]
 [connection signal="revived" from="." to="oxygen/bar" method="fill"]
 [connection signal="revived" from="." to="HUD" method="show"]
 [connection signal="revived" from="." to="health/bar" method="fill"]
+[connection signal="landed" from="state_machine/air" to="landed" method="play"]
+[connection signal="entered" from="state_machine/ledge_up" to="ledge" method="play"]
 [connection signal="entered" from="pivot/ship_enter" to="pivot/pickup_grabber" method="put_on_ship"]
 [connection signal="entered_ship" from="pivot/ship_enter" to="pivot/hurtbox" method="make_invulnerable"]
 [connection signal="entered_ship" from="pivot/ship_enter" to="blink_animation" method="play" binds= [ "RESET" ]]
+[connection signal="entered_ship" from="pivot/ship_enter" to="get_in_ship" method="play"]
 [connection signal="exited_ship" from="pivot/ship_enter" to="pivot/hurtbox" method="make_vulnerable"]
+[connection signal="coupled_something" from="pivot/pickup_grabber" to="pivot/pickup_grabber/coupled_something" method="play"]
 [connection signal="hurt" from="pivot/hurtbox" to="hurt_animation" method="play" binds= [ "hurt" ]]
 [connection signal="hurt" from="pivot/hurtbox" to="hurt_invincibility" method="trigger"]
+[connection signal="hurt" from="pivot/hurtbox" to="hurt" method="play"]
 [connection signal="drown" from="oxygen" to="." method="die"]
 [connection signal="not_full" from="oxygen" to="HUD/oxygen_bar" method="show"]
 [connection signal="full" from="oxygen/bar" to="HUD/oxygen_bar/full_visible_time" method="start"]
@@ -1126,6 +1200,7 @@ script = ExtResource( 32 )
 [connection signal="value_changed" from="oxygen/bar" to="HUD/oxygen_bar" method="set_values"]
 [connection signal="timeout" from="HUD/oxygen_bar/full_visible_time" to="HUD/oxygen_bar" method="hide"]
 [connection signal="timeout" from="HUD/health_bar/full_visible_time" to="HUD/health_bar" method="hide"]
+[connection signal="teleporting" from="teleport_action" to="teleport" method="play"]
 [connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]
 [connection signal="full" from="health/bar" to="HUD/health_bar/full_visible_time" method="start"]
 [connection signal="not_full" from="health/bar" to="HUD/health_bar" method="show"]

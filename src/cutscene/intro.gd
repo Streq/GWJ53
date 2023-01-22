@@ -12,6 +12,7 @@ onready var continue_label: Control = $continue
 
 
 func _ready() -> void:
+	
 	for scene in scenes:
 		scene.connect("step_finished",self,"next")
 		scene.hide()

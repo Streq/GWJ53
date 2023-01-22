@@ -1,5 +1,7 @@
 extends Node2D
 
+signal coupled_something()
+
 onready var pickup_hold: Node2D = $pickup_hold
 onready var pickup_detect_area: Area2D = $pickup_detect_area
 onready var ship_detect_area: Area2D = $ship_detect_area
@@ -60,3 +62,5 @@ func put_on_ship(ship):
 	if !is_instance_valid(current):
 		return
 	current.connect_to_ship(ship)
+	emit_signal("coupled_something")
+	

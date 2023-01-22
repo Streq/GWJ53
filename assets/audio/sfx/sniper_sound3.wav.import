@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sniper_sound3.wav-8bdc4bddc319e9888c129727435394aa.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/sniper_sound3.wav"
+dest_files=[ "res://.import/sniper_sound3.wav-8bdc4bddc319e9888c129727435394aa.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

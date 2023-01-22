@@ -1,5 +1,8 @@
 extends Node2D
 
+signal firing()
+signal stopped()
+
 export var power := 100.0
 
 onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -13,9 +16,11 @@ func set_firing(val):
 	firing = val
 	if firing:
 		animation_player.play("fire")
+		emit_signal("firing")
 	else:
 		animation_player.play("idle")
-
+		emit_signal("stopped")
+	
 func start():
 	set_firing(true)
 

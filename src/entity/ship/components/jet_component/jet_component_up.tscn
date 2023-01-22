@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/entity/ship/components/component.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/ship/components/h_jet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/texture/jet_pickup.png" type="Texture" id=3]
+[ext_resource path="res://assets/audio/sfx/jet2.wav" type="AudioStream" id=4]
 
 [node name="jet_component_up" instance=ExtResource( 1 )]
 type = "UP"
@@ -12,7 +13,12 @@ label_name = "elevation jet"
 [node name="h_jet" parent="." index="0" instance=ExtResource( 2 )]
 power = 250.0
 
+[node name="jet_sound" parent="h_jet" index="4"]
+stream = ExtResource( 4 )
+
 [connection signal="connected_to" from="." to="h_jet" method="_on_connected_to"]
 [connection signal="disconnected_from" from="." to="h_jet" method="_on_disconnected_from"]
 [connection signal="release" from="." to="h_jet" method="stop"]
 [connection signal="trigger" from="." to="h_jet" method="start"]
+
+[editable path="h_jet"]
