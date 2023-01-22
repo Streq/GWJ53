@@ -196,3 +196,10 @@ func _on_rear_done() -> void:
 	Text.say(
 		"Ok, let's see if we can get the ship to move",7.5
 	)
+
+
+func _on_down_done() -> void:
+	
+	Text.say(
+		"Great, this jet will allow us to dive into deep waters, now for the Dome and we're good to go!",7.5
+	)

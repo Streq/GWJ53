@@ -767,6 +767,7 @@ tile_data = PoolIntArray( 852012, 0, 0, 852013, 0, 0, 852014, 0, 0, 917546, 0, 0
 [connection signal="ship_complete" from="ship_GUI/Control/VBoxContainer/ship_components_HUD" to="leave_world_area" method="done_components"]
 [connection signal="done" from="ship_GUI/Control/VBoxContainer/ship_components_HUD/up" to="found_ship_sequence" method="_on_up_done"]
 [connection signal="done" from="ship_GUI/Control/VBoxContainer/ship_components_HUD/rear" to="found_ship_sequence" method="_on_rear_done"]
+[connection signal="done" from="ship_GUI/Control/VBoxContainer/ship_components_HUD/down" to="found_ship_sequence" method="_on_down_done"]
 [connection signal="done" from="ship_GUI/Control/VBoxContainer/ship_components_HUD/teleporter" to="found_ship_sequence" method="_on_teleporter_done"]
 [connection signal="done" from="ship_GUI/Control/VBoxContainer/bio_sample_HUD" to="leave_world_area" method="done"]
 [connection signal="body_entered" from="protected_zone" to="protected_zone" method="_on_protected_zone_body_entered"]
