@@ -529,6 +529,9 @@ position = Vector2( 468, 240 )
 [node name="bio_sample" parent="." instance=ExtResource( 31 )]
 position = Vector2( 1600, 100 )
 
+[node name="bio_sample11" parent="." instance=ExtResource( 31 )]
+position = Vector2( -260, 180 )
+
 [node name="bio_sample2" parent="." instance=ExtResource( 31 )]
 position = Vector2( -356, -12 )
 

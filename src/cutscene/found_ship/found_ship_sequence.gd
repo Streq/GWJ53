@@ -167,6 +167,8 @@ func _on_ship_components_HUD_ship_complete() -> void:
 	bio_sample_hud.show()
 	bio_sample_radar.show()
 	
+	Text.say("Some dots have appeared on the border of the screen, just follow them to find the flowers!",7.5)
+	
 	get_tree().call_group("bio_sample","make_important")
 	
 	yield(bio_sample_hud,"done")
