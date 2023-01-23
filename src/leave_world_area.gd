@@ -5,6 +5,8 @@ onready var canvas_layer: CanvasLayer = $CanvasLayer
 export var can_leave := false
 export var got_components := false
 
+var ended := false
+
 export (String, FILE, "*.tscn") var RESTART_SCENE := "res://src/cutscene/intro.tscn"
 
 func done():
@@ -22,6 +24,9 @@ func _on_leave_world_area_body_entered(body: Node) -> void:
 	else:
 		go_back()
 func end():
+	if ended:
+		return
+	ended = true
 	canvas_layer.show()
 	Text.say_array([
 		"And so he bounced, he bounced as hard as he could",
