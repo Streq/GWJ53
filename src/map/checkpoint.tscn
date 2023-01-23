@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/map/checkpoint.png" type="Texture" id=1]
 [ext_resource path="res://src/map/checkpoint.gd" type="Script" id=2]
 [ext_resource path="res://assets/theme/small.tres" type="Theme" id=3]
+[ext_resource path="res://assets/audio/sfx/checkpoint.wav" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.1
@@ -181,4 +182,9 @@ margin_bottom = 12.0
 theme = ExtResource( 3 )
 text = "checkpoint"
 
+[node name="sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -12.0
+
+[connection signal="active" from="." to="sound" method="play"]
 [connection signal="body_entered" from="." to="." method="_on_checkpoint_body_entered"]

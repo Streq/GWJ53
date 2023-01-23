@@ -8,6 +8,8 @@ signal deoccupied()
 var pilot = null
 
 func seat(new_pilot):
+	if owner.dead:
+		return
 	if is_instance_valid(pilot):
 		return
 	pilot = new_pilot

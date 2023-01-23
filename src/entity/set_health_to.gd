@@ -4,6 +4,10 @@ extends Node
 export var value := 1.0
 export var max_value := -1.0
 
+func _ready() -> void:
+#	trigger()
+	pass
+
 func trigger():
 	if !get_parent().has_node("%health"):
 		return

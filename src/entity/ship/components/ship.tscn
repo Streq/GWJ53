@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
 [ext_resource path="res://src/entity/health.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://assets/audio/sfx/ledge.wav" type="AudioStream" id=23]
 [ext_resource path="res://src/entity/dude/splash_decider.gd" type="Script" id=24]
 [ext_resource path="res://assets/audio/sfx/landed2.wav" type="AudioStream" id=25]
+[ext_resource path="res://assets/audio/sfx/player_heal.wav" type="AudioStream" id=26]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7, 6 )
@@ -259,6 +260,11 @@ script = ExtResource( 24 )
 stream = ExtResource( 22 )
 volume_db = -24.0
 
+[node name="pilot_heal" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 26 )
+volume_db = -24.0
+
+[connection signal="dead" from="." to="pivot/pilot_seat" method="unseat"]
 [connection signal="in_water" from="." to="water_splash_sound/splash_decider" method="decide"]
 [connection signal="revived" from="." to="health/bar" method="fill"]
 [connection signal="deoccupied" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_healer" method="pilot_exited"]
@@ -267,6 +273,7 @@ volume_db = -24.0
 [connection signal="pilot_off" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_off"]
 [connection signal="pilot_on" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_control" method="_on_pilot_on"]
 [connection signal="pilot_on" from="pivot/pilot_seat" to="pivot/pilot_seat/pilot_healer" method="trigger"]
+[connection signal="heal" from="pivot/pilot_seat/pilot_healer" to="pilot_heal" method="play"]
 [connection signal="hurt" from="pivot/hurtbox" to="hurt_animation" method="play" binds= [ "hurt" ]]
 [connection signal="hurt" from="pivot/hurtbox" to="hurt_invincibility" method="trigger"]
 [connection signal="hurt" from="pivot/hurtbox" to="hurt" method="play"]

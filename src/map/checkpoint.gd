@@ -1,5 +1,7 @@
 extends Area2D
 
+signal active()
+
 const ACTIVE_CHECKPOINT = "active_checkpoint"
 onready var player_spawn: Position2D = $player_spawn
 onready var ship_spawn: Position2D = $ship_spawn
@@ -16,6 +18,8 @@ func on():
 	ship.connect("dead",self,"revive")
 	animation_player.play("on")
 	set_deferred("monitoring",false)
+	emit_signal("active")
+	
 	label.show()
 	yield(get_tree().create_timer(2.0),"timeout")
 	label.hide()

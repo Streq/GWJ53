@@ -12,5 +12,8 @@ texture = ExtResource( 2 )
 [node name="diagonal" parent="." index="2"]
 texture = ExtResource( 2 )
 
+[node name="blast" parent="." index="3"]
+sfx = "bullet_wall_enemy"
+
 [node name="hitbox" parent="." index="5"]
 damage = 2.0

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/particle_pool/particle_pool.gd" type="Script" id=1]
+[ext_resource path="res://assets/texture/green_particle.png" type="Texture" id=2]
+
+[node name="particle_pool" type="CPUParticles2D"]
+emitting = false
+amount = 2
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource( 2 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+script = ExtResource( 1 )
+pool_size = 100

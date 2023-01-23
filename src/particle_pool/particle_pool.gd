@@ -14,7 +14,7 @@ func _ready() -> void:
 		add_child(instance)
 		
 
-func play_at(global_pos):
+func play_at_position(global_pos):
 	index = (index+1)%pool_size
 	
 	var particles = pool[index]

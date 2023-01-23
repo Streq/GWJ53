@@ -1,6 +1,7 @@
 extends Node2D
 
 export var lifetime := 1.0 setget set_lifetime
+export var sfx := "bullet_wall"
 
 onready var blue_particles: CPUParticles2D = $blue_particles
 onready var red_particles: CPUParticles2D = $red_particles
@@ -18,6 +19,8 @@ func trigger():
 	if triggered:
 		return
 	triggered = true
+	if sfx:
+		SFX.play(sfx,global_position)
 	blue_particles.emitting = true
 	red_particles.emitting = true
 	NodeUtils.reparent_keep_transform(self, owner.get_parent())

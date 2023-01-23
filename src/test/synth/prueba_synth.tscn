@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/audio/sfx/synth.wav" type="AudioStream" id=1]
+[ext_resource path="res://Node2D.gd" type="Script" id=2]
+[ext_resource path="res://src/audio/pool_audio_player_2d.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "play"
+length = 1.2
+loop = true
+step = 0.2
+tracks/0/type = "method"
+tracks/0/path = NodePath("../..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "trigger"
+}, {
+"args": [  ],
+"method": "trigger"
+}, {
+"args": [  ],
+"method": "trigger"
+}, {
+"args": [  ],
+"method": "trigger"
+} ]
+}
+
+[node name="Node2D" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+root_node = NodePath("../bio_sample")
+autoplay = "play"
+playback_process_mode = 0
+playback_speed = 3.0
+anims/play = SubResource( 1 )
+
+[node name="bio_sample" parent="Control" instance=ExtResource( 3 )]
+stream = ExtResource( 1 )
+volume_db = 0.0
+bus = "music"
+pool_size = 100
+cooldown = 0.0166667

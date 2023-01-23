@@ -31,6 +31,8 @@ export var team := 0
 
 export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir
 
+var dead = false
+
 func set_in_water(val):
 	if val == in_water:
 		return
@@ -79,7 +81,9 @@ func get_pilot():
 	return pilot_seat.pilot
 
 func die():
+	dead = true
 	emit_signal("dead")
 
 func revive():
+	dead = false
 	emit_signal("revived")

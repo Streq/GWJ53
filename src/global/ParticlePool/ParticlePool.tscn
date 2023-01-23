@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/global/ParticlePool/ParticlePool.gd" type="Script" id=1]
+[ext_resource path="res://assets/texture/red_particle.png" type="Texture" id=2]
+[ext_resource path="res://src/particle_pool/particle_pool.tscn" type="PackedScene" id=3]
+
+[node name="ParticlePool" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="enemy_dead" parent="." instance=ExtResource( 3 )]
+amount = 32
+lifetime = 0.15
+explosiveness = 0.9
+randomness = 1.0
+lifetime_randomness = 1.0
+texture = ExtResource( 2 )
+pool_size = 10

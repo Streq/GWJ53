@@ -53,12 +53,12 @@ hide_when = 1
 
 [node name="cooldown" type="Timer" parent="."]
 process_mode = 0
-wait_time = 0.1
+wait_time = 0.15
 one_shot = true
 
 [node name="gun_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 10 )
-volume_db = -32.0
+volume_db = -28.0
 
 [connection signal="fire" from="." to="muzzle" method="shoot"]
 [connection signal="fire" from="." to="screen_shake" method="trigger"]

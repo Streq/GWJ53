@@ -16,13 +16,19 @@ func hit_destructible_terrain(point: Vector2):
 	var map_coord = world_to_map(point)
 	
 	var tile_id = get_cellv(map_coord)
-	if tile_id in DESTRUCTIBLE_TILES:
-		var new_id = DESTRUCTIBLE_TILES[tile_id]
-		set_cellv(map_coord,new_id)
-		if new_id != -1:
-			emit_signal("tile_hit", point)
-		else:
-			emit_signal("tile_destroyed", point)
+	
+	
+	if !tile_id in DESTRUCTIBLE_TILES:
+#		SFX.play("bullet_wall", point)
+		return
+	
+	
+	var new_id = DESTRUCTIBLE_TILES[tile_id]
+	set_cellv(map_coord,new_id)
+	if new_id != -1:
+		emit_signal("tile_hit", point)
+	else:
+		emit_signal("tile_destroyed", point)
 
 func terrain_get_hit(bullet, collision:KinematicCollision2D):
 	hit_destructible_terrain(collision.position-collision.normal)

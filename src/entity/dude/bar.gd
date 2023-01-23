@@ -25,6 +25,8 @@ func set_max_value(val):
 func _ready() -> void:
 	set_value(value)
 
+func is_full():
+	return value == max_value
 
 func fill() -> void:
 	set_value(max_value)

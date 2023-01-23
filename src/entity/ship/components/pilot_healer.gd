@@ -1,4 +1,5 @@
 extends Node
+signal heal()
 var pilot = null
 onready var heal_cooldown: Timer = $heal_cooldown
 
@@ -15,8 +16,13 @@ func heal():
 	if !is_instance_valid(pilot) or !pilot.has_node("%health"):
 		return
 	var pilots_health = pilot.get_node("%health")
-	pilots_health.heal(1.0)
 	heal_cooldown.start()
+
+	if pilots_health.is_full():
+		return
+
+	pilots_health.heal(1.0)
+	emit_signal("heal")
 
 func _ready() -> void:
 	heal_cooldown.connect("timeout",self,"heal")

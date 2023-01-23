@@ -22,3 +22,4 @@ func trigger():
 	default_palette.update_parent_material()
 	get_parent().material = material
 	
+	

@@ -750,6 +750,9 @@ tile_data = PoolIntArray( 852012, 0, 0, 852013, 0, 0, 852014, 0, 0, 917546, 0, 0
 [node name="ship2" parent="." instance=ExtResource( 40 )]
 position = Vector2( -232, 180 )
 
+[node name="set_health_to" type="Node" parent="ship2"]
+script = ExtResource( 11 )
+
 [connection signal="pilot_entered" from="ship" to="found_ship_sequence" method="_on_ship_pilot_entered"]
 [connection signal="full" from="ship/ship_health" to="found_ship_sequence" method="_on_ship_health_full"]
 [connection signal="triggered" from="ship/saw_ship_area" to="found_ship_sequence" method="_on_saw_ship_area_triggered"]
