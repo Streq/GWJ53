@@ -5,5 +5,5 @@ func _ready() -> void:
 		map[child.name] = child
 		
 
-func play(sound,position_2d):
-	map[sound].play(position_2d)
+func play(sound, position_2d):
+	map[sound].play_at_position(position_2d)

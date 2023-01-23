@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/enemy/eye/eye.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://src/entity/bar.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/entity/enemy/eye/pupil.gd" type="Script" id=9]
 [ext_resource path="res://assets/texture/pupil.png" type="Texture" id=10]
+[ext_resource path="res://src/entity/enemy/enemy_hurt_animation.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 3 )
@@ -126,6 +127,8 @@ __meta__ = {
 "source": "res://assets/aseprite/eye.aseprite"
 }
 }
+
+[node name="enemy_hurt_animation" parent="pivot/Sprite" index="0" instance=ExtResource( 11 )]
 
 [node name="hitbox" type="Area2D" parent="pivot" index="1"]
 collision_layer = 0

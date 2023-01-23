@@ -6,28 +6,7 @@
 [ext_resource path="res://assets/texture/choose_your_palette.png" type="Texture" id=4]
 [ext_resource path="res://src/global/Foreground.gd" type="Script" id=5]
 [ext_resource path="res://assets/texture/demo_for_color_select.png" type="Texture" id=6]
-
-[sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
-uniform int palette_size = 4;
-uniform float offset : hint_range(0, 8, 1);
-uniform sampler2D palette;
-uniform float blue_index_offset = 0.0;
-
-
-void fragment(){
-	vec4 tex = texture(SCREEN_TEXTURE, SCREEN_UV);
-	//used as index for the palette texture
-	float blue_1 = tex.b;
-	
-	float palette_index = mod(blue_1 * (255.0) - blue_index_offset + offset+0.5,float(palette_size));
-	float h_pixel_size = 1.0/float(palette_size);
-	vec2 palette_pixel = vec2(palette_index*(h_pixel_size), 0.0);
-	
-	COLOR.rgb = texture(palette, palette_pixel).rgb;
-	COLOR.a = tex.a;
-	
-}"
+[ext_resource path="res://assets/shader/foreground_palette_change.gdshader" type="Shader" id=8]
 
 [sub_resource type="Image" id=61]
 data = {
@@ -45,7 +24,7 @@ image = SubResource( 61 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=46]
-shader = SubResource( 1 )
+shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
@@ -53,7 +32,7 @@ shader_param/palette = SubResource( 48 )
 
 [sub_resource type="Image" id=62]
 data = {
-"data": PoolByteArray( 0, 0, 0, 255, 255, 54, 0, 255, 45, 91, 28, 255, 61, 82, 255, 255 ),
+"data": PoolByteArray( 0, 0, 0, 255, 255, 54, 0, 255, 45, 91, 28, 255, 0, 70, 255, 255 ),
 "format": "RGBA8",
 "height": 1,
 "mipmaps": false,
@@ -67,7 +46,7 @@ image = SubResource( 62 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 1 )
+shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
@@ -89,7 +68,7 @@ image = SubResource( 63 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
@@ -111,7 +90,7 @@ image = SubResource( 64 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 1 )
+shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
@@ -119,7 +98,7 @@ shader_param/palette = SubResource( 54 )
 
 [sub_resource type="Image" id=65]
 data = {
-"data": PoolByteArray( 0, 0, 0, 255, 255, 135, 0, 255, 156, 51, 0, 255, 255, 244, 96, 255 ),
+"data": PoolByteArray( 0, 0, 0, 255, 255, 135, 0, 255, 255, 244, 96, 255, 156, 51, 0, 255 ),
 "format": "RGBA8",
 "height": 1,
 "mipmaps": false,
@@ -133,7 +112,7 @@ image = SubResource( 65 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=42]
-shader = SubResource( 1 )
+shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
@@ -155,7 +134,7 @@ image = SubResource( 66 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=14]
-shader = SubResource( 1 )
+shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
@@ -177,7 +156,7 @@ image = SubResource( 67 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=43]
-shader = SubResource( 1 )
+shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0

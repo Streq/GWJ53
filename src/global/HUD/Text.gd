@@ -11,6 +11,8 @@ export var skip_on_debug := false
 var queue = []
 var latest_stamp = 0
 
+var current_animating_label : Label = null
+
 func say(text, time := -1.0):
 	label.text = text
 	label.visible_characters = -1
@@ -50,7 +52,9 @@ func say_and_wait_for_input(text):
 		var next_text = queue.front()
 		label.text = next_text
 		label.trigger()
+		current_animating_label = label
 		yield(label,"finished")
+		current_animating_label = null
 		continue_label.display()
 		yield(self, "player_pressed_A")
 		continue_label.hide()
@@ -67,8 +71,14 @@ func say_array(texts):
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
 		emit_signal("player_pressed_A")
-
-
+	if event.is_action_pressed("B"):
+		emit_signal("player_pressed_A")
+		skip()
+	
+func skip():
+	if current_animating_label:
+		current_animating_label.force_finish()
+	
 func unpause():
 	for i in 2: #prevent jump after dialog end
 		yield(get_tree(),"physics_frame")

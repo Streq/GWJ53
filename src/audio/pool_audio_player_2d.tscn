@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/global/sfx_pool.gd" type="Script" id=1]
+[ext_resource path="res://assets/audio/sfx/component_coupled2.wav" type="AudioStream" id=2]
+
+[node name="bio_sample" type="AudioStreamPlayer2D"]
+stream = ExtResource( 2 )
+volume_db = -16.0
+script = ExtResource( 1 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/enemy/turret/turret.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://src/entity/bar.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/entity/enemy/shoot_player_on_sight.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/entity/enemy/enemy_big_bullet.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/entity/enemy/enemy_hurt_animation.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 3 )
@@ -199,6 +200,8 @@ __meta__ = {
 "source": "res://assets/aseprite/turret.aseprite"
 }
 }
+
+[node name="enemy_hurt_animation" parent="pivot/Sprite" index="0" instance=ExtResource( 11 )]
 
 [node name="hitbox" type="Area2D" parent="pivot" index="1"]
 collision_layer = 0

@@ -11,16 +11,16 @@ var format = "d/%d bio samples collected"
 func _ready() -> void:
 	yield(owner,"ready")
 	var samples = Group.get_all("bio_sample")
-	print(samples)
+#	print(samples)
 	total_samples = samples.size()
 	
 	for sample in samples:
 		sample.connect("collected",self,"collected_sample")
 	
 	padding = str(str(total_samples).length())
-	print(padding)
+#	print(padding)
 	format = "%"+padding+format
-	print(format)
+#	print(format)
 	update_text()
 	
 func update_text():

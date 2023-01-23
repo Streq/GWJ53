@@ -98,7 +98,7 @@ shader_param/palette = SubResource( 102 )
 
 [sub_resource type="Image" id=131]
 data = {
-"data": PoolByteArray( 246, 231, 213, 255, 255, 255, 57, 255, 255, 132, 8, 255, 57, 57, 57, 255 ),
+"data": PoolByteArray( 0, 0, 3, 255, 60, 60, 2, 255, 126, 126, 1, 255, 255, 255, 0, 255 ),
 "format": "RGBA8",
 "height": 1,
 "mipmaps": false,
@@ -397,10 +397,10 @@ palette = PoolColorArray( 0.494118, 0.494118, 0.00392157, 1, 0.235294, 0.235294,
 material = SubResource( 94 )
 string_val = "[\"ff7e7e01\",\"ff3c3c02\",\"ff000003\",\"ffffff00\"]"
 
-[node name="yellow" parent="Background" instance=ExtResource( 2 )]
-palette = PoolColorArray( 0.964706, 0.905882, 0.835294, 1, 1, 1, 0.223529, 1, 1, 0.517647, 0.0313726, 1, 0.223529, 0.223529, 0.223529, 1 )
+[node name="inverted" parent="Background" instance=ExtResource( 2 )]
+palette = PoolColorArray( 0, 0, 0.0117647, 1, 0.235294, 0.235294, 0.00784314, 1, 0.494118, 0.494118, 0.00392157, 1, 1, 1, 0, 1 )
 material = SubResource( 36 )
-string_val = "[\"fff6e7d5\",\"ffffff39\",\"ffff8408\",\"ff393939\"]"
+string_val = "[\"ff000003\",\"ff3c3c02\",\"ff7e7e01\",\"ffffff00\"]"
 
 [node name="rock" parent="Background" instance=ExtResource( 2 )]
 palette = PoolColorArray( 0.941176, 0.737255, 0.235294, 1, 0.278431, 0.227451, 0, 1, 0.160784, 0.109804, 0, 1, 0, 0, 0, 1 )

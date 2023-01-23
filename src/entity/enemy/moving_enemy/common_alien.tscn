@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/enemy/moving_enemy/common_alien.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src/entity/enemy/moving_enemy/state/air.gd" type="Script" id=9]
 [ext_resource path="res://src/entity/enemy/moving_enemy/walk.gd" type="Script" id=10]
 [ext_resource path="res://src/entity/enemy/moving_enemy/horned_alien.png" type="Texture" id=11]
+[ext_resource path="res://src/entity/enemy/enemy_hurt_animation.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2, 3 )
@@ -336,6 +337,8 @@ __meta__ = {
 "source": "res://assets/aseprite/common_alien.aseprite"
 }
 }
+
+[node name="enemy_hurt_animation" parent="pivot/Sprite" index="0" instance=ExtResource( 12 )]
 
 [node name="hitbox" type="Area2D" parent="pivot" index="1"]
 collision_layer = 0
