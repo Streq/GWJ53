@@ -33,6 +33,9 @@ export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir
 
 var dead = false
 
+#var previous_velocity = Vector2()
+
+
 func set_in_water(val):
 	if val == in_water:
 		return

@@ -1,4 +1,5 @@
 extends Node2D
+signal shoot
 
 onready var wearer = owner
 var shooting_muzzles = 0
@@ -44,7 +45,7 @@ func shoot():
 		return
 	muzzle.shoot()
 	cooldown.start()
-	
+	emit_signal("shoot")
 	
 func can_see(target):
 	return true
