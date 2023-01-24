@@ -6,11 +6,11 @@
 
 [node name="main" instance=ExtResource( 1 )]
 
-[node name="saw_ship_area" parent="ship" index="17"]
+[node name="saw_ship_area" parent="ship" index="18"]
 monitoring = false
 monitorable = false
 
-[node name="closer_look" parent="ship" index="18"]
+[node name="closer_look" parent="ship" index="19"]
 monitoring = false
 monitorable = false
 

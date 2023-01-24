@@ -197,11 +197,14 @@ var down_jet_picked_up := false
 func _on_down_jet_pickup_respawn() -> void:
 	reset_rumble()
 
+onready var protected_zone_detect: Area2D = $"%protected_zone_detect"
 
 func reset_rumble():
 	down_jet_picked_up = false
 	eye_spawner.stop()
-
+	protected_zone_detect.set_deferred("monitoring", false)
+	protected_zone_detect.enabled = false
+	
 func _on_down_jet_pickup_picked_up() -> void:
 	if down_jet_picked_up:
 		return
@@ -212,7 +215,8 @@ func _on_down_jet_pickup_picked_up() -> void:
 	yield(get_tree().create_timer(1.0),"timeout")
 	Text.say_array(["Something's wrong", "I feel like I've awakened something"])
 	eye_spawner.spawn()
-
+	protected_zone_detect.set_deferred("monitoring", true)
+	protected_zone_detect.enabled = true
 
 
 
@@ -233,4 +237,6 @@ func _on_gun_done() -> void:
 	Text.say(
 		"Now we can fend for ourselves",5.0
 	)
+
+
 

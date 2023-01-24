@@ -6,4 +6,4 @@ func _ready() -> void:
 		
 
 func play(sound, position_2d):
-	map[sound].play_at_position(position_2d)
+	return map[sound].play_at_position(position_2d)

@@ -14,9 +14,10 @@ func _ready() -> void:
 		add_child(instance)
 		
 
-func play_at_position(global_pos):
+func play_at_position(global_pos) -> CPUParticles2D:
 	index = (index+1)%pool_size
 	
 	var particles = pool[index]
 	particles.restart()
 	particles.global_position = global_pos
+	return particles

@@ -1,5 +1,5 @@
 extends KinematicBody2D
-
+signal crash_collision(dir)
 signal pilot_entered(pilot)
 
 signal dead()
@@ -22,6 +22,8 @@ export var in_air := false
 export var air_damping := 0.1
 export var air_gravity := 50.0
 
+export var crash_velocity := 200.0
+
 onready var pivot: Node2D = $pivot
 onready var input_state: InputState = $input_state
 onready var pilot_seat: Node2D = $pivot/pilot_seat
@@ -33,7 +35,7 @@ export (float, -1.0, 1.0, 2.0) var facing_dir := 1.0 setget set_facing_dir
 
 var dead = false
 
-#var previous_velocity = Vector2()
+var previous_velocity = Vector2()
 
 
 func set_in_water(val):
@@ -71,11 +73,23 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 	if is_on_floor():
+		if previous_velocity.y-velocity.y > crash_velocity:
+			emit_signal("crash_collision", previous_velocity)
+		
 		velocity.x = move_toward(velocity.x,0.0,ground_friction*delta)
+	if is_on_ceiling():
+		if previous_velocity.y-velocity.y < -crash_velocity:
+			emit_signal("crash_collision", previous_velocity)
+	if is_on_wall():
+		if abs(previous_velocity.x-velocity.x) > crash_velocity:
+			emit_signal("crash_collision", previous_velocity)
+
+	
 	
 	var _damping = water_damping if in_water else air_damping if in_air else damping
 	velocity *= 1-delta*_damping
-
+	previous_velocity = velocity
+	
 func enter_pilot(pilot):
 	pilot_seat.seat(pilot)
 	emit_signal("pilot_entered", pilot)

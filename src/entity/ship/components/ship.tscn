@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
 [ext_resource path="res://src/entity/health.gd" type="Script" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://src/entity/dude/splash_decider.gd" type="Script" id=24]
 [ext_resource path="res://assets/audio/sfx/landed2.wav" type="AudioStream" id=25]
 [ext_resource path="res://assets/audio/sfx/player_heal.wav" type="AudioStream" id=26]
+[ext_resource path="res://src/entity/ship/components/crash_handler.tscn" type="PackedScene" id=27]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 7, 6 )
@@ -264,6 +265,9 @@ volume_db = -24.0
 stream = ExtResource( 26 )
 volume_db = -24.0
 
+[node name="crash_handler" parent="." instance=ExtResource( 27 )]
+
+[connection signal="crash_collision" from="." to="crash_handler" method="crash"]
 [connection signal="dead" from="." to="pivot/pilot_seat" method="unseat"]
 [connection signal="in_water" from="." to="water_splash_sound/splash_decider" method="decide"]
 [connection signal="revived" from="." to="health/bar" method="fill"]
