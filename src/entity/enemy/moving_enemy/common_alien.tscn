@@ -279,7 +279,7 @@ extents = Vector2( 2, 3 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 2, 3 )
 
-[node name="common_alien" instance=ExtResource( 1 )]
+[node name="common_alien" groups=["respawnable"] instance=ExtResource( 1 )]
 speed = 20.0
 jump_speed = 50.0
 water_gravity = -10.0

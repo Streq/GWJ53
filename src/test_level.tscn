@@ -344,7 +344,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol"]
 position = Vector2( 168, 0 )
@@ -363,7 +362,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol3/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol3"]
 position = Vector2( 136, 0 )
@@ -382,7 +380,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol9/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol9"]
 position = Vector2( 136, 0 )
@@ -401,7 +398,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol10/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol10"]
 position = Vector2( 136, 0 )
@@ -420,7 +416,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol4/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol4"]
 position = Vector2( 0, 24 )
@@ -439,7 +434,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol6/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol6"]
 position = Vector2( 0, 24 )
@@ -458,7 +452,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol7/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol7"]
 position = Vector2( 0, 24 )
@@ -477,7 +470,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol8/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol8"]
 position = Vector2( 0, 24 )
@@ -496,7 +488,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol5/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol5"]
 position = Vector2( 0, 24 )
@@ -516,7 +507,6 @@ swim_speed = 25.0
 [node name="controller" type="Node2D" parent="patrol2/Position2D/fish_enemy"]
 script = ExtResource( 30 )
 stop_time = 1.0
-patrol = NodePath("../../..")
 
 [node name="Position2D2" type="Position2D" parent="patrol2"]
 position = Vector2( 468, 240 )

@@ -1,7 +1,7 @@
 extends Node
 tool
 signal updated(palette_material)
-onready var GlobalPalette := get_node("/root/GlobalPalette")
+#onready var GlobalPalette := get_node("/root/GlobalPalette")
 
 
 enum TYPE {

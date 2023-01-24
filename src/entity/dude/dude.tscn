@@ -888,6 +888,7 @@ jump_speed = 50.0
 gravity = 5.0
 water_gravity = -15.0
 water_damping = 2.0
+swim_speed = 40.0
 swim_acceleration = 50.0
 
 [node name="CollisionShape2D" parent="." index="0"]

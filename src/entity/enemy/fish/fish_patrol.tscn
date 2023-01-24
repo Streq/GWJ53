@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/entity/enemy/fish/patrol_controller.gd" type="Script" id=2]
+[ext_resource path="res://src/entity/enemy/fish/fish.tscn" type="PackedScene" id=3]
+
+[node name="fish_patrol" type="Node2D" groups=["respawnable"]]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="fish_enemy" parent="Position2D" instance=ExtResource( 3 )]
+swim_speed = 25.0
+
+[node name="controller" type="Node2D" parent="Position2D/fish_enemy"]
+script = ExtResource( 2 )
+stop_time = 1.0
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 168, 0 )

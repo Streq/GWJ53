@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/initial_level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/entity/ship/full_ship.tscn" type="PackedScene" id=2]
+
+[node name="main" instance=ExtResource( 1 )]
+
+[node name="saw_ship_area" parent="ship" index="17"]
+monitoring = false
+monitorable = false
+
+[node name="closer_look" parent="ship" index="18"]
+monitoring = false
+monitorable = false
+
+[node name="dude" parent="." index="4"]
+position = Vector2( 692, 172 )
+
+[node name="ship2" parent="." index="62" instance=ExtResource( 2 )]
+
+[node name="ship3" parent="." index="64" instance=ExtResource( 2 )]
+position = Vector2( 720, 172 )
+
+[connection signal="done" from="ship_GUI/Control/VBoxContainer/bio_sample_HUD" to="leave_world_area" method="done"]
+
+[editable path="terrain/air_area"]
+[editable path="terrain/water_area"]
+[editable path="fish_patrol11"]
+[editable path="fish_patrol10"]
+[editable path="fish_patrol3"]
+[editable path="fish_patrol2"]
+[editable path="fish_patrol5"]
+[editable path="fish_patrol6"]
+[editable path="fish_patrol8"]
+[editable path="fish_patrol"]
+[editable path="fish_patrol7"]

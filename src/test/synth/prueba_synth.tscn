@@ -46,7 +46,6 @@ anchor_bottom = 0.5
 root_node = NodePath("../bio_sample")
 autoplay = "play"
 playback_process_mode = 0
-playback_speed = 3.0
 anims/play = SubResource( 1 )
 
 [node name="bio_sample" parent="Control" instance=ExtResource( 3 )]

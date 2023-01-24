@@ -24,13 +24,15 @@ func _physics_update(delta):
 #		root.velocity.y -= root.jump_speed
 #		return
 #
-	
-	if !root.input_state.dir:
+	var dir = root.input_state.dir
+	if !dir:
 		goto("swim_idle")
 		return
 		
-	root.facing_dir = root.input_state.dir.x
-	root.velocity += root.input_state.dir*root.swim_acceleration*delta
+	root.facing_dir = dir.x
+	root.velocity += dir*root.swim_acceleration*delta
+	if dir.y>0:
+		root.velocity.y += dir.y*root.swim_acceleration*0.2*delta
 #	root.velocity = root.velocity.move_toward(root.input_state.dir*root.swim_speed, root.swim_acceleration*delta)
 #	root.velocity.x = move_toward(root.velocity.x, 0, root.horizontal_decceleration*delta)
 	

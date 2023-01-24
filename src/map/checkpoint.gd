@@ -1,6 +1,7 @@
 extends Area2D
 
 signal active()
+signal restart()
 
 const ACTIVE_CHECKPOINT = "active_checkpoint"
 onready var player_spawn: Position2D = $player_spawn
@@ -16,6 +17,7 @@ func on():
 	add_to_group(ACTIVE_CHECKPOINT)
 	player.connect("dead",self,"revive")
 	ship.connect("dead",self,"revive")
+	self.connect("restart",owner,"restart")
 	animation_player.play("on")
 	set_deferred("monitoring",false)
 	emit_signal("active")
@@ -28,6 +30,7 @@ func off():
 	remove_from_group(ACTIVE_CHECKPOINT)
 	player.disconnect("dead",self,"revive")
 	ship.disconnect("dead",self,"revive")
+	self.disconnect("restart",owner,"restart")
 	animation_player.play("off")
 	set_deferred("monitoring",true)
 	label.hide()
@@ -41,7 +44,7 @@ func revive():
 	player.velocity = Vector2()
 	ship.velocity = Vector2()
 	
-	get_tree().call_group("pickup","respawn")
+	emit_signal("restart")
 
 	
 func _on_checkpoint_body_entered(body: Node) -> void:

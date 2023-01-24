@@ -57,15 +57,20 @@ func _on_ship_pilot_entered(pilot) -> void:
 	if entered_ship:
 		return
 	entered_ship = true
-	yield(get_tree().create_timer(2.0, true),"timeout")
-	
-	Text.say_array([
-		"Well it does! that's probably the only thing working right now.",
+	var text = [
+		"Well it does!",
+		"That's probably the only thing working right now.",
 		"The teleport antenna isn't there, the gun is nowhere to be seen,",
 		"and none of the jets are present. Also the dome is missing!",
 		"If I wanna get home and also not be fired, I'm gonna have to find every component and get the hell out.",
 		"But let's begin by repairing this mess first"
-	])
+	]
+	if pilot.get_node("%health").is_full():
+		text.insert(1,"I mean I wouldn't know since I haven't been hurt, but it seems to be intact!")
+	
+	yield(get_tree().create_timer(2.5, true),"timeout")
+	
+	Text.say_array(text)
 	
 	yield(Text,"finished")
 	
@@ -184,7 +189,7 @@ func _on_ship_components_HUD_ship_complete() -> void:
 		])
 
 onready var eye_spawner: Node2D = $"%eye_spawner"
-
+	
 func _on_down_jet_pickup_picked_up() -> void:
 	Shake.shake(Vector2.RIGHT)
 	yield(get_tree().create_timer(1.0),"timeout")

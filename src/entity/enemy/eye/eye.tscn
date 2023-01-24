@@ -84,7 +84,7 @@ radius = 4.0
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3, 4 )
 
-[node name="eye_enemy" instance=ExtResource( 1 )]
+[node name="eye_enemy" groups=["eye"] instance=ExtResource( 1 )]
 collision_layer = 514
 collision_mask = 0
 speed = 50.0
