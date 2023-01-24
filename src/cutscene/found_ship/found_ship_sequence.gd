@@ -189,9 +189,26 @@ func _on_ship_components_HUD_ship_complete() -> void:
 		])
 
 onready var eye_spawner: Node2D = $"%eye_spawner"
-	
+onready var rumble: AudioStreamPlayer2D = $"%rumble"
+
+var down_jet_picked_up := false
+
+
+func _on_down_jet_pickup_respawn() -> void:
+	reset_rumble()
+
+
+func reset_rumble():
+	down_jet_picked_up = false
+	eye_spawner.stop()
+
 func _on_down_jet_pickup_picked_up() -> void:
+	if down_jet_picked_up:
+		return
+	
+	down_jet_picked_up = true
 	Shake.shake(Vector2.RIGHT)
+	rumble.play()
 	yield(get_tree().create_timer(1.0),"timeout")
 	Text.say_array(["Something's wrong", "I feel like I've awakened something"])
 	eye_spawner.spawn()
@@ -216,3 +233,4 @@ func _on_gun_done() -> void:
 	Text.say(
 		"Now we can fend for ourselves",5.0
 	)
+

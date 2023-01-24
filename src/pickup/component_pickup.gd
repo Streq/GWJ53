@@ -1,5 +1,7 @@
 extends KinematicBody2D
 signal picked_up
+signal respawn
+
 export var spawn_pos = Vector2()
 
 export var gravity := 5.0
@@ -72,3 +74,4 @@ func connect_to_ship(ship):
 func respawn():
 	global_position = spawn_pos
 	velocity = Vector2()
+	emit_signal("respawn")

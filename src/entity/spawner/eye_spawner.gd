@@ -1,7 +1,7 @@
 extends Node2D
 
 signal spawned()
-
+signal stop()
 export var MOB : PackedScene
 onready var path_follow_2d: PathFollow2D = $Path2D/PathFollow2D
 export var trigger := false
@@ -18,3 +18,6 @@ func spawn():
 	mob.global_position = spawn_position
 	
 	emit_signal("spawned")
+
+func stop():
+	emit_signal("stop")

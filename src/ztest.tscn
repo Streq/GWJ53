@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/initial_level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/ship/full_ship.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/audio/sfx/rumble1.wav" type="AudioStream" id=3]
 
 [node name="main" instance=ExtResource( 1 )]
 
@@ -14,13 +15,17 @@ monitoring = false
 monitorable = false
 
 [node name="dude" parent="." index="4"]
-position = Vector2( 692, 172 )
+position = Vector2( 2004, 260 )
 
 [node name="ship2" parent="." index="62" instance=ExtResource( 2 )]
 
 [node name="ship3" parent="." index="64" instance=ExtResource( 2 )]
 position = Vector2( 720, 172 )
 
+[node name="rumble" parent="." index="65"]
+stream = ExtResource( 3 )
+
+[connection signal="stop" from="dude/eye_spawner" to="dude/eye_spawner/Timer" method="stop"]
 [connection signal="done" from="ship_GUI/Control/VBoxContainer/bio_sample_HUD" to="leave_world_area" method="done"]
 
 [editable path="terrain/air_area"]
