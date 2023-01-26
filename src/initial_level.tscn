@@ -643,7 +643,6 @@ volume_db = -12.0
 [connection signal="full" from="ship/ship_health" to="found_ship_sequence" method="_on_ship_health_full"]
 [connection signal="triggered" from="ship/saw_ship_area" to="found_ship_sequence" method="_on_saw_ship_area_triggered"]
 [connection signal="triggered" from="ship/closer_look" to="found_ship_sequence" method="_on_closer_look_triggered"]
-[connection signal="stop" from="dude/eye_spawner" to="dude/eye_spawner/Timer" method="stop"]
 [connection signal="triggered" from="rear_jet_pickup/saw_rear_jet" to="found_ship_sequence" method="_on_saw_rear_jet_triggered"]
 [connection signal="triggered" from="teleporter_pickup/saw_teleporter" to="found_ship_sequence" method="_on_saw_teleporter_triggered"]
 [connection signal="triggered" from="up_jet_pickup/saw_up_jet" to="found_ship_sequence" method="_on_saw_up_jet_triggered"]

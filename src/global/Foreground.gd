@@ -4,25 +4,39 @@ onready var choose_your_palette: Control = $choose_your_palette
 
 var index = 0
 
+
+
 func _ready() -> void:
-	get_tree().paused = true
+	Pause.pause(PauseState.Level.MENU)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_down"):
-		index += 1
+		next_palette()
 	elif event.is_action_pressed("ui_up"):
-		index -= 1
+		prev_palette()
 	elif event.is_action_pressed("A"):
 		palette_selected()
-	var pals = palettes.get_children()
+	
+	
+
+func next_palette():
+	index += 1
+	update_palette()
+
+func prev_palette():
+	index -= 1
+	update_palette()
+
+
+func update_palette():
 	index = posmod(index, palettes.get_child_count())
+	var pals = palettes.get_children()
 	for palette in pals:
 		palette.hide()
 	pals[index].show()
 	
-
 func palette_selected():
-	get_tree().paused = false
+	Pause.pause(PauseState.Level.MENU)
 	self.set_process_input(false)
 	choose_your_palette.hide()

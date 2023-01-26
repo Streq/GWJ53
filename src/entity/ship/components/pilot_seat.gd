@@ -23,10 +23,9 @@ func seat(new_pilot):
 	emit_signal("occupied")
 
 func unseat():
+	yield(get_tree(),"physics_frame")
 	if !is_instance_valid(pilot):
 		return
-	
-	yield(get_tree(),"physics_frame")
 	pilot.disconnect("dead",self,"unseat")
 	pilot.facing_dir = owner.facing_dir
 	pilot.set_physics_process(true)

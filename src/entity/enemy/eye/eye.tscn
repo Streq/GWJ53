@@ -87,7 +87,7 @@ extents = Vector2( 3, 4 )
 [node name="eye_enemy" groups=["eye"] instance=ExtResource( 1 )]
 collision_layer = 514
 collision_mask = 0
-speed = 50.0
+speed = 40.0
 water_gravity = 0.0
 air_gravity = 0.0
 damping = 1.0

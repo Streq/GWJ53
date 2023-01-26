@@ -57,20 +57,29 @@ func _on_ship_pilot_entered(pilot) -> void:
 	if entered_ship:
 		return
 	entered_ship = true
-	var text = [
-		"Well it does!",
+	var player_was_hurt_before_healing = !pilot.get_node("%health").is_full()
+	
+	yield(get_tree().create_timer(2.5, true),"timeout")
+	
+	if player_was_hurt_before_healing:
+		Text.say_array([
+			"It works!"
+		])
+	else:
+		Text.say_array([
+			"It works!",
+			"I mean I wouldn't know, since I wasn't hurt, but it seems to be intact!"
+		])
+	
+	
+	Text.say_array([
 		"That's probably the only thing working right now.",
 		"The teleport antenna isn't there, the gun is nowhere to be seen,",
 		"and none of the jets are present. Also the dome is missing!",
 		"If I wanna get home and also not be fired, I'm gonna have to find every component and get the hell out.",
 		"But let's begin by repairing this mess first"
-	]
-	if pilot.get_node("%health").is_full():
-		text.insert(1,"I mean I wouldn't know since I haven't been hurt, but it seems to be intact!")
+	])
 	
-	yield(get_tree().create_timer(2.5, true),"timeout")
-	
-	Text.say_array(text)
 	
 	yield(Text,"finished")
 	
@@ -144,8 +153,10 @@ func _on_teleporter_done() -> void:
 	Text.say(
 		"Great, now if I'm away from the ship, I can get back to it by pressing S"
 	)
+	var stamp = Text.latest_stamp
 	yield(teleport_observer,"teleported")
-	Text.say("Okay, this is epic", 4.0)
+	if Text.latest_stamp == stamp:
+		Text.say("Okay, this is epic", 4.0)
 
 
 func _on_up_done() -> void:

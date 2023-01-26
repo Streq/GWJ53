@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
+[ext_resource path="res://src/Menu/menu_entry.gd" type="Script" id=2]
+
+[node name="menu_entry" type="CenterContainer"]
+margin_left = 80.0
+margin_right = 80.0
+margin_bottom = 8.0
+script = ExtResource( 2 )
+
+[node name="menu_entry" type="HBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_constants/separation = 0
+alignment = 1
+
+[node name="left_arrow" type="Label" parent="menu_entry"]
+unique_name_in_owner = true
+visible = false
+margin_right = 8.0
+margin_bottom = 8.0
+theme = ExtResource( 1 )
+text = ">"
+
+[node name="label" type="Label" parent="menu_entry"]
+unique_name_in_owner = true
+margin_right = 40.0
+margin_bottom = 8.0
+theme = ExtResource( 1 )
+text = "entry"
+align = 1
+valign = 1
+
+[node name="right_arrow" type="Label" parent="menu_entry"]
+unique_name_in_owner = true
+visible = false
+margin_left = 80.0
+margin_right = 88.0
+margin_bottom = 8.0
+theme = ExtResource( 1 )
+text = "<"
+
+[connection signal="focus_entered" from="." to="." method="_on_menu_entry_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_menu_entry_focus_exited"]

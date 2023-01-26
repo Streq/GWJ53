@@ -18,11 +18,13 @@ func say(text, time := -1.0):
 	label.visible_characters = -1
 	latest_stamp += 1
 	var current_stamp = latest_stamp
+	
+	current_animating_label = label
 	if time>0.0:
 		yield(get_tree().create_timer(time),"timeout")
 		if latest_stamp == current_stamp:
 			label.text = ""
-			
+		current_animating_label = null
 #	label.trigger()
 
 func add(text):
@@ -46,7 +48,8 @@ func say_and_wait_for_input(text):
 		return
 	
 	queue.append(text)
-	get_tree().paused = true
+	Pause.pause(Pause.Level.TEXT)
+	
 	while !queue.empty():
 		latest_stamp += 1
 		var next_text = queue.front()
@@ -71,9 +74,16 @@ func say_array(texts):
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
 		emit_signal("player_pressed_A")
-	if event.is_action_pressed("B"):
+	if event.is_action_pressed("B") and OS.is_debug_build():
 		emit_signal("player_pressed_A")
 		skip()
+#	if event.is_action_pressed("R"):
+#		pause_mode = PAUSE_MODE_INHERIT
+#		yield(get_tree().create_timer(1.0),"timeout")
+#		pause_mode = PAUSE_MODE_PROCESS
+#	if event.is_action_pressed("L"):
+#		pause_mode = PAUSE_MODE_PROCESS
+	
 	
 func skip():
 	if current_animating_label:
@@ -82,4 +92,4 @@ func skip():
 func unpause():
 	for i in 2: #prevent jump after dialog end
 		yield(get_tree(),"physics_frame")
-	get_tree().paused = false
+	Pause.unpause(Pause.Level.TEXT)
