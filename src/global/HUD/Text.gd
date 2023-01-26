@@ -3,6 +3,8 @@ extends CanvasLayer
 signal finished()
 signal player_pressed_A()
 
+signal done_with_current_text()
+
 onready var label: Label = $Label
 onready var continue_label: Control = $continue
 
@@ -13,7 +15,14 @@ var latest_stamp = 0
 
 var current_animating_label : Label = null
 
+onready var timer: Timer = $Timer
+
+func _ready() -> void:
+	timer.connect("timeout",self,"done_with_current_text")
+
 func say(text, time := -1.0):
+	done_with_current_text()
+	
 	label.text = text
 	label.visible_characters = -1
 	latest_stamp += 1
@@ -21,7 +30,8 @@ func say(text, time := -1.0):
 	
 	current_animating_label = label
 	if time>0.0:
-		yield(get_tree().create_timer(time),"timeout")
+		timer.start(time)
+		yield(self, "done_with_current_text")
 		if latest_stamp == current_stamp:
 			label.text = ""
 		current_animating_label = null
@@ -93,3 +103,6 @@ func unpause():
 	for i in 2: #prevent jump after dialog end
 		yield(get_tree(),"physics_frame")
 	Pause.unpause(Pause.Level.TEXT)
+
+func done_with_current_text():
+	emit_signal("done_with_current_text")

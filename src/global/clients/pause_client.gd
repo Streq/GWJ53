@@ -7,10 +7,18 @@ export (PauseState.Level) var pause_level := PauseState.Level.WORLD
 
 func _ready() -> void:
 	Pause.connect("changed",self,"_on_pause_changed")
+	var parent = get_parent()
+	if parent.has_signal("pause"):
+		parent.connect("pause",self,"pause")
+	if parent.has_signal("unpause"):
+		parent.connect("unpause",self,"unpause")
+	
 	_on_pause_changed(Pause.state)
 
 func _on_pause_changed(pause_state):
-	if pause_state > (1<<paused_at_level):
+#	if owner.name == "Text":
+#		breakpoint
+	if pause_state >= (1<<paused_at_level):
 		get_parent().pause_mode = PAUSE_MODE_INHERIT
 	else:
 		get_parent().pause_mode = PAUSE_MODE_PROCESS

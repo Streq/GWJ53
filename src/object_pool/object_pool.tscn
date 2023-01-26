@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/object_pool/object_pool.gd" type="Script" id=1]
+[ext_resource path="res://src/bullet/bullet.tscn" type="PackedScene" id=2]
 
 [node name="object_pool" type="Node2D"]
 script = ExtResource( 1 )
+init_size = 500
+OBJECT = ExtResource( 2 )

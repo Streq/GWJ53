@@ -109,7 +109,8 @@ func _on_ship_health_full() -> void:
 	Text.say_array([
 		"Now that's more like it!",
 		"It's still a useless potato, but at least now it's not on the brink of falling apart!",
-		"Let's see if we can find the rest of the ship components"
+		"Let's see if we can find the rest of the ship components",
+		"Also I've no idea how to say this without sounding weird but you can pause by pressing ENTER"
 	])
 	yield(Text,"finished")
 	ship_components_hud.show()
@@ -251,3 +252,48 @@ func _on_gun_done() -> void:
 
 
 
+
+var saw_locals = false
+func _on_saw_local_triggered() -> void:
+	if saw_locals:
+		return
+	saw_locals = true
+	Text.say(
+		"Oh look! some locals! Maybe we can talk to them by pressing X!", 5.0
+	)
+
+var talked_to_locals = false
+func _on_talked_to_locals_triggered() -> void:
+	if talked_to_locals:
+		return
+	talked_to_locals = true
+	Text.say(
+		"Hey! I'm an alien, but I come in peace! I'm in here by accident in fact, and am kind of stranded right now.", 7.5
+	)
+	
+
+
+var touched_by_locals = false
+func _on_touched_by_local_triggered() -> void:
+	if touched_by_locals:
+		return
+	touched_by_locals = true
+	Text.say(
+		""
+	)
+	
+	yield(get_tree().create_timer(1.0, true),"timeout")
+	Text.say(
+		"Ok no talking", 5.0
+	)
+	
+
+
+var saw_spike = false
+func _on_saw_spike_body_entered(body: Node) -> void:
+	if saw_spike:
+		return
+	saw_spike = true
+	Text.say(
+		"I better avoid these", 5.0
+	)

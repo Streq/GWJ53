@@ -9,6 +9,7 @@ enum Level{
 	WORLD,
 	TEXT,
 	MENU,
+	COLOR_CHOOSE,
 	GAME
 }
 

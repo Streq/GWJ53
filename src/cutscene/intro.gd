@@ -12,6 +12,7 @@ onready var continue_label: Control = $continue
 
 
 func _ready() -> void:
+	PauseMenu.enabled = false
 	
 	for scene in scenes:
 		scene.connect("step_finished",self,"next")

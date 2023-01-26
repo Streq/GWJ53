@@ -1,4 +1,7 @@
 extends CanvasLayer
+signal pause
+signal unpause
+
 onready var palettes: Control = $palettes
 onready var choose_your_palette: Control = $choose_your_palette
 
@@ -7,17 +10,16 @@ var index = 0
 
 
 func _ready() -> void:
-	Pause.pause(PauseState.Level.MENU)
+	emit_signal("pause")
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_down"):
+	if event.is_action_pressed("ui_right"):
 		next_palette()
-	elif event.is_action_pressed("ui_up"):
+	elif event.is_action_pressed("ui_left"):
 		prev_palette()
 	elif event.is_action_pressed("A"):
 		palette_selected()
-	
 	
 
 func next_palette():
@@ -37,6 +39,6 @@ func update_palette():
 	pals[index].show()
 	
 func palette_selected():
-	Pause.pause(PauseState.Level.MENU)
+	emit_signal("unpause")
 	self.set_process_input(false)
 	choose_your_palette.hide()

@@ -15,16 +15,17 @@ func set_text(val):
 
 func _ready() -> void:
 	set_text(text)
+	_on_menu_entry_focus_exited()
 
 func _on_menu_entry_focus_entered() -> void:
-	left_arrow.show()
-	right_arrow.show()
-
+	left_arrow.modulate = Color.white
+	right_arrow.modulate = Color.white
 
 func _on_menu_entry_focus_exited() -> void:
-	left_arrow.hide()
-	right_arrow.hide()
+	left_arrow.modulate = Color.transparent
+	right_arrow.modulate = Color.transparent
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
 		emit_signal("selected")
+	

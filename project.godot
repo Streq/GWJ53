@@ -182,7 +182,7 @@ DeathScreen="*res://src/HUD/death_screen/death_screen.tscn"
 SFX="*res://src/global/sfxs.tscn"
 ParticlePool="*res://src/global/ParticlePool/ParticlePool.tscn"
 Pause="*res://src/global/pause.tscn"
-PauseMenu="*res://src/Menu/Pause.tscn"
+PauseMenu="*res://src/Menu/PauseMenu.tscn"
 
 [display]
 

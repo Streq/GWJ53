@@ -18,4 +18,3 @@ func _physics_process(delta: float) -> void:
 func hit():
 	emit_signal("hit")
 	queue_free()
-	

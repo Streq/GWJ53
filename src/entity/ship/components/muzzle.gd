@@ -18,15 +18,15 @@ export var override_knockback := -1.0
 
 export var time_between_shots := 0.0
 
-#export var pool_name := "gun_bullet_pool"
 
 export var BULLET : PackedScene
 
 var shooting = false
-
-#var pool
+export var use_pool = false
+export var pool_name := "gun_bullet_pool"
+var pool
 func _ready() -> void:
-#	pool = Group.get_one(pool_name)
+	pool = Group.get_one(pool_name)
 	pass	
 func shoot():
 	var wearer = owner.wearer
@@ -70,7 +70,8 @@ func shoot_bullet(wearer = owner, angle = 0.0, power = 0.0):
 			bullet.knockback = override_knockback
 	emit_signal("fired_bullet")
 func instance_bullet(wearer):
-#	return pool.get_one()
+	if use_pool:
+		return pool.get_one()
 	var bullet = BULLET.instance()
 	wearer.get_parent().add_child(bullet)
 	return bullet

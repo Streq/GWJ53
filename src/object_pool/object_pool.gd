@@ -3,6 +3,8 @@ extends Node2D
 
 export var init_size := 1500
 var size = 0
+
+#OBJECT instances must have enable and disable functions
 export var OBJECT : PackedScene
 
 var objects = []

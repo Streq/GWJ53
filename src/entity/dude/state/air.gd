@@ -5,17 +5,26 @@ onready var hurtbox: Area2D = $"%hurtbox"
 
 signal landed()
 
+export var COYOTE_JUMP_FRAMES := 5
+var coyote_jump_frames := 0
+
+func _enter(params):
+	if params and params[0] == "coyote":
+		coyote_jump_frames = COYOTE_JUMP_FRAMES
+#		print("can_coyote_jump")
+	else:
+		coyote_jump_frames = 0
+
 func _physics_update(delta):
 	if root.input_state.A.is_just_pressed():
 		var ship = ship_enter.get_ship()
 		if ship:
 			ship_enter.enter_ship(ship)
 			return
-	
 	if root.in_water:
 		goto("swim_idle")
 		return
-	
+
 	
 	if root.is_on_floor():
 		if root.previous_velocity.y > 90.0:
@@ -23,7 +32,14 @@ func _physics_update(delta):
 		goto("idle")
 		emit_signal("landed")
 		return
-	
+	if coyote_jump_frames > 0:
+#		print(coyote_jump_frames)
+		coyote_jump_frames -= 1
+		if root.input_state.A.is_just_pressed():
+			root.velocity.y = -root.jump_speed
+#			print("coyote_jump")
+			coyote_jump_frames = 0
+			return
 	
 	var ledge = ledge_grab.get_ledge()
 	if ledge != null:
