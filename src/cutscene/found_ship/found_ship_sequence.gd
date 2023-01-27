@@ -263,15 +263,45 @@ func _on_saw_local_triggered() -> void:
 	)
 
 var talked_to_locals = false
+var too_far_from_local = true
 func _on_talked_to_locals_triggered() -> void:
 	if talked_to_locals:
 		return
 	talked_to_locals = true
-	Text.say(
-		"Hey! I'm an alien, but I come in peace! I'm in here by accident in fact, and am kind of stranded right now.", 7.5
-	)
 	
-
+	
+	var stamp = 0
+	
+	
+	for entry in [
+		["Hey! I'm an alien, but I come in peace!", 4.0],
+		["I'm in here by accident in fact,", 4.0],
+		["and am kind of stranded right now.", 4.0],
+		["Could you help me find my ship?", 4.0],
+		["", 2.0],
+		["Wow, won't even stop and look at me.", 3.0],
+		["", 1.0],
+		["Whatever.", 3.0],
+		["", 1.0],
+		["Rude ass.", 3.0],
+		["Maybe I don't come in peace.", 3.0],
+		["", 1.0],
+		["Nothing. It's like I'm talking to a wall here.", 3.0],
+		["", 1.0],
+		["Maybe they can't hear me?", 3.0],
+		["Yeah it's probably that", 3.0],
+		["I'm sorry for calling you rude if that's the case", 3.0],
+		["", 1.0],
+		["Ok, uhhhh", 3.0], 
+		["I'm gonna go find my ship now.", 3.0],
+		["Good luck with the walking.", 3.0]
+	]:
+		Text.say(entry[0],entry[1])
+		stamp = Text.latest_stamp
+		yield(Text,"done_with_current_text")
+		if stamp != Text.latest_stamp or too_far_from_local:
+			return
+		
 
 var touched_by_locals = false
 func _on_touched_by_local_triggered() -> void:
@@ -297,3 +327,15 @@ func _on_saw_spike_body_entered(body: Node) -> void:
 	Text.say(
 		"I better avoid these", 5.0
 	)
+
+
+func _on_locals_close_body_entered(body: Node) -> void:
+	too_far_from_local = false
+
+
+func _on_locals_close_body_exited(body: Node) -> void:
+	too_far_from_local = true
+
+
+func _on_local_hitbox_hit() -> void:
+	_on_touched_by_local_triggered()

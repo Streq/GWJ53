@@ -15,5 +15,5 @@ func _process(delta: float) -> void:
 		talk_sign.hide()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("B"):
+	if event.is_action_pressed("B") and is_instance_valid(talked_to_locals):
 		talked_to_locals.trigger()

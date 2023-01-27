@@ -21,11 +21,11 @@ func _ready() -> void:
 	timer.connect("timeout",self,"done_with_current_text")
 
 func say(text, time := -1.0):
+	latest_stamp += 1
 	done_with_current_text()
 	
 	label.text = text
 	label.visible_characters = -1
-	latest_stamp += 1
 	var current_stamp = latest_stamp
 	
 	current_animating_label = label

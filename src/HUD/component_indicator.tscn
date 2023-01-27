@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/theme/small.tres" type="Theme" id=1]
 [ext_resource path="res://src/HUD/tick.png" type="Texture" id=2]
 [ext_resource path="res://src/HUD/component_indicator.gd" type="Script" id=3]
+[ext_resource path="res://assets/shader/black_background.tres" type="Material" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.1
@@ -131,6 +132,7 @@ tracks/4/keys = {
 }
 
 [node name="Label" type="Label"]
+material = ExtResource( 4 )
 margin_right = 40.0
 margin_bottom = 5.0
 theme = ExtResource( 1 )
@@ -153,6 +155,7 @@ margin_bottom = 2.5
 rect_min_size = Vector2( 4, 5 )
 
 [node name="Sprite" type="Sprite" parent="Control"]
+material = ExtResource( 4 )
 texture = ExtResource( 2 )
 centered = false
 hframes = 2
