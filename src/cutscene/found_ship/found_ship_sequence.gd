@@ -50,7 +50,7 @@ func _on_closer_look_triggered() -> void:
 		"At least tell me the healing system is still working"
 	])
 	yield(Text,"finished")
-	Text.say("Get inside the ship to heal by pressing Z")
+	Text.say("Get inside the ship to heal by pressing A")
 
 
 func _on_ship_pilot_entered(pilot) -> void:
@@ -85,7 +85,7 @@ func _on_ship_pilot_entered(pilot) -> void:
 	
 	set_health_to.trigger()
 	
-	Text.say("Exit the ship with Z, once outside, repair by holding X (you can't repair if you've just been hurt)")
+	Text.say("Exit the ship with A, once outside, repair by holding X (you can't repair if you've just been hurt)")
 	
 	player_controller.disabled = false
 	
@@ -247,7 +247,7 @@ func _on_down_done() -> void:
 
 func _on_gun_done() -> void:
 	Text.say(
-		"Now we can fend for ourselves",5.0
+		"Now we can fend for ourselves, shoot by holding X, tap to shoot faster, if you hold Z you can brake the jets, allowing you to aim without moving",20.0
 	)
 
 
@@ -275,7 +275,7 @@ func _on_talked_to_locals_triggered() -> void:
 	
 	for entry in [
 		["Hey! I'm an alien, but I come in peace!", 4.0],
-		["I'm in here by accident in fact,", 4.0],
+		["I'm here by accident in fact,", 4.0],
 		["and am kind of stranded right now.", 4.0],
 		["Could you help me find my ship?", 4.0],
 		["", 2.0],

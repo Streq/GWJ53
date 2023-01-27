@@ -4,7 +4,7 @@ onready var ship_repair: Node2D = $"%ship_repair"
 
 onready var hurt_invincibility: Node = $"%hurt_invincibility"
 func _physics_update(delta):
-	if root.input_state.A.is_just_pressed():
+	if root.input_state.L.is_just_pressed():
 		var ship = ship_enter.get_ship()
 		if ship:
 			ship_enter.enter_ship(ship)

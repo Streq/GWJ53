@@ -183,6 +183,7 @@ SFX="*res://src/global/sfxs.tscn"
 ParticlePool="*res://src/global/ParticlePool/ParticlePool.tscn"
 Pause="*res://src/global/pause.tscn"
 PauseMenu="*res://src/Menu/PauseMenu.tscn"
+ObjectPool="*res://src/global/ObjectPool/ObjectPool.tscn"
 
 [display]
 

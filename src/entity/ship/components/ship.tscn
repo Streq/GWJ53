@@ -29,7 +29,7 @@
 [ext_resource path="res://src/entity/ship/components/crash_handler.tscn" type="PackedScene" id=27]
 [ext_resource path="res://assets/texture/health_bar_ship_back.png" type="Texture" id=28]
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 7, 6 )
 
 [sub_resource type="RectangleShape2D" id=16]
@@ -97,7 +97,7 @@ air_gravity = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
-shape = SubResource( 10 )
+shape = SubResource( 17 )
 
 [node name="pivot" type="Node2D" parent="."]
 

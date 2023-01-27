@@ -23,11 +23,11 @@ export var BULLET : PackedScene
 
 var shooting = false
 export var use_pool = false
-export var pool_name := "gun_bullet_pool"
+export var pool_name := "bullet"
 var pool
 func _ready() -> void:
-	pool = Group.get_one(pool_name)
-	pass	
+	pool = ObjectPool.map[pool_name]
+	pass
 func shoot():
 	var wearer = owner.wearer
 	var min_angle = deg2rad(-spread_degrees)

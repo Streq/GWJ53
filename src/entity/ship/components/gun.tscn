@@ -24,6 +24,7 @@ script = ExtResource( 5 )
 amount = 10
 spread_degrees = 10.0
 BULLET = ExtResource( 4 )
+use_pool = true
 
 [node name="screen_shake" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -53,7 +54,12 @@ hide_when = 1
 
 [node name="cooldown" type="Timer" parent="."]
 process_mode = 0
-wait_time = 0.15
+wait_time = 0.1
+one_shot = true
+
+[node name="autofire_cooldown" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.25
 one_shot = true
 
 [node name="gun_sound" type="AudioStreamPlayer2D" parent="."]

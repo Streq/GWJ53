@@ -53,5 +53,5 @@ func eject():
 	ejected_pilot.velocity += direction*25.0
 
 func _physics_process(delta: float) -> void:
-	if owner.input_state.A.is_just_pressed():
+	if owner.input_state.L.is_just_pressed():
 		eject()

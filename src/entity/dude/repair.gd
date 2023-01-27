@@ -15,7 +15,7 @@ func _exit():
 	ship_repair.stop_repair_ship()
 
 func _physics_update(delta):
-	if root.input_state.A.is_just_pressed():
+	if root.input_state.L.is_just_pressed():
 		var ship = ship_enter.get_ship()
 		if ship:
 			ship_enter.enter_ship(ship)

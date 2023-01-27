@@ -25,3 +25,5 @@ sfx = "bullet_wall_enemy"
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
 shape = SubResource( 2 )
+
+[connection signal="hit" from="hitbox" to="." method="hit"]

@@ -1,5 +1,7 @@
 extends KinematicBody2D
 signal hit()
+signal despawn()
+signal spawn()
 signal collision(collision)
 
 export var damage := 1.0
@@ -17,4 +19,10 @@ func _physics_process(delta: float) -> void:
 
 func hit():
 	emit_signal("hit")
-	queue_free()
+	despawn()
+
+func despawn():
+	emit_signal("despawn")
+	
+func spawn():
+	emit_signal("spawn")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/global/ParticlePool/ParticlePool.gd" type="Script" id=1]
 [ext_resource path="res://assets/texture/red_particle.png" type="Texture" id=2]
 [ext_resource path="res://src/particle_pool/particle_pool.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/texture/green_particle.png" type="Texture" id=4]
 [ext_resource path="res://src/particle_pool/particle_pool.gd" type="Script" id=5]
+[ext_resource path="res://assets/texture/blue_particle.png" type="Texture" id=6]
 
 [node name="ParticlePool" type="Node2D"]
 script = ExtResource( 1 )
@@ -31,3 +32,31 @@ initial_velocity = 200.0
 initial_velocity_random = 0.7
 damping = 80.0
 script = ExtResource( 5 )
+
+[node name="blue_particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.1
+one_shot = true
+explosiveness = 0.9
+lifetime_randomness = 0.5
+texture = ExtResource( 6 )
+spread = 90.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+script = ExtResource( 5 )
+pool_size = 100
+
+[node name="red_particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.1
+one_shot = true
+explosiveness = 0.9
+lifetime_randomness = 0.5
+texture = ExtResource( 2 )
+spread = 90.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+script = ExtResource( 5 )
+pool_size = 100
