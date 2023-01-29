@@ -160,8 +160,8 @@ unique_name_in_owner = true
 script = ExtResource( 7 )
 
 [node name="bar" parent="health" index="0" instance=ExtResource( 8 )]
-value = 4.0
 max_value = 4.0
+value = 4.0
 
 [connection signal="dead" from="." to="." method="queue_free"]
 [connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]

@@ -7,6 +7,7 @@ func is_full():
 
 func take_damage(amount):
 	bar.value -= amount
+	print(bar.value)
 
 func heal(amount):
 	bar.value += amount

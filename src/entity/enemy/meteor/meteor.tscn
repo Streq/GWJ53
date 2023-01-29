@@ -1,0 +1,280 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/entity/enemy/eye/eye.png" type="Texture" id=2]
+[ext_resource path="res://src/entity/enemy/hitbox.gd" type="Script" id=3]
+[ext_resource path="res://src/entity/enemy/eye/state/idle.gd" type="Script" id=4]
+[ext_resource path="res://src/entity/enemy/meteor/controller.gd" type="Script" id=5]
+[ext_resource path="res://src/entity/dude/hurtbox.gd" type="Script" id=6]
+[ext_resource path="res://src/entity/health.gd" type="Script" id=7]
+[ext_resource path="res://src/entity/bar.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/entity/enemy/eye/pupil.gd" type="Script" id=9]
+[ext_resource path="res://assets/texture/pupil.png" type="Texture" id=10]
+[ext_resource path="res://src/entity/enemy/enemy_hurt_animation.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/texture/meteor.png" type="Texture" id=12]
+[ext_resource path="res://src/HUD/bar/bar.gd" type="Script" id=13]
+[ext_resource path="res://assets/texture/boss_health_bar.png" type="Texture" id=14]
+[ext_resource path="res://assets/texture/boss_health_bar_foreground.png" type="Texture" id=15]
+[ext_resource path="res://src/entity/enemy/meteor/eye_spawner.gd" type="Script" id=16]
+[ext_resource path="res://src/entity/enemy/meteor/point_source.gd" type="Script" id=17]
+[ext_resource path="res://src/entity/enemy/eye/boss_eye_enemy.tscn" type="PackedScene" id=18]
+[ext_resource path="res://src/entity/enemy/meteor/state/spawning.gd" type="Script" id=19]
+[ext_resource path="res://src/entity/enemy/meteor/state/tackle.gd" type="Script" id=20]
+[ext_resource path="res://src/entity/enemy/meteor/terrain_destroyer.gd" type="Script" id=21]
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 8.0
+
+[sub_resource type="Animation" id=6]
+resource_name = "RESET"
+tracks/0/type = "animation"
+tracks/0/path = NodePath("shake")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "RESET" ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.1
+loop = true
+
+[sub_resource type="Animation" id=8]
+resource_name = "spawning"
+length = 0.2
+loop = true
+tracks/0/type = "animation"
+tracks/0/path = NodePath("shake")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "shake" ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3, 4 )
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "shake"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 1, 1 ), Vector2( -1, -1 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 8.0
+
+[node name="meteor" instance=ExtResource( 1 )]
+collision_layer = 514
+collision_mask = 0
+speed = 40.0
+water_gravity = 0.0
+air_gravity = 0.0
+damping = 1.0
+water_damping = 2.0
+air_damping = 1.0
+swim_speed = 40.0
+team = 1
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( 0, 0 )
+shape = SubResource( 5 )
+
+[node name="AnimationPlayer" parent="." index="1"]
+anims/RESET = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/spawning = SubResource( 8 )
+
+[node name="state_machine" parent="." index="2"]
+start_state = "idle"
+
+[node name="idle" type="Node" parent="state_machine" index="0"]
+script = ExtResource( 4 )
+animation = "idle"
+
+[node name="tackle" type="Node" parent="state_machine" index="1"]
+script = ExtResource( 20 )
+animation = "idle"
+on_finish_goto_state = "idle"
+
+[node name="duration" type="Timer" parent="state_machine/tackle" index="0"]
+process_mode = 0
+one_shot = true
+
+[node name="spawning" type="Node" parent="state_machine" index="2"]
+script = ExtResource( 19 )
+animation = "spawning"
+
+[node name="warmup" type="Timer" parent="state_machine/spawning" index="0"]
+process_mode = 0
+one_shot = true
+
+[node name="cooldown" type="Timer" parent="state_machine/spawning" index="1"]
+
+[node name="air_dead" type="Node" parent="state_machine" index="3"]
+script = ExtResource( 4 )
+animation = "idle"
+is_dead_state = true
+
+[node name="Sprite" type="Sprite" parent="pivot" index="0"]
+texture = ExtResource( 12 )
+__meta__ = {
+"_aseprite_wizard_config_": {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": false,
+"player": "AnimationPlayer",
+"source": "res://assets/aseprite/eye.aseprite"
+}
+}
+
+[node name="enemy_hurt_animation" parent="pivot/Sprite" index="0" instance=ExtResource( 11 )]
+
+[node name="hitbox" type="Area2D" parent="pivot" index="1"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hitbox" index="0"]
+shape = SubResource( 3 )
+
+[node name="hurtbox" type="Area2D" parent="pivot" index="2"]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hurtbox" index="0"]
+shape = SubResource( 4 )
+
+[node name="Sprite2" type="Sprite" parent="pivot" index="3"]
+texture = ExtResource( 2 )
+
+[node name="pupil" type="Sprite" parent="pivot" index="4"]
+texture = ExtResource( 10 )
+script = ExtResource( 9 )
+
+[node name="controller" type="Node2D" parent="." index="5"]
+process_priority = 1874919424
+script = ExtResource( 5 )
+
+[node name="health" type="Node" parent="." index="6"]
+unique_name_in_owner = true
+script = ExtResource( 7 )
+
+[node name="bar" parent="health" index="0" instance=ExtResource( 8 )]
+max_value = 400.0
+value = 400.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
+
+[node name="health_bar" type="TextureProgress" parent="CanvasLayer" index="0"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -32.0
+margin_right = 40.0
+rect_min_size = Vector2( 0, 32 )
+max_value = 78.0
+texture_over = ExtResource( 15 )
+texture_progress = ExtResource( 14 )
+texture_progress_offset = Vector2( 1, 0 )
+script = ExtResource( 13 )
+
+[node name="eye_spawner" type="Node2D" parent="." index="8"]
+unique_name_in_owner = true
+script = ExtResource( 16 )
+MOB = ExtResource( 18 )
+
+[node name="Timer" type="Timer" parent="eye_spawner" index="0"]
+process_mode = 0
+wait_time = 5.0
+one_shot = true
+
+[node name="point_source" type="Node2D" parent="eye_spawner" index="1"]
+unique_name_in_owner = true
+scale = Vector2( 2, 2 )
+script = ExtResource( 17 )
+
+[node name="Position2D" type="Position2D" parent="eye_spawner/point_source" index="0"]
+position = Vector2( 0, 24 )
+
+[node name="Position2D2" type="Position2D" parent="eye_spawner/point_source" index="1"]
+position = Vector2( 16, 16 )
+
+[node name="Position2D3" type="Position2D" parent="eye_spawner/point_source" index="2"]
+position = Vector2( 24, 0 )
+
+[node name="Position2D4" type="Position2D" parent="eye_spawner/point_source" index="3"]
+position = Vector2( 16, -16 )
+
+[node name="Position2D5" type="Position2D" parent="eye_spawner/point_source" index="4"]
+position = Vector2( 0, -24 )
+
+[node name="Position2D6" type="Position2D" parent="eye_spawner/point_source" index="5"]
+position = Vector2( -16, -16 )
+
+[node name="Position2D7" type="Position2D" parent="eye_spawner/point_source" index="6"]
+position = Vector2( -24, 0 )
+
+[node name="Position2D8" type="Position2D" parent="eye_spawner/point_source" index="7"]
+position = Vector2( -16, 16 )
+
+[node name="shake" type="AnimationPlayer" parent="." index="9"]
+anims/RESET = SubResource( 9 )
+anims/shake = SubResource( 10 )
+
+[node name="terrain_destroyer" type="Area2D" parent="." index="10"]
+collision_layer = 0
+script = ExtResource( 21 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain_destroyer" index="0"]
+shape = SubResource( 11 )
+
+[connection signal="dead" from="." to="." method="queue_free"]
+[connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]
+[connection signal="value_changed" from="health/bar" to="CanvasLayer/health_bar" method="set_values"]
+[connection signal="spawned" from="eye_spawner" to="eye_spawner/Timer" method="start"]
+[connection signal="stop" from="eye_spawner" to="eye_spawner/Timer" method="stop"]
+[connection signal="timeout" from="eye_spawner/Timer" to="eye_spawner" method="spawn"]
+[connection signal="body_shape_entered" from="terrain_destroyer" to="terrain_destroyer" method="_on_body_shape_entered"]

@@ -264,6 +264,7 @@ START={
 2d_physics/layer_9="pickup_grabber"
 2d_physics/layer_10="eye"
 2d_physics/layer_11="protected_zone"
+2d_physics/layer_12="meteor"
 
 [physics]
 

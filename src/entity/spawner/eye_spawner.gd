@@ -8,7 +8,7 @@ export var trigger := false
 
 func _ready() -> void:
 	if trigger:
-		spawn()
+		call_deferred("spawn")
 func spawn():
 	path_follow_2d.unit_offset = randf()
 	var spawn_position = path_follow_2d.global_position

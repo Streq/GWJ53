@@ -72,18 +72,20 @@ func _physics_process(delta: float) -> void:
 	velocity.y += _gravity*delta
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
+	
+	var delta_velocity = velocity-previous_velocity
+	var on_vertical_wall = is_on_floor() or is_on_ceiling()
+	var on_horizontal_wall = is_on_wall()
+	
+	if ((on_vertical_wall and abs(delta_velocity.y) > crash_velocity) or
+		(on_horizontal_wall and abs(delta_velocity.x) > crash_velocity)):
+			emit_signal("crash_collision", previous_velocity)
+	
+#	if on_horizontal_wall:
+#		velocity.y = move_toward(velocity.y,0.0,ground_friction*delta)
+	
 	if is_on_floor():
-		if previous_velocity.y-velocity.y > crash_velocity:
-			emit_signal("crash_collision", previous_velocity)
-		
 		velocity.x = move_toward(velocity.x,0.0,ground_friction*delta)
-	if is_on_ceiling():
-		if previous_velocity.y-velocity.y < -crash_velocity:
-			emit_signal("crash_collision", previous_velocity)
-	if is_on_wall():
-		if abs(previous_velocity.x-velocity.x) > crash_velocity:
-			emit_signal("crash_collision", previous_velocity)
-
 	
 	
 	var _damping = water_damping if in_water else air_damping if in_air else damping

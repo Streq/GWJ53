@@ -4,8 +4,8 @@ signal empty
 signal full
 signal not_full
 
-export var value := 100.0 setget set_value
 export var max_value := 100.0 setget set_max_value
+export var value := 100.0 setget set_value
 
 func set_value(val):
 	var aux_value = value

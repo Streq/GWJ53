@@ -197,8 +197,8 @@ unique_name_in_owner = true
 script = ExtResource( 2 )
 
 [node name="bar" parent="health" instance=ExtResource( 15 )]
-value = 8.0
 max_value = 8.0
+value = 8.0
 
 [node name="hurt_animation" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

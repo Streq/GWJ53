@@ -12,7 +12,8 @@ func _physics_process(delta: float) -> void:
 	global_rotation_degrees = stepify(global_rotation_degrees,45.0)
 	var collision = move_and_collide(velocity*delta)
 	if collision:
-		collision.collider.terrain_get_hit(self, collision)
+		if collision.collider.has_method("terrain_get_hit"):
+			collision.collider.terrain_get_hit(self, collision)
 		emit_signal("collision", collision)
 		hit()
 

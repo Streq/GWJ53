@@ -4,5 +4,5 @@
 
 [node name="bar" type="Node"]
 script = ExtResource( 1 )
-value = 10.0
 max_value = 10.0
+value = 10.0
