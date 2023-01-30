@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/map/air_area.gd" type="Script" id=2]
 
-[node name="air_area" type="Area2D"]
+[node name="air_area" type="Area2D" groups=["air"]]
 z_index = -2
 collision_layer = 128
 collision_mask = 66

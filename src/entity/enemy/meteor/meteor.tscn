@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=83 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/texture/meteor_eye.png" type="Texture" id=2]
@@ -46,6 +46,11 @@
 [ext_resource path="res://assets/texture/blue_particle.png" type="Texture" id=44]
 [ext_resource path="res://src/entity/enemy/meteor/rotate_to_velocity.gd" type="Script" id=45]
 [ext_resource path="res://src/entity/enemy/meteor/scope.gd" type="Script" id=46]
+[ext_resource path="res://src/entity/enemy/meteor/state/drain_air.gd" type="Script" id=47]
+[ext_resource path="res://assets/texture/green_particle.png" type="Texture" id=48]
+[ext_resource path="res://assets/audio/sfx/drain_air_loop.wav" type="AudioStream" id=49]
+[ext_resource path="res://assets/audio/sfx/drain_air.wav" type="AudioStream" id=50]
+[ext_resource path="res://src/entity/enemy/meteor/pull_player.gd" type="Script" id=51]
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 8.0
@@ -117,6 +122,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("pivot/eye/pupil:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=17]
 resource_name = "chase"
@@ -141,6 +158,43 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "clips": PoolStringArray( "play" ),
 "times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "drain_air"
+length = 0.4
+loop = true
+tracks/0/type = "animation"
+tracks/0/path = NodePath("shake")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "shake" ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "animation"
+tracks/1/path = NodePath("pivot/eye/shine")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"clips": PoolStringArray( "play", "play", "play", "play" ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivot/eye/pupil:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -320,7 +374,7 @@ radius = 4.0
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3, 4 )
 
-[sub_resource type="Image" id=60]
+[sub_resource type="Image" id=65]
 data = {
 "data": PoolByteArray( 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
 "format": "RGBA8",
@@ -332,7 +386,7 @@ data = {
 [sub_resource type="ImageTexture" id=46]
 flags = 0
 flags = 0
-image = SubResource( 60 )
+image = SubResource( 65 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=47]
@@ -343,7 +397,7 @@ shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
 shader_param/palette = SubResource( 46 )
 
-[sub_resource type="Image" id=61]
+[sub_resource type="Image" id=66]
 data = {
 "data": PoolByteArray( 0, 0, 3, 255, 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255 ),
 "format": "RGBA8",
@@ -355,7 +409,7 @@ data = {
 [sub_resource type="ImageTexture" id=41]
 flags = 0
 flags = 0
-image = SubResource( 61 )
+image = SubResource( 66 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=42]
@@ -539,6 +593,61 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
+[sub_resource type="Animation" id=63]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("drain_air_particles0:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("drain_air_particles1:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=64]
+resource_name = "play"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("drain_air_particles0:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("drain_air_particles1:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
 [sub_resource type="Animation" id=59]
 length = 0.1
 tracks/0/type = "value"
@@ -621,6 +730,7 @@ shape = SubResource( 11 )
 [node name="AnimationPlayer" parent="." index="2"]
 anims/RESET = SubResource( 6 )
 anims/chase = SubResource( 17 )
+anims/drain_air = SubResource( 60 )
 anims/idle = SubResource( 7 )
 anims/shoot_warmup = SubResource( 48 )
 anims/spawning = SubResource( 8 )
@@ -668,7 +778,22 @@ process_mode = 0
 wait_time = 1.25
 one_shot = true
 
-[node name="shoot_warmup" type="Node" parent="state_machine" index="4"]
+[node name="drain_air" type="Node" parent="state_machine" index="4"]
+script = ExtResource( 47 )
+animation = "drain_air"
+change_on_animation_finish = false
+on_finish_goto_state = "idle"
+
+[node name="duration" type="Timer" parent="state_machine/drain_air" index="0"]
+process_mode = 0
+one_shot = true
+
+[node name="post_duration" type="Timer" parent="state_machine/drain_air" index="1"]
+process_mode = 0
+wait_time = 7.5
+one_shot = true
+
+[node name="shoot_warmup" type="Node" parent="state_machine" index="5"]
 script = ExtResource( 26 )
 animation = "shoot_warmup"
 change_on_animation_finish = false
@@ -687,7 +812,7 @@ process_mode = 0
 wait_time = 1.25
 one_shot = true
 
-[node name="spawning" type="Node" parent="state_machine" index="5"]
+[node name="spawning" type="Node" parent="state_machine" index="6"]
 script = ExtResource( 19 )
 animation = "spawning"
 change_on_animation_finish = false
@@ -698,13 +823,13 @@ one_shot = true
 
 [node name="cooldown" type="Timer" parent="state_machine/spawning" index="1"]
 
-[node name="air_dead" type="Node" parent="state_machine" index="6"]
+[node name="air_dead" type="Node" parent="state_machine" index="7"]
 script = ExtResource( 4 )
 animation = "idle"
 change_on_animation_finish = false
 is_dead_state = true
 
-[node name="stun" type="Node" parent="state_machine" index="7"]
+[node name="stun" type="Node" parent="state_machine" index="8"]
 script = ExtResource( 22 )
 animation = "stunned"
 change_on_animation_finish = false
@@ -781,6 +906,7 @@ texture = ExtResource( 23 )
 
 [node name="controller" type="Node2D" parent="." index="6"]
 process_priority = 1874919424
+visible = false
 script = ExtResource( 5 )
 
 [node name="health" type="Node" parent="." index="7"]
@@ -887,7 +1013,16 @@ volume_db = -24.0
 stream = ExtResource( 33 )
 volume_db = -24.0
 
-[node name="aim_at_player" type="Node2D" parent="." index="20"]
+[node name="drain_air" type="AudioStreamPlayer2D" parent="." index="20"]
+stream = ExtResource( 50 )
+volume_db = -24.0
+
+[node name="drain_air_loop" type="AudioStreamPlayer2D" parent="." index="21"]
+stream = ExtResource( 49 )
+volume_db = -32.0
+attenuation = 2.37841
+
+[node name="aim_at_player" type="Node2D" parent="." index="22"]
 script = ExtResource( 38 )
 
 [node name="muzzle" type="Node2D" parent="aim_at_player" index="0"]
@@ -904,7 +1039,7 @@ script = ExtResource( 43 )
 script = ExtResource( 37 )
 sfx = "shoot_bullet_enemy"
 
-[node name="tackle_particles" type="Node2D" parent="." index="21"]
+[node name="tackle_particles" type="Node2D" parent="." index="23"]
 script = ExtResource( 45 )
 
 [node name="tackle_particles0" type="CPUParticles2D" parent="tackle_particles" index="0"]
@@ -935,7 +1070,40 @@ damping = 100.0
 anims/RESET = SubResource( 51 )
 anims/play = SubResource( 52 )
 
-[node name="chase_particles" type="Node2D" parent="." index="22"]
+[node name="drain_air_particles" type="Node2D" parent="." index="24"]
+script = ExtResource( 45 )
+
+[node name="drain_air_particles0" type="CPUParticles2D" parent="drain_air_particles" index="0"]
+z_index = -5
+emitting = false
+amount = 1024
+local_coords = false
+texture = ExtResource( 44 )
+emission_shape = 1
+emission_sphere_radius = 1024.0
+direction = Vector2( -1, 0 )
+gravity = Vector2( 0, 0 )
+orbit_velocity = 0.1
+radial_accel = -256.0
+
+[node name="drain_air_particles1" type="CPUParticles2D" parent="drain_air_particles" index="1"]
+z_index = -5
+emitting = false
+amount = 1024
+local_coords = false
+texture = ExtResource( 48 )
+emission_shape = 1
+emission_sphere_radius = 1024.0
+direction = Vector2( -1, 0 )
+gravity = Vector2( 0, 0 )
+orbit_velocity = 0.1
+radial_accel = -256.0
+
+[node name="drain_air_particles" type="AnimationPlayer" parent="drain_air_particles" index="2"]
+anims/RESET = SubResource( 63 )
+anims/play = SubResource( 64 )
+
+[node name="chase_particles" type="Node2D" parent="." index="25"]
 script = ExtResource( 45 )
 
 [node name="chase_particles0" type="CPUParticles2D" parent="chase_particles" index="0"]
@@ -963,10 +1131,15 @@ damping = 50.0
 anims/RESET = SubResource( 59 )
 anims/play = SubResource( 56 )
 
-[node name="scope" type="Node2D" parent="." index="23"]
+[node name="scope" type="Node2D" parent="." index="26"]
 visible = false
 script = ExtResource( 46 )
 texture = ExtResource( 41 )
+
+[node name="pull_player" type="Node2D" parent="." index="27"]
+unique_name_in_owner = true
+script = ExtResource( 51 )
+enabled = false
 
 [connection signal="dead" from="." to="." method="queue_free"]
 [connection signal="body_shape_entered" from="terrain_destroyer" to="terrain_destroyer" method="_on_body_shape_entered"]
@@ -976,6 +1149,11 @@ texture = ExtResource( 41 )
 [connection signal="exited" from="state_machine/tackle" to="tackle" method="stop"]
 [connection signal="tackle_wall" from="state_machine/tackle" to="tackle_wall" method="play"]
 [connection signal="entered" from="state_machine/tackle_warmup" to="tackle_warmup" method="play"]
+[connection signal="done" from="state_machine/drain_air" to="drain_air_loop" method="stop"]
+[connection signal="done" from="state_machine/drain_air" to="drain_air_particles/drain_air_particles" method="play" binds= [ "RESET" ]]
+[connection signal="entered" from="state_machine/drain_air" to="drain_air" method="play"]
+[connection signal="entered" from="state_machine/drain_air" to="drain_air_loop" method="play"]
+[connection signal="entered" from="state_machine/drain_air" to="drain_air_particles/drain_air_particles" method="play" binds= [ "play" ]]
 [connection signal="entered" from="state_machine/shoot_warmup" to="shoot_warmup" method="play"]
 [connection signal="shoot" from="state_machine/shoot_warmup" to="shoot" method="play"]
 [connection signal="shoot" from="state_machine/shoot_warmup" to="aim_at_player/muzzle" method="shoot"]

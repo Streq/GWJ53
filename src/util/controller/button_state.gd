@@ -28,3 +28,6 @@ func copy_from(state: ButtonState):
 func clear():
 	pressed = false
 	just_updated = false
+
+func _to_string() -> String:
+	return "(pressed:%s,just_updated:%s)" % [pressed,just_updated]

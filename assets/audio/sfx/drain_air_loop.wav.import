@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/drain_air_loop.wav-8674efb38a37427ee9fd6c009c1dbf09.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/drain_air_loop.wav"
+dest_files=[ "res://.import/drain_air_loop.wav-8674efb38a37427ee9fd6c009c1dbf09.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=3
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

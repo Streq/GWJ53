@@ -34,3 +34,5 @@ func clear():
 	R.clear()
 	dir = Vector2()
 
+func _to_string() -> String:
+	return ("(\n\tdir:%s,\n\tA:%s,\n\tB:%s,\n\tL:%s,\n\tR:%s\n)"%[dir,A,B,L,R])
