@@ -121,7 +121,7 @@ shader_param/palette = SubResource( 104 )
 
 [sub_resource type="Image" id=132]
 data = {
-"data": PoolByteArray( 240, 188, 60, 255, 71, 58, 0, 255, 41, 28, 0, 255, 0, 0, 0, 255 ),
+"data": PoolByteArray( 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255, 255, 255, 0, 255 ),
 "format": "RGBA8",
 "height": 1,
 "mipmaps": false,
@@ -144,7 +144,7 @@ shader_param/palette = SubResource( 106 )
 
 [sub_resource type="Image" id=133]
 data = {
-"data": PoolByteArray( 252, 252, 252, 255, 188, 188, 188, 255, 60, 188, 252, 255, 0, 0, 0, 255 ),
+"data": PoolByteArray( 126, 126, 1, 255, 255, 255, 0, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
 "format": "RGBA8",
 "height": 1,
 "mipmaps": false,
@@ -167,7 +167,7 @@ shader_param/palette = SubResource( 108 )
 
 [sub_resource type="Image" id=134]
 data = {
-"data": PoolByteArray( 254, 254, 133, 255, 254, 254, 133, 255, 115, 74, 0, 255, 0, 0, 0, 255 ),
+"data": PoolByteArray( 0, 0, 3, 255, 60, 60, 2, 255, 126, 126, 1, 255, 255, 255, 0, 255 ),
 "format": "RGBA8",
 "height": 1,
 "mipmaps": false,
@@ -403,19 +403,19 @@ material = SubResource( 36 )
 string_val = "[\"ff000003\",\"ff3c3c02\",\"ff7e7e01\",\"ffffff00\"]"
 
 [node name="rock" parent="Background" instance=ExtResource( 2 )]
-palette = PoolColorArray( 0.941176, 0.737255, 0.235294, 1, 0.278431, 0.227451, 0, 1, 0.160784, 0.109804, 0, 1, 0, 0, 0, 1 )
+palette = PoolColorArray( 0.494118, 0.494118, 0.00392157, 1, 0.235294, 0.235294, 0.00784314, 1, 0, 0, 0.0117647, 1, 1, 1, 0, 1 )
 material = SubResource( 39 )
-string_val = "[\"fff0bc3c\",\"ff473a00\",\"ff291c00\",\"ff000000\"]"
+string_val = "[\"ff7e7e01\",\"ff3c3c02\",\"ff000003\",\"ffffff00\"]"
 
 [node name="sky" parent="Background" instance=ExtResource( 2 )]
-palette = PoolColorArray( 0.988235, 0.988235, 0.988235, 1, 0.737255, 0.737255, 0.737255, 1, 0.235294, 0.737255, 0.988235, 1, 0, 0, 0, 1 )
+palette = PoolColorArray( 0.494118, 0.494118, 0.00392157, 1, 1, 1, 0, 1, 0.235294, 0.235294, 0.00784314, 1, 0, 0, 0.0117647, 1 )
 material = SubResource( 42 )
-string_val = "[\"fffcfcfc\",\"ffbcbcbc\",\"ff3cbcfc\",\"ff000000\"]"
+string_val = "[\"ff7e7e01\",\"ffffff00\",\"ff3c3c02\",\"ff000003\"]"
 
 [node name="sign_text" parent="Background" instance=ExtResource( 2 )]
-palette = PoolColorArray( 0.996078, 0.996078, 0.521569, 1, 0.996078, 0.996078, 0.521569, 1, 0.45098, 0.290196, 0, 1, 0, 0, 0, 1 )
+palette = PoolColorArray( 0, 0, 0.0117647, 1, 0.235294, 0.235294, 0.00784314, 1, 0.494118, 0.494118, 0.00392157, 1, 1, 1, 0, 1 )
 material = SubResource( 80 )
-string_val = "[\"fffefe85\",\"fffefe85\",\"ff734a00\",\"ff000000\"]"
+string_val = "[\"ff000003\",\"ff3c3c02\",\"ff7e7e01\",\"ffffff00\"]"
 
 [node name="Object" type="Node" parent="."]
 

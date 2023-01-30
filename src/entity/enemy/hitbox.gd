@@ -5,14 +5,14 @@ signal hit()
 export var damage := 1.0
 export var knockback := Vector2()
 export var multiple_hit_per_frame := false
-
+export var hurt_alies = false
 var hit_something_already := false
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if !multiple_hit_per_frame and hit_something_already:
 		return
-	if area.get_team() != owner.team:
+	if area.owner != owner and (hurt_alies or area.get_team() != owner.team):
 		area.get_hurt(self)
 
 func register_hit():

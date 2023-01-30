@@ -21,6 +21,7 @@ texture = ExtResource( 2 )
 texture = ExtResource( 2 )
 
 [node name="blast" parent="." index="3"]
+position = Vector2( 0, 0 )
 sfx = "bullet_wall_enemy"
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]

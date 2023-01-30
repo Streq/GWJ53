@@ -11,7 +11,7 @@ func _ready() -> void:
 func _enter(params):
 	warmup.start()
 	ready_to_spawn = false
-
+	root.velocity = Vector2()
 func _exit():
 	warmup.stop()
 	eye_spawner.stop()

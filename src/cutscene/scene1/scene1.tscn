@@ -923,6 +923,7 @@ handle_input_locally = false
 render_target_update_mode = 0
 
 [node name="ship" parent="spaceship_rocketing/Viewport" index="0" instance=ExtResource( 4 )]
+gravity = 5.0
 
 [node name="dude" parent="spaceship_rocketing/Viewport/ship" index="9" instance=ExtResource( 5 )]
 

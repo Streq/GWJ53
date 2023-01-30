@@ -26,7 +26,7 @@ func hit_destructible_terrain(point: Vector2, damage := 1, can_damage_strong := 
 	
 	
 		
-	print(tile_id)
+#	print(tile_id)
 	if !tile_id in DESTRUCTIBLE_TILES and (!can_damage_strong or !tile_id in STRONG_DESTRUCTIBLE_TILES):
 #		SFX.play("bullet_wall", point)
 		return

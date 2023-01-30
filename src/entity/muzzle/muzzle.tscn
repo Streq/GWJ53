@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/entity/ship/components/muzzle.gd" type="Script" id=1]
+[ext_resource path="res://src/bullet/bullet.tscn" type="PackedScene" id=2]
+
+[node name="muzzle" type="Node2D"]
+position = Vector2( 5, 0 )
+script = ExtResource( 1 )
+amount = 10
+spread_degrees = 10.0
+BULLET = ExtResource( 2 )
+use_pool = true

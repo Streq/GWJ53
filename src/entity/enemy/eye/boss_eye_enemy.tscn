@@ -95,6 +95,10 @@ __meta__ = {
 }
 }
 
+[node name="bar" parent="health" index="0"]
+max_value = 1.0
+value = 1.0
+
 [node name="shoot_player_on_sight" parent="." index="7" instance=ExtResource( 2 )]
 predict_target_position = true
 BULLET = ExtResource( 3 )

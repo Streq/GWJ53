@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/texture/gun.png" type="Texture" id=2]
 [ext_resource path="res://assets/texture/diagonal_gun.png" type="Texture" id=3]
 [ext_resource path="res://src/bullet/bullet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/entity/ship/components/muzzle.gd" type="Script" id=5]
+[ext_resource path="res://src/entity/muzzle/muzzle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/entity/ship/components/screen_shake.gd" type="Script" id=6]
 [ext_resource path="res://assets/texture/gun_blast.png" type="Texture" id=7]
 [ext_resource path="res://src/entity/ship/components/gun_blast.gd" type="Script" id=8]
@@ -18,13 +18,7 @@ BULLET = ExtResource( 4 )
 [node name="exit" type="Node2D" parent="."]
 position = Vector2( 5, 0 )
 
-[node name="muzzle" type="Node2D" parent="."]
-position = Vector2( 5, 0 )
-script = ExtResource( 5 )
-amount = 10
-spread_degrees = 10.0
-BULLET = ExtResource( 4 )
-use_pool = true
+[node name="muzzle" parent="." instance=ExtResource( 5 )]
 
 [node name="screen_shake" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -66,7 +60,7 @@ one_shot = true
 stream = ExtResource( 10 )
 volume_db = -28.0
 
-[connection signal="fire" from="." to="muzzle" method="shoot"]
 [connection signal="fire" from="." to="screen_shake" method="trigger"]
 [connection signal="fire" from="." to="blast" method="trigger"]
 [connection signal="fire" from="." to="gun_sound" method="play"]
+[connection signal="fire" from="." to="muzzle" method="shoot"]

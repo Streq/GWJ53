@@ -2,6 +2,7 @@ extends State
 class_name CharacterState
 
 export var animation := ""
+export var change_on_animation_finish := true
 export var on_finish_goto_state := ""
 
 export var is_dead_state := false
@@ -20,5 +21,5 @@ func exit():
 
 
 func _on_animation_finished(name):
-	if on_finish_goto_state:
+	if change_on_animation_finish and on_finish_goto_state:
 		goto(on_finish_goto_state)

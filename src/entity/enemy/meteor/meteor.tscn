@@ -1,7 +1,7 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/entity/enemy/eye/eye.png" type="Texture" id=2]
+[ext_resource path="res://assets/texture/meteor_eye.png" type="Texture" id=2]
 [ext_resource path="res://src/entity/enemy/hitbox.gd" type="Script" id=3]
 [ext_resource path="res://src/entity/enemy/eye/state/idle.gd" type="Script" id=4]
 [ext_resource path="res://src/entity/enemy/meteor/controller.gd" type="Script" id=5]
@@ -21,8 +21,36 @@
 [ext_resource path="res://src/entity/enemy/meteor/state/spawning.gd" type="Script" id=19]
 [ext_resource path="res://src/entity/enemy/meteor/state/tackle.gd" type="Script" id=20]
 [ext_resource path="res://src/entity/enemy/meteor/terrain_destroyer.gd" type="Script" id=21]
+[ext_resource path="res://src/entity/enemy/meteor/state/stun.gd" type="Script" id=22]
+[ext_resource path="res://assets/texture/stunned.png" type="Texture" id=23]
+[ext_resource path="res://src/entity/enemy/meteor/state/tackle_warmup.gd" type="Script" id=24]
+[ext_resource path="res://assets/audio/sfx/meteor_shoot_warmup2.wav" type="AudioStream" id=25]
+[ext_resource path="res://src/entity/enemy/meteor/state/shoot.gd" type="Script" id=26]
+[ext_resource path="res://assets/audio/sfx/tackle.wav" type="AudioStream" id=27]
+[ext_resource path="res://assets/audio/sfx/stunned.wav" type="AudioStream" id=28]
+[ext_resource path="res://assets/audio/sfx/tackle_warmup2.wav" type="AudioStream" id=29]
+[ext_resource path="res://assets/audio/sfx/spawning.wav" type="AudioStream" id=30]
+[ext_resource path="res://assets/audio/sfx/spawned.wav" type="AudioStream" id=31]
+[ext_resource path="res://src/entity/enemy/meteor/state/chase.gd" type="Script" id=32]
+[ext_resource path="res://assets/audio/sfx/meteor_chase.wav" type="AudioStream" id=33]
+[ext_resource path="res://src/entity/ship/components/muzzle.gd" type="Script" id=34]
+[ext_resource path="res://src/entity/enemy/meteor/aim.gd" type="Script" id=35]
+[ext_resource path="res://src/entity/muzzle/muzzle.tscn" type="PackedScene" id=36]
+[ext_resource path="res://src/audio/play_sfx.gd" type="Script" id=37]
+[ext_resource path="res://src/entity/enemy/meteor/shooter.gd" type="Script" id=38]
+[ext_resource path="res://assets/shader/palette.gdshader" type="Shader" id=39]
+[ext_resource path="res://src/util/color/palette_client.tscn" type="PackedScene" id=40]
+[ext_resource path="res://assets/texture/red_particle.png" type="Texture" id=41]
+[ext_resource path="res://assets/audio/sfx/meteor_shoot.wav" type="AudioStream" id=42]
+[ext_resource path="res://src/entity/enemy/meteor/set_parent_as_owner.gd" type="Script" id=43]
+[ext_resource path="res://assets/texture/blue_particle.png" type="Texture" id=44]
+[ext_resource path="res://src/entity/enemy/meteor/rotate_to_velocity.gd" type="Script" id=45]
+[ext_resource path="res://src/entity/enemy/meteor/scope.gd" type="Script" id=46]
 
 [sub_resource type="CircleShape2D" id=5]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id=11]
 radius = 8.0
 
 [sub_resource type="Animation" id=6]
@@ -37,10 +65,136 @@ tracks/0/keys = {
 "clips": PoolStringArray( "RESET" ),
 "times": PoolRealArray( 0 )
 }
+tracks/1/type = "animation"
+tracks/1/path = NodePath("stun")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": PoolStringArray( "RESET" ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "animation"
+tracks/2/path = NodePath("pivot/eye/shine")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": PoolStringArray( "RESET" ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "animation"
+tracks/3/path = NodePath("tackle_particles/tackle_particles")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": PoolStringArray( "RESET" ),
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "animation"
+tracks/4/path = NodePath("chase_particles/chase_particles")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"clips": PoolStringArray( "RESET" ),
+"times": PoolRealArray( 0 )
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("scope:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "chase"
+length = 0.2
+loop = true
+tracks/0/type = "animation"
+tracks/0/path = NodePath("shake")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "shake" ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "animation"
+tracks/1/path = NodePath("chase_particles/chase_particles")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": PoolStringArray( "play" ),
+"times": PoolRealArray( 0 )
+}
 
 [sub_resource type="Animation" id=7]
 length = 0.1
 loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/eye/pupil:state")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=48]
+resource_name = "shoot_warmup"
+length = 0.4
+loop = true
+tracks/0/type = "animation"
+tracks/0/path = NodePath("shake")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"clips": PoolStringArray( "shake" ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/eye/pupil:state")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "animation"
+tracks/2/path = NodePath("pivot/eye/shine")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": PoolStringArray( "play", "play", "play", "play" ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 )
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "spawning"
@@ -56,6 +210,109 @@ tracks/0/keys = {
 "clips": PoolStringArray( "shake" ),
 "times": PoolRealArray( 0 )
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/eye/pupil:state")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "stunned"
+loop = true
+tracks/0/type = "animation"
+tracks/0/path = NodePath("stun")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "play", "RESET" ),
+"times": PoolRealArray( 0, 1 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/eye/pupil:state")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "tackle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/eye/pupil:state")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "animation"
+tracks/1/path = NodePath("tackle_particles/tackle_particles")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": PoolStringArray( "play" ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "tackle_warmup"
+length = 0.2
+loop = true
+tracks/0/type = "animation"
+tracks/0/path = NodePath("shake")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "shake" ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/eye/pupil:state")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("scope:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 4.0
@@ -63,8 +320,86 @@ radius = 4.0
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3, 4 )
 
+[sub_resource type="Image" id=60]
+data = {
+"data": PoolByteArray( 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
+"format": "RGBA8",
+"height": 1,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="ImageTexture" id=46]
+flags = 0
+flags = 0
+image = SubResource( 60 )
+size = Vector2( 4, 1 )
+
+[sub_resource type="ShaderMaterial" id=47]
+resource_local_to_scene = true
+shader = ExtResource( 39 )
+shader_param/palette_size = 4
+shader_param/offset = 0
+shader_param/blue_index_offset = 0.0
+shader_param/palette = SubResource( 46 )
+
+[sub_resource type="Image" id=61]
+data = {
+"data": PoolByteArray( 0, 0, 3, 255, 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255 ),
+"format": "RGBA8",
+"height": 1,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="ImageTexture" id=41]
+flags = 0
+flags = 0
+image = SubResource( 61 )
+size = Vector2( 4, 1 )
+
+[sub_resource type="ShaderMaterial" id=42]
+resource_local_to_scene = true
+shader = ExtResource( 39 )
+shader_param/palette_size = 4
+shader_param/offset = 0
+shader_param/blue_index_offset = 0.0
+shader_param/palette = SubResource( 41 )
+
+[sub_resource type="Animation" id=43]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("../palette_client:index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "play"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("../palette_client:index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 6, 0 ]
+}
+
 [sub_resource type="Animation" id=9]
-length = 0.001
+length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("pivot/Sprite:position")
 tracks/0/interp = 1
@@ -95,11 +430,173 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( -1, -1 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=11]
-radius = 8.0
+[sub_resource type="Animation" id=12]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/stun:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/stun:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "play"
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/stun:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/stun:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 1, 1 ), Vector2( -1, -1 ) ]
+}
+
+[sub_resource type="Animation" id=51]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("tackle_particles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("tackle_particles0:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=52]
+resource_name = "play"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("tackle_particles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("tackle_particles0:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=59]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("chase_particles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("chase_particles0:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=56]
+resource_name = "play"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("chase_particles1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("chase_particles0:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="meteor" instance=ExtResource( 1 )]
-collision_layer = 514
+position = Vector2( 64, 40 )
+collision_layer = 2050
 collision_mask = 0
 speed = 40.0
 water_gravity = 0.0
@@ -114,30 +611,86 @@ team = 1
 position = Vector2( 0, 0 )
 shape = SubResource( 5 )
 
-[node name="AnimationPlayer" parent="." index="1"]
-anims/RESET = SubResource( 6 )
-anims/idle = SubResource( 7 )
-anims/spawning = SubResource( 8 )
+[node name="terrain_destroyer" type="Area2D" parent="." index="1"]
+collision_layer = 0
+script = ExtResource( 21 )
 
-[node name="state_machine" parent="." index="2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain_destroyer" index="0"]
+shape = SubResource( 11 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+anims/RESET = SubResource( 6 )
+anims/chase = SubResource( 17 )
+anims/idle = SubResource( 7 )
+anims/shoot_warmup = SubResource( 48 )
+anims/spawning = SubResource( 8 )
+anims/stunned = SubResource( 14 )
+anims/tackle = SubResource( 15 )
+anims/tackle_warmup = SubResource( 16 )
+
+[node name="state_machine" parent="." index="3"]
 start_state = "idle"
 
 [node name="idle" type="Node" parent="state_machine" index="0"]
 script = ExtResource( 4 )
 animation = "idle"
 
-[node name="tackle" type="Node" parent="state_machine" index="1"]
+[node name="chase" type="Node" parent="state_machine" index="1"]
+script = ExtResource( 32 )
+animation = "chase"
+change_on_animation_finish = false
+on_finish_goto_state = "idle"
+
+[node name="duration" type="Timer" parent="state_machine/chase" index="0"]
+process_mode = 0
+wait_time = 3.0
+one_shot = true
+
+[node name="tackle" type="Node" parent="state_machine" index="2"]
 script = ExtResource( 20 )
-animation = "idle"
+animation = "tackle"
+change_on_animation_finish = false
 on_finish_goto_state = "idle"
 
 [node name="duration" type="Timer" parent="state_machine/tackle" index="0"]
 process_mode = 0
+wait_time = 1.25
 one_shot = true
 
-[node name="spawning" type="Node" parent="state_machine" index="2"]
+[node name="tackle_warmup" type="Node" parent="state_machine" index="3"]
+script = ExtResource( 24 )
+animation = "tackle_warmup"
+change_on_animation_finish = false
+on_finish_goto_state = "tackle"
+
+[node name="duration" type="Timer" parent="state_machine/tackle_warmup" index="0"]
+process_mode = 0
+wait_time = 1.25
+one_shot = true
+
+[node name="shoot_warmup" type="Node" parent="state_machine" index="4"]
+script = ExtResource( 26 )
+animation = "shoot_warmup"
+change_on_animation_finish = false
+on_finish_goto_state = "idle"
+toward_velocity = 0.0
+shots = 3
+pause_between_shots = 1.0
+
+[node name="warmup_time" type="Timer" parent="state_machine/shoot_warmup" index="0"]
+process_mode = 0
+wait_time = 1.25
+one_shot = true
+
+[node name="cooldown_time" type="Timer" parent="state_machine/shoot_warmup" index="1"]
+process_mode = 0
+wait_time = 1.25
+one_shot = true
+
+[node name="spawning" type="Node" parent="state_machine" index="5"]
 script = ExtResource( 19 )
 animation = "spawning"
+change_on_animation_finish = false
 
 [node name="warmup" type="Timer" parent="state_machine/spawning" index="0"]
 process_mode = 0
@@ -145,10 +698,22 @@ one_shot = true
 
 [node name="cooldown" type="Timer" parent="state_machine/spawning" index="1"]
 
-[node name="air_dead" type="Node" parent="state_machine" index="3"]
+[node name="air_dead" type="Node" parent="state_machine" index="6"]
 script = ExtResource( 4 )
 animation = "idle"
+change_on_animation_finish = false
 is_dead_state = true
+
+[node name="stun" type="Node" parent="state_machine" index="7"]
+script = ExtResource( 22 )
+animation = "stunned"
+change_on_animation_finish = false
+on_finish_goto_state = "idle"
+
+[node name="duration" type="Timer" parent="state_machine/stun" index="0"]
+process_mode = 0
+wait_time = 3.0
+one_shot = true
 
 [node name="Sprite" type="Sprite" parent="pivot" index="0"]
 texture = ExtResource( 12 )
@@ -171,6 +736,7 @@ __meta__ = {
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 3 )
+hurt_alies = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hitbox" index="0"]
 shape = SubResource( 3 )
@@ -185,26 +751,47 @@ script = ExtResource( 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hurtbox" index="0"]
 shape = SubResource( 4 )
 
-[node name="Sprite2" type="Sprite" parent="pivot" index="3"]
+[node name="eye" type="Sprite" parent="pivot" index="3"]
+material = SubResource( 47 )
 texture = ExtResource( 2 )
 
-[node name="pupil" type="Sprite" parent="pivot" index="4"]
+[node name="pupil" type="Sprite" parent="pivot/eye" index="0"]
+material = SubResource( 42 )
+use_parent_material = true
 texture = ExtResource( 10 )
 script = ExtResource( 9 )
 
-[node name="controller" type="Node2D" parent="." index="5"]
+[node name="palette_client" parent="pivot/eye" index="1" instance=ExtResource( 40 )]
+
+[node name="shine" type="AnimationPlayer" parent="pivot/eye" index="2"]
+root_node = NodePath("../pupil")
+anims/RESET = SubResource( 43 )
+anims/play = SubResource( 44 )
+
+[node name="aim" type="Node2D" parent="pivot" index="4"]
+script = ExtResource( 35 )
+
+[node name="muzzle" parent="pivot/aim" index="0" instance=ExtResource( 36 )]
+
+[node name="stun" type="Sprite" parent="pivot" index="5"]
+visible = false
+position = Vector2( 0, -16 )
+z_index = 5
+texture = ExtResource( 23 )
+
+[node name="controller" type="Node2D" parent="." index="6"]
 process_priority = 1874919424
 script = ExtResource( 5 )
 
-[node name="health" type="Node" parent="." index="6"]
+[node name="health" type="Node" parent="." index="7"]
 unique_name_in_owner = true
 script = ExtResource( 7 )
 
 [node name="bar" parent="health" index="0" instance=ExtResource( 8 )]
-max_value = 400.0
-value = 400.0
+max_value = 300.0
+value = 300.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="7"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
 [node name="health_bar" type="TextureProgress" parent="CanvasLayer" index="0"]
 anchor_left = 0.5
@@ -221,7 +808,7 @@ texture_progress = ExtResource( 14 )
 texture_progress_offset = Vector2( 1, 0 )
 script = ExtResource( 13 )
 
-[node name="eye_spawner" type="Node2D" parent="." index="8"]
+[node name="eye_spawner" type="Node2D" parent="." index="9"]
 unique_name_in_owner = true
 script = ExtResource( 16 )
 MOB = ExtResource( 18 )
@@ -237,44 +824,168 @@ scale = Vector2( 2, 2 )
 script = ExtResource( 17 )
 
 [node name="Position2D" type="Position2D" parent="eye_spawner/point_source" index="0"]
-position = Vector2( 0, 24 )
+position = Vector2( 0, 16 )
 
 [node name="Position2D2" type="Position2D" parent="eye_spawner/point_source" index="1"]
-position = Vector2( 16, 16 )
+position = Vector2( 12, 12 )
 
 [node name="Position2D3" type="Position2D" parent="eye_spawner/point_source" index="2"]
-position = Vector2( 24, 0 )
+position = Vector2( 16, 0 )
 
 [node name="Position2D4" type="Position2D" parent="eye_spawner/point_source" index="3"]
-position = Vector2( 16, -16 )
+position = Vector2( 12, -12 )
 
 [node name="Position2D5" type="Position2D" parent="eye_spawner/point_source" index="4"]
-position = Vector2( 0, -24 )
+position = Vector2( 0, -16 )
 
 [node name="Position2D6" type="Position2D" parent="eye_spawner/point_source" index="5"]
-position = Vector2( -16, -16 )
+position = Vector2( -12, -12 )
 
 [node name="Position2D7" type="Position2D" parent="eye_spawner/point_source" index="6"]
-position = Vector2( -24, 0 )
+position = Vector2( -16, 0 )
 
 [node name="Position2D8" type="Position2D" parent="eye_spawner/point_source" index="7"]
-position = Vector2( -16, 16 )
+position = Vector2( -12, 12 )
 
-[node name="shake" type="AnimationPlayer" parent="." index="9"]
+[node name="shake" type="AnimationPlayer" parent="." index="10"]
 anims/RESET = SubResource( 9 )
 anims/shake = SubResource( 10 )
 
-[node name="terrain_destroyer" type="Area2D" parent="." index="10"]
-collision_layer = 0
-script = ExtResource( 21 )
+[node name="stun" type="AnimationPlayer" parent="." index="11"]
+anims/RESET = SubResource( 12 )
+anims/play = SubResource( 13 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="terrain_destroyer" index="0"]
-shape = SubResource( 11 )
+[node name="tackle" type="AudioStreamPlayer2D" parent="." index="12"]
+stream = ExtResource( 27 )
+volume_db = -24.0
+
+[node name="tackle_warmup" type="AudioStreamPlayer2D" parent="." index="13"]
+stream = ExtResource( 29 )
+volume_db = -24.0
+
+[node name="tackle_wall" type="AudioStreamPlayer2D" parent="." index="14"]
+stream = ExtResource( 28 )
+volume_db = -18.0
+
+[node name="spawning" type="AudioStreamPlayer2D" parent="." index="15"]
+stream = ExtResource( 30 )
+volume_db = -24.0
+
+[node name="spawned" type="AudioStreamPlayer2D" parent="." index="16"]
+stream = ExtResource( 31 )
+volume_db = -24.0
+
+[node name="shoot_warmup" type="AudioStreamPlayer2D" parent="." index="17"]
+stream = ExtResource( 25 )
+volume_db = -24.0
+
+[node name="shoot" type="AudioStreamPlayer2D" parent="." index="18"]
+stream = ExtResource( 42 )
+volume_db = -24.0
+
+[node name="chase" type="AudioStreamPlayer2D" parent="." index="19"]
+stream = ExtResource( 33 )
+volume_db = -24.0
+
+[node name="aim_at_player" type="Node2D" parent="." index="20"]
+script = ExtResource( 38 )
+
+[node name="muzzle" type="Node2D" parent="aim_at_player" index="0"]
+script = ExtResource( 34 )
+base_shoot_speed = 100.0
+spread_degrees = 30.0
+use_pool = true
+pool_name = "big_enemy_bullet"
+
+[node name="set_parent_as_owner" type="Node" parent="aim_at_player/muzzle" index="0"]
+script = ExtResource( 43 )
+
+[node name="play_sfx" type="Node2D" parent="aim_at_player" index="1"]
+script = ExtResource( 37 )
+sfx = "shoot_bullet_enemy"
+
+[node name="tackle_particles" type="Node2D" parent="." index="21"]
+script = ExtResource( 45 )
+
+[node name="tackle_particles0" type="CPUParticles2D" parent="tackle_particles" index="0"]
+z_index = -5
+emitting = false
+amount = 64
+lifetime = 2.0
+local_coords = false
+texture = ExtResource( 41 )
+spread = 30.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 200.0
+damping = 100.0
+
+[node name="tackle_particles1" type="CPUParticles2D" parent="tackle_particles" index="1"]
+z_index = -5
+emitting = false
+amount = 16
+lifetime = 2.0
+local_coords = false
+texture = ExtResource( 44 )
+spread = 30.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 200.0
+damping = 100.0
+
+[node name="tackle_particles" type="AnimationPlayer" parent="tackle_particles" index="2"]
+anims/RESET = SubResource( 51 )
+anims/play = SubResource( 52 )
+
+[node name="chase_particles" type="Node2D" parent="." index="22"]
+script = ExtResource( 45 )
+
+[node name="chase_particles0" type="CPUParticles2D" parent="chase_particles" index="0"]
+z_index = -5
+emitting = false
+amount = 32
+lifetime = 2.0
+local_coords = false
+texture = ExtResource( 41 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 50.0
+damping = 50.0
+
+[node name="chase_particles1" type="CPUParticles2D" parent="chase_particles" index="1"]
+z_index = -5
+emitting = false
+lifetime = 2.0
+local_coords = false
+texture = ExtResource( 44 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 50.0
+damping = 50.0
+
+[node name="chase_particles" type="AnimationPlayer" parent="chase_particles" index="2"]
+anims/RESET = SubResource( 59 )
+anims/play = SubResource( 56 )
+
+[node name="scope" type="Node2D" parent="." index="23"]
+visible = false
+script = ExtResource( 46 )
+texture = ExtResource( 41 )
 
 [connection signal="dead" from="." to="." method="queue_free"]
+[connection signal="body_shape_entered" from="terrain_destroyer" to="terrain_destroyer" method="_on_body_shape_entered"]
+[connection signal="entered" from="state_machine/chase" to="chase" method="play"]
+[connection signal="exited" from="state_machine/chase" to="chase" method="stop"]
+[connection signal="entered" from="state_machine/tackle" to="tackle" method="play"]
+[connection signal="exited" from="state_machine/tackle" to="tackle" method="stop"]
+[connection signal="tackle_wall" from="state_machine/tackle" to="tackle_wall" method="play"]
+[connection signal="entered" from="state_machine/tackle_warmup" to="tackle_warmup" method="play"]
+[connection signal="entered" from="state_machine/shoot_warmup" to="shoot_warmup" method="play"]
+[connection signal="shoot" from="state_machine/shoot_warmup" to="shoot" method="play"]
+[connection signal="shoot" from="state_machine/shoot_warmup" to="aim_at_player/muzzle" method="shoot"]
+[connection signal="warmup_done" from="state_machine/shoot_warmup" to="shoot_warmup" method="stop"]
+[connection signal="entered" from="state_machine/spawning" to="spawning" method="play"]
+[connection signal="timeout" from="state_machine/spawning/warmup" to="spawned" method="play"]
+[connection signal="hit" from="pivot/hitbox" to="state_machine/chase" method="finish"]
 [connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]
 [connection signal="value_changed" from="health/bar" to="CanvasLayer/health_bar" method="set_values"]
 [connection signal="spawned" from="eye_spawner" to="eye_spawner/Timer" method="start"]
 [connection signal="stop" from="eye_spawner" to="eye_spawner/Timer" method="stop"]
 [connection signal="timeout" from="eye_spawner/Timer" to="eye_spawner" method="spawn"]
-[connection signal="body_shape_entered" from="terrain_destroyer" to="terrain_destroyer" method="_on_body_shape_entered"]
+[connection signal="fired_shot" from="aim_at_player/muzzle" to="shoot" method="play"]

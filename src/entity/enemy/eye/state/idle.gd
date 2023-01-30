@@ -7,5 +7,12 @@ func _physics_update(delta:float) -> void:
 		goto("spawning")
 		return
 	if root.input_state.B.is_just_pressed():
-		goto("tackle")
+		goto("tackle_warmup")
 		return
+	if root.input_state.L.is_just_pressed():
+		goto("chase")
+		return
+	if root.input_state.R.is_just_pressed():
+		goto("shoot_warmup")
+		return
+	

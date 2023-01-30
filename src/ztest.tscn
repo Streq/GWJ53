@@ -18,9 +18,11 @@ monitorable = false
 position = Vector2( 656, 324 )
 
 [node name="ship2" parent="." index="62" instance=ExtResource( 2 )]
+gravity = 5.0
 
 [node name="ship3" parent="." index="64" instance=ExtResource( 2 )]
 position = Vector2( 720, 172 )
+gravity = 5.0
 
 [node name="rumble" parent="." index="71"]
 stream = ExtResource( 3 )

@@ -53,10 +53,10 @@ script = ExtResource( 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 shape = SubResource( 2 )
 
-[node name="clear" type="Node" parent="."]
+[node name="spawn" type="Node" parent="."]
 script = ExtResource( 7 )
 
 [connection signal="collision" from="." to="blast" method="initialize_from_collision"]
-[connection signal="hit" from="." to="clear" method="despawn"]
+[connection signal="hit" from="." to="spawn" method="despawn"]
 [connection signal="timeout" from="lifetime" to="." method="queue_free"]
 [connection signal="hit" from="hitbox" to="." method="hit"]

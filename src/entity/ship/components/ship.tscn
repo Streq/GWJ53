@@ -88,7 +88,6 @@ tracks/0/keys = {
 z_index = -3
 collision_layer = 2
 script = ExtResource( 4 )
-gravity = 5.0
 water_gravity = -75.0
 water_damping = 3.0
 air_gravity = 100.0
