@@ -1,9 +1,13 @@
 extends Node
 
 
-export (PauseState.Level) var paused_at_level := PauseState.Level.WORLD
+export (PauseState.Level) var paused_at_level := PauseState.Level.WORLD setget set_paused_at_level
 export (PauseState.Level) var pause_level := PauseState.Level.WORLD
 
+func set_paused_at_level(val):
+	paused_at_level = val
+	if is_instance_valid(Pause) and is_inside_tree():
+		_on_pause_changed(Pause.state)
 
 func _ready() -> void:
 	Pause.connect("changed",self,"_on_pause_changed")

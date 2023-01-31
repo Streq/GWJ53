@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/texture/meteor_eye.png" type="Texture" id=2]
@@ -12,9 +12,7 @@
 [ext_resource path="res://assets/texture/pupil.png" type="Texture" id=10]
 [ext_resource path="res://src/entity/enemy/enemy_hurt_animation.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/texture/meteor.png" type="Texture" id=12]
-[ext_resource path="res://src/HUD/bar/bar.gd" type="Script" id=13]
-[ext_resource path="res://assets/texture/boss_health_bar.png" type="Texture" id=14]
-[ext_resource path="res://assets/texture/boss_health_bar_foreground.png" type="Texture" id=15]
+[ext_resource path="res://src/global/clients/pause_client.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/entity/enemy/meteor/eye_spawner.gd" type="Script" id=16]
 [ext_resource path="res://src/entity/enemy/meteor/point_source.gd" type="Script" id=17]
 [ext_resource path="res://src/entity/enemy/eye/boss_eye_enemy.tscn" type="PackedScene" id=18]
@@ -374,7 +372,7 @@ radius = 4.0
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3, 4 )
 
-[sub_resource type="Image" id=65]
+[sub_resource type="Image" id=68]
 data = {
 "data": PoolByteArray( 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
 "format": "RGBA8",
@@ -383,21 +381,22 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=46]
+[sub_resource type="ImageTexture" id=66]
 flags = 0
 flags = 0
-image = SubResource( 65 )
+image = SubResource( 68 )
 size = Vector2( 4, 1 )
 
-[sub_resource type="ShaderMaterial" id=47]
+[sub_resource type="ShaderMaterial" id=67]
 resource_local_to_scene = true
 shader = ExtResource( 39 )
 shader_param/palette_size = 4
 shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
-shader_param/palette = SubResource( 46 )
+shader_param/alpha_factor = 0.0
+shader_param/palette = SubResource( 66 )
 
-[sub_resource type="Image" id=66]
+[sub_resource type="Image" id=69]
 data = {
 "data": PoolByteArray( 0, 0, 3, 255, 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255 ),
 "format": "RGBA8",
@@ -409,7 +408,7 @@ data = {
 [sub_resource type="ImageTexture" id=41]
 flags = 0
 flags = 0
-image = SubResource( 66 )
+image = SubResource( 69 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=42]
@@ -418,6 +417,7 @@ shader = ExtResource( 39 )
 shader_param/palette_size = 4
 shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
+shader_param/alpha_factor = 0.0
 shader_param/palette = SubResource( 41 )
 
 [sub_resource type="Animation" id=43]
@@ -837,7 +837,7 @@ on_finish_goto_state = "idle"
 
 [node name="duration" type="Timer" parent="state_machine/stun" index="0"]
 process_mode = 0
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [node name="Sprite" type="Sprite" parent="pivot" index="0"]
@@ -877,7 +877,7 @@ script = ExtResource( 6 )
 shape = SubResource( 4 )
 
 [node name="eye" type="Sprite" parent="pivot" index="3"]
-material = SubResource( 47 )
+material = SubResource( 67 )
 texture = ExtResource( 2 )
 
 [node name="pupil" type="Sprite" parent="pivot/eye" index="0"]
@@ -885,6 +885,9 @@ material = SubResource( 42 )
 use_parent_material = true
 texture = ExtResource( 10 )
 script = ExtResource( 9 )
+
+[node name="pause_client" parent="pivot/eye/pupil" index="0" instance=ExtResource( 13 )]
+paused_at_level = 2
 
 [node name="palette_client" parent="pivot/eye" index="1" instance=ExtResource( 40 )]
 
@@ -905,8 +908,8 @@ z_index = 5
 texture = ExtResource( 23 )
 
 [node name="controller" type="Node2D" parent="." index="6"]
+unique_name_in_owner = true
 process_priority = 1874919424
-visible = false
 script = ExtResource( 5 )
 
 [node name="health" type="Node" parent="." index="7"]
@@ -917,24 +920,7 @@ script = ExtResource( 7 )
 max_value = 300.0
 value = 300.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
-
-[node name="health_bar" type="TextureProgress" parent="CanvasLayer" index="0"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -40.0
-margin_top = -32.0
-margin_right = 40.0
-rect_min_size = Vector2( 0, 32 )
-max_value = 78.0
-texture_over = ExtResource( 15 )
-texture_progress = ExtResource( 14 )
-texture_progress_offset = Vector2( 1, 0 )
-script = ExtResource( 13 )
-
-[node name="eye_spawner" type="Node2D" parent="." index="9"]
+[node name="eye_spawner" type="Node2D" parent="." index="8"]
 unique_name_in_owner = true
 script = ExtResource( 16 )
 MOB = ExtResource( 18 )
@@ -973,56 +959,56 @@ position = Vector2( -16, 0 )
 [node name="Position2D8" type="Position2D" parent="eye_spawner/point_source" index="7"]
 position = Vector2( -12, 12 )
 
-[node name="shake" type="AnimationPlayer" parent="." index="10"]
+[node name="shake" type="AnimationPlayer" parent="." index="9"]
 anims/RESET = SubResource( 9 )
 anims/shake = SubResource( 10 )
 
-[node name="stun" type="AnimationPlayer" parent="." index="11"]
+[node name="stun" type="AnimationPlayer" parent="." index="10"]
 anims/RESET = SubResource( 12 )
 anims/play = SubResource( 13 )
 
-[node name="tackle" type="AudioStreamPlayer2D" parent="." index="12"]
+[node name="tackle" type="AudioStreamPlayer2D" parent="." index="11"]
 stream = ExtResource( 27 )
 volume_db = -24.0
 
-[node name="tackle_warmup" type="AudioStreamPlayer2D" parent="." index="13"]
+[node name="tackle_warmup" type="AudioStreamPlayer2D" parent="." index="12"]
 stream = ExtResource( 29 )
 volume_db = -24.0
 
-[node name="tackle_wall" type="AudioStreamPlayer2D" parent="." index="14"]
+[node name="tackle_wall" type="AudioStreamPlayer2D" parent="." index="13"]
 stream = ExtResource( 28 )
 volume_db = -18.0
 
-[node name="spawning" type="AudioStreamPlayer2D" parent="." index="15"]
+[node name="spawning" type="AudioStreamPlayer2D" parent="." index="14"]
 stream = ExtResource( 30 )
 volume_db = -24.0
 
-[node name="spawned" type="AudioStreamPlayer2D" parent="." index="16"]
+[node name="spawned" type="AudioStreamPlayer2D" parent="." index="15"]
 stream = ExtResource( 31 )
 volume_db = -24.0
 
-[node name="shoot_warmup" type="AudioStreamPlayer2D" parent="." index="17"]
+[node name="shoot_warmup" type="AudioStreamPlayer2D" parent="." index="16"]
 stream = ExtResource( 25 )
 volume_db = -24.0
 
-[node name="shoot" type="AudioStreamPlayer2D" parent="." index="18"]
+[node name="shoot" type="AudioStreamPlayer2D" parent="." index="17"]
 stream = ExtResource( 42 )
 volume_db = -24.0
 
-[node name="chase" type="AudioStreamPlayer2D" parent="." index="19"]
+[node name="chase" type="AudioStreamPlayer2D" parent="." index="18"]
 stream = ExtResource( 33 )
 volume_db = -24.0
 
-[node name="drain_air" type="AudioStreamPlayer2D" parent="." index="20"]
+[node name="drain_air" type="AudioStreamPlayer2D" parent="." index="19"]
 stream = ExtResource( 50 )
 volume_db = -24.0
 
-[node name="drain_air_loop" type="AudioStreamPlayer2D" parent="." index="21"]
+[node name="drain_air_loop" type="AudioStreamPlayer2D" parent="." index="20"]
 stream = ExtResource( 49 )
 volume_db = -32.0
 attenuation = 2.37841
 
-[node name="aim_at_player" type="Node2D" parent="." index="22"]
+[node name="aim_at_player" type="Node2D" parent="." index="21"]
 script = ExtResource( 38 )
 
 [node name="muzzle" type="Node2D" parent="aim_at_player" index="0"]
@@ -1039,7 +1025,7 @@ script = ExtResource( 43 )
 script = ExtResource( 37 )
 sfx = "shoot_bullet_enemy"
 
-[node name="tackle_particles" type="Node2D" parent="." index="23"]
+[node name="tackle_particles" type="Node2D" parent="." index="22"]
 script = ExtResource( 45 )
 
 [node name="tackle_particles0" type="CPUParticles2D" parent="tackle_particles" index="0"]
@@ -1070,7 +1056,7 @@ damping = 100.0
 anims/RESET = SubResource( 51 )
 anims/play = SubResource( 52 )
 
-[node name="drain_air_particles" type="Node2D" parent="." index="24"]
+[node name="drain_air_particles" type="Node2D" parent="." index="23"]
 script = ExtResource( 45 )
 
 [node name="drain_air_particles0" type="CPUParticles2D" parent="drain_air_particles" index="0"]
@@ -1103,7 +1089,7 @@ radial_accel = -256.0
 anims/RESET = SubResource( 63 )
 anims/play = SubResource( 64 )
 
-[node name="chase_particles" type="Node2D" parent="." index="25"]
+[node name="chase_particles" type="Node2D" parent="." index="24"]
 script = ExtResource( 45 )
 
 [node name="chase_particles0" type="CPUParticles2D" parent="chase_particles" index="0"]
@@ -1131,12 +1117,12 @@ damping = 50.0
 anims/RESET = SubResource( 59 )
 anims/play = SubResource( 56 )
 
-[node name="scope" type="Node2D" parent="." index="26"]
+[node name="scope" type="Node2D" parent="." index="25"]
 visible = false
 script = ExtResource( 46 )
 texture = ExtResource( 41 )
 
-[node name="pull_player" type="Node2D" parent="." index="27"]
+[node name="pull_player" type="Node2D" parent="." index="26"]
 unique_name_in_owner = true
 script = ExtResource( 51 )
 enabled = false
@@ -1162,7 +1148,6 @@ enabled = false
 [connection signal="timeout" from="state_machine/spawning/warmup" to="spawned" method="play"]
 [connection signal="hit" from="pivot/hitbox" to="state_machine/chase" method="finish"]
 [connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]
-[connection signal="value_changed" from="health/bar" to="CanvasLayer/health_bar" method="set_values"]
 [connection signal="spawned" from="eye_spawner" to="eye_spawner/Timer" method="start"]
 [connection signal="stop" from="eye_spawner" to="eye_spawner/Timer" method="stop"]
 [connection signal="timeout" from="eye_spawner/Timer" to="eye_spawner" method="spawn"]

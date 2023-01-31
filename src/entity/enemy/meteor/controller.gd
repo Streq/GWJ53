@@ -3,8 +3,6 @@ extends Node2D
 export var enabled := true setget set_enabled
 
 func set_enabled(val):
-	if enabled != val:
-		return
 	enabled = val
 	set_physics_process(enabled)
 

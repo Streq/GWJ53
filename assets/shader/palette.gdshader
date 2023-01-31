@@ -3,6 +3,7 @@ uniform int palette_size = 4;
 uniform float offset : hint_range(0, 8, 1);
 uniform sampler2D palette;
 uniform float blue_index_offset = 0.0;
+uniform float alpha_factor = 0.0;
 
 
 void fragment(){
@@ -14,7 +15,7 @@ void fragment(){
 	float h_pixel_size = 1.0/float(palette_size);
 	vec2 palette_pixel = vec2(palette_index*(h_pixel_size), 0.0);
 	
-	COLOR.rgb = texture(palette, palette_pixel).rgb;
-	COLOR.a = tex.a;
+	COLOR.rgb = texture(palette, palette_pixel).rgb*tex.a;
+	COLOR.a = tex.a+alpha_factor;
 	
 }

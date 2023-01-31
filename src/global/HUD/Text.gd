@@ -1,40 +1,49 @@
 extends CanvasLayer
 
+
 signal finished()
 signal player_pressed_A()
 
 signal done_with_current_text()
 
-onready var label: Label = $Label
 onready var continue_label: Control = $continue
+onready var palette_client: Node = $"%palette_client"
+onready var labels: Control = $"%labels"
 
 export var skip_on_debug := false
+
+var label_map = {}
+
+const BASE_PALETTE = 9
+
 
 var queue = []
 var latest_stamp = 0
 
-var current_animating_label : Label = null
+var label : Label = null
 
 onready var timer: Timer = $Timer
 
+
 func _ready() -> void:
 	timer.connect("timeout",self,"done_with_current_text")
+	for label in labels.get_children():
+		label_map[label.name] = label
 
-func say(text, time := -1.0):
+func say(text, time := -1.0, theme := "default"):
 	latest_stamp += 1
 	done_with_current_text()
-	
+	label = label_map[theme]
 	label.text = text
 	label.visible_characters = -1
+
 	var current_stamp = latest_stamp
 	
-	current_animating_label = label
 	if time>0.0:
 		timer.start(time)
 		yield(self, "done_with_current_text")
 		if latest_stamp == current_stamp:
 			label.text = ""
-		current_animating_label = null
 #	label.trigger()
 
 func add(text):
@@ -44,48 +53,49 @@ func clear():
 	label.text = ""
 
 
-func say_and_wait_for_input(text):
+func say_and_wait_for_input(request):
 	#FOR DEBUG
 	if skip_on_debug and OS.is_debug_build():
-		print(text)
+		print(request)
 		yield(get_tree(),"idle_frame")
 		emit_signal("finished")
 		return
 	#FOR DEBUG
 	
+	Pause.pause(Pause.Level.TEXT)
 	if queue:
-		queue.append(text)
+		queue.append(request)
 		return
 	
-	queue.append(text)
-	Pause.pause(Pause.Level.TEXT)
+	queue.append(request)
 	
 	while !queue.empty():
 		latest_stamp += 1
-		var next_text = queue.front()
-		label.text = next_text
+		var next_request = queue.front()
+		done_with_current_text()
+		label = label_map[next_request.theme]
+		label.text = next_request.text
 		label.trigger()
-		current_animating_label = label
 		yield(label,"finished")
-		current_animating_label = null
 		continue_label.display()
 		yield(self, "player_pressed_A")
+		label.text = ""
 		continue_label.hide()
 		queue.pop_front()
 	
 	label.text = ""
-	emit_signal("finished")
 	unpause()
-
-func say_array(texts):
+	emit_signal("finished")
+	
+func say_array(texts,theme := "default"):
 	for text in texts:
-		say_and_wait_for_input(text)
+		say_and_wait_for_input({"text":text,"theme":theme})
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
 		emit_signal("player_pressed_A")
 	if event.is_action_pressed("B") and OS.is_debug_build():
-		return
+#		return
 		emit_signal("player_pressed_A")
 		skip()
 #	if event.is_action_pressed("R"):
@@ -97,13 +107,15 @@ func _input(event: InputEvent) -> void:
 	
 	
 func skip():
-	if current_animating_label:
-		current_animating_label.force_finish()
+	if label:
+		label.force_finish()
 	
 func unpause():
 	for i in 2: #prevent jump after dialog end
 		yield(get_tree(),"physics_frame")
-	Pause.unpause(Pause.Level.TEXT)
+	if !label.text:
+		Pause.unpause(Pause.Level.TEXT)
 
 func done_with_current_text():
 	emit_signal("done_with_current_text")
+

@@ -10,8 +10,10 @@ var index = 0
 
 
 func _ready() -> void:
+	#TODO FIX, HACER MENU INTRO APARTE
+	#ESTO ESTA ACA PORQUE SI NO LOS SONIDOS NO SE INICIALIZAN
+#	yield(get_tree(),"idle_frame")
 	emit_signal("pause")
-
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_right"):

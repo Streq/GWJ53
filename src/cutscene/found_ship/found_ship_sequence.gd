@@ -41,7 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_saw_ship_area_triggered() -> void:
-	Text.say_and_wait_for_input("Oh there's my ship!")
+	Text.say_array(["Oh there's my ship!"])
 
 
 func _on_closer_look_triggered() -> void:
