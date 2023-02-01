@@ -1,5 +1,4 @@
 extends AudioStreamPlayer2D
-
 export var pool_size := 10
 
 var index = 0

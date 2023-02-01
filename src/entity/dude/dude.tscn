@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entity/dude/state/idle.gd" type="Script" id=2]
@@ -41,6 +41,7 @@
 [ext_resource path="res://assets/audio/sfx/component_coupled2.wav" type="AudioStream" id=39]
 [ext_resource path="res://assets/audio/sfx/component_coupled.wav" type="AudioStream" id=40]
 [ext_resource path="res://assets/audio/sfx/player_heal2.wav" type="AudioStream" id=41]
+[ext_resource path="res://src/entity/dude/full_visible_time.gd" type="Script" id=42]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 2.0
@@ -683,7 +684,7 @@ tracks/4/keys = {
 "values": [ 8.0, 9.0 ]
 }
 
-[sub_resource type="Image" id=48]
+[sub_resource type="Image" id=74]
 data = {
 "data": PoolByteArray( 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
 "format": "RGBA8",
@@ -692,19 +693,20 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=46]
+[sub_resource type="ImageTexture" id=73]
 flags = 0
 flags = 0
-image = SubResource( 48 )
+image = SubResource( 74 )
 size = Vector2( 4, 1 )
 
-[sub_resource type="ShaderMaterial" id=47]
+[sub_resource type="ShaderMaterial" id=71]
 resource_local_to_scene = true
 shader = ExtResource( 20 )
 shader_param/palette_size = 4
 shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
-shader_param/palette = SubResource( 46 )
+shader_param/alpha_factor = 0.0
+shader_param/palette = SubResource( 73 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 2, 3 )
@@ -890,10 +892,53 @@ water_damping = 2.0
 swim_speed = 40.0
 swim_acceleration = 50.0
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="HUD" type="CanvasLayer" parent="." index="0"]
+unique_name_in_owner = true
+
+[node name="oxygen_bar" type="TextureProgress" parent="HUD" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -19.0
+margin_right = 8.0
+margin_bottom = -3.0
+step = 0.0
+value = 100.0
+texture_under = ExtResource( 15 )
+texture_progress = ExtResource( 13 )
+script = ExtResource( 14 )
+
+[node name="full_visible_time" type="Timer" parent="HUD/oxygen_bar" index="0"]
+process_mode = 0
+one_shot = true
+script = ExtResource( 42 )
+
+[node name="health_bar" type="TextureProgress" parent="HUD" index="1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -8.0
+margin_top = -23.0
+margin_right = 8.0
+margin_bottom = -7.0
+step = 0.0
+value = 100.0
+texture_under = ExtResource( 27 )
+texture_progress = ExtResource( 26 )
+script = ExtResource( 14 )
+
+[node name="full_visible_time" type="Timer" parent="HUD/health_bar" index="0"]
+process_mode = 0
+one_shot = true
+script = ExtResource( 42 )
+
+[node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource( 5 )
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 anims/RESET = SubResource( 10 )
 anims/air = SubResource( 2 )
 anims/dead = SubResource( 14 )
@@ -905,7 +950,7 @@ anims/swim_dead = SubResource( 12 )
 anims/swim_idle = SubResource( 6 )
 anims/swim_move = SubResource( 7 )
 
-[node name="state_machine" parent="." index="2"]
+[node name="state_machine" parent="." index="3"]
 start_state = "idle"
 
 [node name="idle" type="Node" parent="state_machine" index="0"]
@@ -953,7 +998,7 @@ animation = "ledge_up"
 on_finish_goto_state = "idle"
 
 [node name="Sprite" type="Sprite" parent="pivot" index="0"]
-material = SubResource( 47 )
+material = SubResource( 71 )
 texture = ExtResource( 3 )
 hframes = 4
 vframes = 4
@@ -1040,13 +1085,13 @@ script = ExtResource( 25 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hurtbox" index="0"]
 shape = SubResource( 29 )
 
-[node name="oxygen" type="Node" parent="." index="5"]
+[node name="oxygen" type="Node" parent="." index="6"]
 unique_name_in_owner = true
 script = ExtResource( 12 )
 
 [node name="bar" parent="oxygen" index="0" instance=ExtResource( 11 )]
 
-[node name="breathe_obstructor_detect" type="Area2D" parent="." index="6"]
+[node name="breathe_obstructor_detect" type="Area2D" parent="." index="7"]
 collision_layer = 0
 collision_mask = 8
 
@@ -1054,54 +1099,13 @@ collision_mask = 8
 position = Vector2( 0, -2 )
 shape = SubResource( 11 )
 
-[node name="breathe_air_detect" type="Area2D" parent="." index="7"]
+[node name="breathe_air_detect" type="Area2D" parent="." index="8"]
 collision_layer = 0
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="breathe_air_detect" index="0"]
 position = Vector2( 0, -2 )
 shape = SubResource( 11 )
-
-[node name="HUD" type="CanvasLayer" parent="." index="8"]
-unique_name_in_owner = true
-
-[node name="oxygen_bar" type="TextureProgress" parent="HUD" index="0"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -8.0
-margin_top = -19.0
-margin_right = 8.0
-margin_bottom = -3.0
-step = 0.0
-value = 100.0
-texture_under = ExtResource( 15 )
-texture_progress = ExtResource( 13 )
-script = ExtResource( 14 )
-
-[node name="full_visible_time" type="Timer" parent="HUD/oxygen_bar" index="0"]
-process_mode = 0
-one_shot = true
-
-[node name="health_bar" type="TextureProgress" parent="HUD" index="1"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -8.0
-margin_top = -23.0
-margin_right = 8.0
-margin_bottom = -7.0
-step = 0.0
-value = 100.0
-texture_under = ExtResource( 27 )
-texture_progress = ExtResource( 26 )
-script = ExtResource( 14 )
-
-[node name="full_visible_time" type="Timer" parent="HUD/health_bar" index="0"]
-process_mode = 0
-one_shot = true
 
 [node name="teleport_animation" type="AnimationPlayer" parent="." index="9"]
 playback_process_mode = 0
@@ -1192,6 +1196,8 @@ volume_db = -12.0
 [connection signal="revived" from="." to="oxygen/bar" method="fill"]
 [connection signal="revived" from="." to="HUD" method="show"]
 [connection signal="revived" from="." to="health/bar" method="fill"]
+[connection signal="timeout" from="HUD/oxygen_bar/full_visible_time" to="HUD/oxygen_bar" method="hide"]
+[connection signal="timeout" from="HUD/health_bar/full_visible_time" to="HUD/health_bar" method="hide"]
 [connection signal="landed" from="state_machine/air" to="landed" method="play"]
 [connection signal="entered" from="state_machine/ledge_up" to="ledge" method="play"]
 [connection signal="entered" from="pivot/ship_enter" to="pivot/pickup_grabber" method="put_on_ship"]
@@ -1206,14 +1212,12 @@ volume_db = -12.0
 [connection signal="hurt" from="pivot/hurtbox" to="hurt" method="play"]
 [connection signal="drown" from="oxygen" to="." method="die"]
 [connection signal="not_full" from="oxygen" to="HUD/oxygen_bar" method="show"]
-[connection signal="full" from="oxygen/bar" to="HUD/oxygen_bar/full_visible_time" method="start"]
+[connection signal="full" from="oxygen/bar" to="HUD/oxygen_bar/full_visible_time" method="start_if_not_started"]
 [connection signal="not_full" from="oxygen/bar" to="HUD/oxygen_bar/full_visible_time" method="stop"]
 [connection signal="value_changed" from="oxygen/bar" to="HUD/oxygen_bar" method="set_values"]
-[connection signal="timeout" from="HUD/oxygen_bar/full_visible_time" to="HUD/oxygen_bar" method="hide"]
-[connection signal="timeout" from="HUD/health_bar/full_visible_time" to="HUD/health_bar" method="hide"]
 [connection signal="teleporting" from="teleport_action" to="teleport" method="play"]
 [connection signal="empty" from="health/bar" to="health" method="_on_bar_empty"]
-[connection signal="full" from="health/bar" to="HUD/health_bar/full_visible_time" method="start"]
+[connection signal="full" from="health/bar" to="HUD/health_bar/full_visible_time" method="start_if_not_started"]
 [connection signal="not_full" from="health/bar" to="HUD/health_bar" method="show"]
 [connection signal="not_full" from="health/bar" to="HUD/health_bar/full_visible_time" method="stop"]
 [connection signal="value_changed" from="health/bar" to="HUD/health_bar" method="set_values"]

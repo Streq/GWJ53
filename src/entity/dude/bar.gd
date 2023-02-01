@@ -10,6 +10,8 @@ export var value := 100.0 setget set_value
 func set_value(val):
 	var aux_value = value
 	value = clamp(val, 0, max_value)
+#	if aux_value == value:
+#		return
 	emit_signal("value_changed", value, max_value)
 	if aux_value == max_value and value != max_value:
 		emit_signal("not_full")

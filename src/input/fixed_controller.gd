@@ -9,4 +9,5 @@ func set_disabled(val):
 	set_physics_process(!disabled)
 
 func _physics_process(delta: float) -> void:
+	get_parent().input_state.clear()
 	get_parent().input_state.dir = dir

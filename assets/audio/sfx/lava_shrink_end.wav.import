@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lava_shrink_end.wav-7728f388a88dd82b058a4d0680cd181c.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/lava_shrink_end.wav"
+dest_files=[ "res://.import/lava_shrink_end.wav-7728f388a88dd82b058a4d0680cd181c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

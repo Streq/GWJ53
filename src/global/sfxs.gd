@@ -1,4 +1,5 @@
 extends Node2D
+tool
 var map = {}
 func _ready() -> void:
 	for child in get_children():

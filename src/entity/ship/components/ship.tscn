@@ -157,6 +157,7 @@ type = "UP"
 script = ExtResource( 8 )
 
 [node name="gun_slot" type="Node2D" parent="pivot/slots"]
+unique_name_in_owner = true
 script = ExtResource( 10 )
 type = "GUN"
 
@@ -213,6 +214,7 @@ anims/RESET = SubResource( 14 )
 anims/play = SubResource( 15 )
 
 [node name="hurt_invincibility" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource( 16 )
 
 [node name="health_bar" type="TextureProgress" parent="."]

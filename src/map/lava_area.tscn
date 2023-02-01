@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/map/lava_area.gd" type="Script" id=1]
+
+[node name="lava_area" type="Area2D"]
+collision_layer = 4096
+collision_mask = 2
+script = ExtResource( 1 )

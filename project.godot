@@ -271,6 +271,7 @@ START={
 2d_physics/layer_10="eye"
 2d_physics/layer_11="protected_zone"
 2d_physics/layer_12="meteor"
+2d_physics/layer_13="lava"
 
 [physics]
 

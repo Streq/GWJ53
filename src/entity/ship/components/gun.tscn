@@ -60,7 +60,7 @@ one_shot = true
 stream = ExtResource( 10 )
 volume_db = -28.0
 
+[connection signal="fire" from="." to="muzzle" method="shoot"]
 [connection signal="fire" from="." to="screen_shake" method="trigger"]
 [connection signal="fire" from="." to="blast" method="trigger"]
 [connection signal="fire" from="." to="gun_sound" method="play"]
-[connection signal="fire" from="." to="muzzle" method="shoot"]

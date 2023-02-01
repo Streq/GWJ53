@@ -13,7 +13,6 @@ export var label_name := ""
 
 var slot = null
 
-
 func connect_to_slot(new_slot):
 	if is_instance_valid(slot):
 		disconnect_from_slot()

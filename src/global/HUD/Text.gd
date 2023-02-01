@@ -6,6 +6,7 @@ signal player_pressed_A()
 
 signal done_with_current_text()
 
+
 onready var continue_label: Control = $continue
 onready var palette_client: Node = $"%palette_client"
 onready var labels: Control = $"%labels"
@@ -44,6 +45,8 @@ func say(text, time := -1.0, theme := "default"):
 		yield(self, "done_with_current_text")
 		if latest_stamp == current_stamp:
 			label.text = ""
+			emit_signal("finished")
+			
 #	label.trigger()
 
 func add(text):
@@ -85,7 +88,7 @@ func say_and_wait_for_input(request):
 	
 	label.text = ""
 	unpause()
-	emit_signal("finished")
+#	emit_signal("finished")
 	
 func say_array(texts,theme := "default"):
 	for text in texts:
@@ -115,6 +118,7 @@ func unpause():
 		yield(get_tree(),"physics_frame")
 	if !label.text:
 		Pause.unpause(Pause.Level.TEXT)
+		emit_signal("finished")
 
 func done_with_current_text():
 	emit_signal("done_with_current_text")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/cutscene/continue.gd" type="Script" id=1]
 [ext_resource path="res://src/global/HUD/Text.gd" type="Script" id=2]
@@ -8,8 +8,10 @@
 [ext_resource path="res://src/util/color/palette_client.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/theme/meteor.tres" type="Theme" id=7]
 [ext_resource path="res://assets/audio/sfx/meteor_text3.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/audio/sfx/narrator_text.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/theme/narrator.tres" type="Theme" id=10]
 
-[sub_resource type="Image" id=6]
+[sub_resource type="Image" id=10]
 data = {
 "data": PoolByteArray( 60, 60, 2, 255, 126, 126, 1, 255, 0, 0, 3, 255, 255, 255, 0, 255 ),
 "format": "RGBA8",
@@ -21,7 +23,7 @@ data = {
 [sub_resource type="ImageTexture" id=4]
 flags = 0
 flags = 0
-image = SubResource( 6 )
+image = SubResource( 10 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=5]
@@ -32,6 +34,30 @@ shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
 shader_param/alpha_factor = 1.0
 shader_param/palette = SubResource( 4 )
+
+[sub_resource type="Image" id=11]
+data = {
+"data": PoolByteArray( 60, 60, 2, 255, 0, 0, 3, 255, 255, 255, 0, 255, 126, 126, 1, 255 ),
+"format": "RGBA8",
+"height": 1,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="ImageTexture" id=8]
+flags = 0
+flags = 0
+image = SubResource( 11 )
+size = Vector2( 4, 1 )
+
+[sub_resource type="ShaderMaterial" id=9]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/palette_size = 4
+shader_param/offset = 0
+shader_param/blue_index_offset = 0.0
+shader_param/alpha_factor = 1.0
+shader_param/palette = SubResource( 8 )
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -88,7 +114,7 @@ unique_name_in_owner = true
 index = 9
 
 [node name="meteor" parent="labels" instance=ExtResource( 3 )]
-material = SubResource( 5 )
+material = SubResource( 9 )
 margin_left = 40.0
 margin_top = -20.0
 margin_right = 240.0
@@ -100,6 +126,21 @@ text = ""
 stream = ExtResource( 8 )
 
 [node name="palette_client" parent="labels/meteor" instance=ExtResource( 6 )]
+index = 11
+
+[node name="narrator" parent="labels" instance=ExtResource( 3 )]
+material = SubResource( 5 )
+margin_left = 40.0
+margin_top = -20.0
+margin_right = 240.0
+margin_bottom = 44.0
+theme = ExtResource( 10 )
+text = ""
+
+[node name="AudioStreamPlayer" parent="labels/narrator" index="0"]
+stream = ExtResource( 9 )
+
+[node name="palette_client" parent="labels/narrator" instance=ExtResource( 6 )]
 index = 9
 
 [node name="continue" type="Control" parent="."]
@@ -133,3 +174,4 @@ process_mode = 0
 one_shot = true
 
 [editable path="labels/meteor"]
+[editable path="labels/narrator"]
