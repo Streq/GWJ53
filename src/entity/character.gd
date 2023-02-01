@@ -75,7 +75,6 @@ func set_facing_dir(val):
 		return
 	pivot.scale.x = abs(pivot.scale.x)*facing_dir
 
-
 func _ready() -> void:
 	state_machine.initialize()
 

@@ -19,19 +19,28 @@ onready var map: Node2D = $"../map"
 onready var shrink_sound: AudioStreamPlayer2D = $"%shrink_sound"
 onready var detect_inside_lava_bubble: Node2D = $"%detect_inside_lava_bubble"
 onready var player_exited_area: Area2D = $"%player exited_area"
-onready var dead_meteor_sprite: Sprite = $"%dead_meteor_sprite"
+onready var dead_meteor_sprite: Node2D = $"%dead_meteor_sprite"
 
+onready var meteor_radar: Node2D = $"%meteor_radar"
 
+onready var meteor_appear: AnimationPlayer = $"%meteor_appear"
 
 export var LAVA_RING : PackedScene
+onready var meteor_pause_client: Node = $"%meteor_pause_client"
+onready var meteor_shake = $"%meteor_shake"
 
 var boss_triggered = false
 
 func _ready() -> void:
 	yield(owner,"ready")
+	
+	yield(intro_sequence(),"completed")
+	yield(boss_fight(),"completed")
+	
+func intro_sequence():
 	var player_HUD = dude.get_node("%HUD")
 	player_HUD.hide()
-	
+	meteor_radar.hide()
 	ship.get_node("%gun_slot").rotation = Vector2.UP.angle()
 	
 	detect_inside_lava_bubble.set_physics_process(false)
@@ -90,12 +99,21 @@ func _ready() -> void:
 	
 	Text.say_array(["Who's there?"])
 
-	yield(Text,"finished")
-	meteor.set_physics_process(true)
-	meteor.global_position = boss_spawn_area.global_position
 	
 	Text.say_array(["It matters not.", "For your curiosity will soon cease to perturb you"],"meteor")
-
+	yield(Text,"finished")
+	meteor_pause_client.paused_at_level = PauseState.Level.MENU
+	Pause.pause(PauseState.Level.TEXT)
+	meteor.set_physics_process(true)
+	meteor.global_position = boss_spawn_area.global_position
+	meteor_pause_client.paused_at_level = PauseState.Level.WORLD
+	meteor_appear.play("play")
+	var pupil = meteor.get_node("%pupil")
+	pupil.look_at(dude.global_position)
+	yield(meteor_appear,"animation_finished")
+	
+	Pause.unpause(PauseState.Level.TEXT)
+	
 	Text.say_array(["Wait a second. You are the giant rock that hit my ship in the first place, aren't you!"])
 
 	Text.say_array(["I do not remember that."],"meteor")
@@ -125,10 +143,9 @@ func _ready() -> void:
 	Text.say_array(["May I know why?"])
 
 	Text.say_array([
-		"Because I know what you are.",
+		"Because once you leave this place, you will come back bringing other members of your lesser species with you.",
+		"I know what you are.",
 		"You are a conqueror's scout.",
-		"Once you leave this place, you will come back bringing other members of your lesser species with you.",
-		"I know your kind.",
 		"You will lay waste to all life, in your quest to ravage and pillage, unhindered."
 	],"meteor")
 	
@@ -156,13 +173,23 @@ func _ready() -> void:
 	Text.say_array(["Yeah, well, we'll see about that."])
 	
 	yield(Text,"finished")
+
+func boss_fight():
+	meteor_radar.show()
 	boss_hud.show()
+	
+	var player_HUD = dude.get_node("%HUD")
 	var bar = meteor.get_node("%health").bar
 	bar.connect("value_changed",boss_health_bar,"set_values")
 	bar.set_value(bar.value)
+	var meteor_controller = meteor.get_node("%controller")
 	meteor_controller.enabled = true
-
+	
+	
+	
 	yield(meteor,"dying")
+	get_tree().call_group("air","queue_free")
+	get_tree().call_group("water","queue_free")
 	dead_meteor_sprite.global_position = meteor.global_position
 	yield(meteor,"tree_exiting")
 	dead_meteor_sprite.show()
@@ -174,6 +201,16 @@ func _ready() -> void:
 	Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
 	Text.say_array(["Then maybe take another nap bozo"])
 	Text.say_array(["No, you will not get your way, I will not let you destroy this place."],"meteor")
+	yield(Text,"finished")
+	
+	meteor_shake.play("play")
+	var lava_ring_cast_sound: AudioStreamPlayer2D = $"%lava_ring_cast_sound"
+	lava_ring_cast_sound.play()
+	
+	yield(get_tree().create_timer(1.0),"timeout")
+	
+	meteor_shake.play("RESET")
+	
 	Text.say_array(["What are you doing?"])
 	
 	yield(Text,"finished")
@@ -189,8 +226,9 @@ func _ready() -> void:
 	
 	shrink_sound.global_position = dude.global_position
 	shrink_sound.play()
+	lava_ring.trigger()
 	
-	yield(get_tree().create_timer(1.5),"timeout")
+	yield(get_tree().create_timer(1.95),"timeout")
 	set_controller.disabled = true
 	player_controller.disabled = false
 	pause_client.set_paused_at_level(PauseState.Level.WORLD)
@@ -221,7 +259,6 @@ func _ready() -> void:
 	yield(tween,"finished")
 	dead_meteor_sprite.queue_free()
 	map.queue_free()
-	lava_ring.trigger()
 	player_exited_area.global_position = lava_ring.global_position
 	
 	
@@ -231,6 +268,8 @@ func _ready() -> void:
 	yield(get_tree().create_timer(2.0),"timeout")
 	Text.say_array(["Ok let's get out of here."])
 	yield(Text,"finished")
+	
+	
 	
 	if player_exited_area.overlaps_body(dude):
 		yield(player_exited_area,"body_exited")
@@ -248,6 +287,15 @@ func _ready() -> void:
 	
 	pause_client.set_paused_at_level(PauseState.Level.MENU)
 	player_HUD.hide()
+	
+	yield(ending_second_version(),"completed")
+	
+	Text.say("THE END",5.0)
+	yield(Text,"finished")
+	
+	get_tree().change_scene("res://src/cutscene/intro.tscn")
+	
+func ending_first_version():
 	Text.say_array(["Ok, well, so the planet I collected these samples from just got completely disintegrated.",
 	"That means this whole operation, along with everything we've been through, were pointless."])
 	yield(Text,"finished")
@@ -264,19 +312,37 @@ func _ready() -> void:
 	Text.say_array(["Now he marches home, tired but relieved.",
 	"He will not be there until 3 in the morning.",
 	"He will have to shower and eat, but he will say \"I'm not dealing with that\" and just go right to sleep.",
-	"On monday, he will present the bio samples, and his boss will congratulate him on the task, but ask where the ship's FTL Drive is.",
+	"On monday, he will present the samples, and his boss will congratulate him on the task, but ask where the ship's FTL Drive is.",
 	"And our hero will say \"I don't know\""],"narrator")
 	yield(Text,"finished")
-#	yield(get_tree().create_timer(2.0),"timeout")
 	
-
+func ending_second_version():
+	Text.say_array(["And that's how our hero escaped the evil meteor thing."],"narrator")
+	yield(get_tree().create_timer(1.0),"timeout")
 	
-	Text.say("THE END",5.0)
+	
+	Text.say_array(["And since the planet he collected the bio samples from just got completely disintegrated",
+	"This whole operation, along with everything he has been through, were pointless."],"narrator")
+	yield(Text,"finished")
+	yield(get_tree().create_timer(2.0),"timeout")
+	Text.say_array(["But my boss doesn't know that."])
+	yield(Text,"finished")
+	yield(get_tree().create_timer(1.0),"timeout")
+	Text.say_array(["But his boss doesn't know that."],"narrator")
 	yield(Text,"finished")
 	
-	get_tree().change_scene("res://src/cutscene/intro.tscn")
-	return
+	yield(get_tree().create_timer(1.0),"timeout")
+	Text.say_array(["So he's just gonna play it cool with the flowers on monday, and see how it goes."],"narrator")
 	
+	yield(Text,"finished")
+	yield(get_tree().create_timer(2.0),"timeout")
+	
+	Text.say_array(["Now he marches home, tired but relieved.",
+	"He will not be there until 3 in the morning.",
+	"He will have to shower and eat, but he will say \"I'm not dealing with that\" and just go right to sleep.",
+	"On monday, he will present the samples, and his boss will congratulate him on the task, but ask where the ship's FTL Drive is.",
+	"And our hero will say \"I don't know\""],"narrator")
+	yield(Text,"finished")
 	
 	
 	

@@ -7,6 +7,8 @@ export var GROUP := "bio_sample"
 export var indicator : Texture
 func _ready() -> void:
 	yield(owner,"ready")
+	update_radar()
+func update_radar():
 	samples = get_tree().get_nodes_in_group(GROUP)
 	
 	

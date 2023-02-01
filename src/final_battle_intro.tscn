@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://src/map/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://src/entity/ship/full_ship.tscn" type="PackedScene" id=2]
@@ -32,6 +32,9 @@
 [ext_resource path="res://src/map/reset_tiles_on_respawn.gd" type="Script" id=30]
 [ext_resource path="res://assets/texture/meteor_eye.png" type="Texture" id=31]
 [ext_resource path="res://src/cutscene/final_battle/pupil.gd" type="Script" id=32]
+[ext_resource path="res://assets/audio/sfx/meteor_teleport.wav" type="AudioStream" id=33]
+[ext_resource path="res://src/entity/set_health_to.tscn" type="PackedScene" id=34]
+[ext_resource path="res://assets/audio/sfx/lava_cast_sound.wav" type="AudioStream" id=35]
 [ext_resource path="res://src/entity/spawner/eye_spawner.tscn" type="PackedScene" id=38]
 [ext_resource path="res://src/initial_level.gd" type="Script" id=40]
 [ext_resource path="res://src/map/protected_zone.gd" type="Script" id=44]
@@ -50,6 +53,81 @@ radius = 24.0
 
 [sub_resource type="CircleShape2D" id=8]
 radius = 560.057
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("meteor_teleport:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "play"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("meteor_teleport:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("meteor:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true, false, true ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("dead_meteor_sprite/dead_meteor_sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "play"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("dead_meteor_sprite/dead_meteor_sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( -1, -1 ), Vector2( 1, 1 ) ]
+}
 
 [node name="main" type="Node2D" groups=["world"]]
 script = ExtResource( 40 )
@@ -255,7 +333,7 @@ script = ExtResource( 13 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ship/boss_spawn_area"]
 shape = SubResource( 7 )
 
-[node name="bio_sample_radar" type="Node2D" parent="."]
+[node name="meteor_radar" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource( 4 )
 GROUP = "meteor"
@@ -334,12 +412,16 @@ position = Vector2( -824, -456 )
 [node name="beacon21" parent="perimeter" instance=ExtResource( 10 )]
 position = Vector2( -532, -508 )
 
-[node name="meteor" parent="." instance=ExtResource( 14 )]
+[node name="meteor" parent="." groups=["meteor", "respawnable"] instance=ExtResource( 14 )]
 unique_name_in_owner = true
 position = Vector2( 1520, 220 )
 
-[node name="pause_client" parent="meteor" instance=ExtResource( 8 )]
+[node name="meteor_pause_client" parent="meteor" instance=ExtResource( 8 )]
+unique_name_in_owner = true
 paused_at_level = 2
+
+[node name="set_health_to" parent="meteor" instance=ExtResource( 34 )]
+trigger_on_ready = true
 
 [node name="boss_hud" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -374,18 +456,45 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player exited_area"]
 shape = SubResource( 8 )
 
-[node name="dead_meteor_sprite" type="Sprite" parent="."]
+[node name="meteor_teleport" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 33 )
+volume_db = -18.0
+
+[node name="pause_client" parent="meteor_teleport" instance=ExtResource( 8 )]
+paused_at_level = 2
+
+[node name="meteor_appear" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+anims/RESET = SubResource( 10 )
+anims/play = SubResource( 9 )
+
+[node name="pause_client" parent="meteor_appear" instance=ExtResource( 8 )]
+paused_at_level = 2
+
+[node name="meteor_shake" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+anims/RESET = SubResource( 11 )
+anims/play = SubResource( 12 )
+
+[node name="dead_meteor_sprite" type="Node2D" parent="."]
 unique_name_in_owner = true
 visible = false
+
+[node name="dead_meteor_sprite" type="Sprite" parent="dead_meteor_sprite"]
 texture = ExtResource( 27 )
 
-[node name="eye" type="Sprite" parent="dead_meteor_sprite"]
+[node name="eye" type="Sprite" parent="dead_meteor_sprite/dead_meteor_sprite"]
 texture = ExtResource( 31 )
 
-[node name="pupil" type="Sprite" parent="dead_meteor_sprite/eye"]
+[node name="pupil" type="Sprite" parent="dead_meteor_sprite/dead_meteor_sprite/eye"]
 use_parent_material = true
 texture = ExtResource( 29 )
 script = ExtResource( 32 )
+
+[node name="lava_ring_cast_sound" type="AudioStreamPlayer2D" parent="dead_meteor_sprite"]
+unique_name_in_owner = true
+stream = ExtResource( 35 )
+volume_db = -18.0
 
 [connection signal="body_entered" from="protected_zone" to="protected_zone" method="_on_protected_zone_body_entered"]
 [connection signal="seen" from="perimeter/came_in_beacon" to="orchestrator" method="_on_came_in_beacon_seen"]

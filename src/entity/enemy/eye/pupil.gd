@@ -24,3 +24,5 @@ func _physics_process(delta:float) -> void:
 			position = Vector2.RIGHT.rotated(time)
 		
 	pass
+func look_at(global_pos):
+	position = global_position.direction_to(global_pos)

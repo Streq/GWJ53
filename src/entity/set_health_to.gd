@@ -4,8 +4,11 @@ extends Node
 export var value := 1.0
 export var max_value := -1.0
 
+export var trigger_on_ready := false
+
 func _ready() -> void:
-#	trigger()
+	if trigger_on_ready:
+		trigger()
 	pass
 
 func trigger():

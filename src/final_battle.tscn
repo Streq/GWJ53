@@ -119,6 +119,7 @@ SPAWN_NODE = ExtResource( 48 )
 [node name="ship" parent="." instance=ExtResource( 2 )]
 unique_name_in_owner = true
 position = Vector2( -208, 156 )
+crash_velocity = 200.0
 
 [node name="dude" parent="ship" instance=ExtResource( 21 )]
 unique_name_in_owner = true

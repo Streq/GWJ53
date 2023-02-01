@@ -91,6 +91,7 @@ script = ExtResource( 4 )
 water_gravity = -75.0
 water_damping = 3.0
 air_gravity = 100.0
+crash_velocity = 300.0
 
 [node name="input_state" parent="." instance=ExtResource( 5 )]
 
