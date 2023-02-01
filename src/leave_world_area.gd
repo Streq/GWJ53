@@ -29,6 +29,8 @@ func end():
 	ended = true
 	
 	get_tree().change_scene("res://src/final_battle_intro.tscn")
+	
+	SessionState.skip_meteor_intro = false
 	return
 	
 	canvas_layer.show()

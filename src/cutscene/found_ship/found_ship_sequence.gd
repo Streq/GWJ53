@@ -247,7 +247,14 @@ func _on_down_done() -> void:
 
 func _on_gun_done() -> void:
 	Text.say(
-		"Now we can fend for ourselves, shoot by holding X, tap to shoot faster, if you hold Z you can brake the jets, allowing you to aim without moving",20.0
+		"Now we can fend for ourselves.",2.0
+	)
+	var stamp = Text.latest_stamp
+	yield(Text,"done_with_current_text")
+	if stamp != Text.latest_stamp:
+		return
+	Text.say(
+		"Shoot with X, hold to fix aim, tap to shoot faster, and remember: you cannot fire when you've just been hurt!",20.0
 	)
 
 

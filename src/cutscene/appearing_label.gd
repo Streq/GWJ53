@@ -24,4 +24,4 @@ func force_finish():
 func show_characters(count):
 	if visible_characters != count:
 		visible_characters = count
-		audio_stream_player.play()
+		audio_stream_player.play_at_position()

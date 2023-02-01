@@ -1,5 +1,7 @@
 extends Node
 
+export var skip_intro:= false 
+
 onready var ship: KinematicBody2D = $"%ship"
 onready var dude: KinematicBody2D = $"%dude"
 
@@ -34,11 +36,33 @@ var boss_triggered = false
 func _ready() -> void:
 	yield(owner,"ready")
 	
-	yield(intro_sequence(),"completed")
+	if !skip_intro and !SessionState.skip_meteor_intro:
+		yield(intro_sequence(),"completed")
+	else:
+		boss_quick_setup()
+	
+	SessionState.skip_meteor_intro = true
 	yield(boss_fight(),"completed")
+
+onready var player_position_on_quick_setup: Position2D = $"%player_position_on_quick_setup"
+onready var boss_position_on_quick_setup: Position2D = $"%boss_position_on_quick_setup"
+onready var player_HUD = dude.get_node("%HUD")
+	
+
+func boss_quick_setup():
+	ship.global_position = player_position_on_quick_setup.global_position
+	meteor.global_position = boss_position_on_quick_setup.global_position
+	player_HUD.show()
+	player_controller.disabled = false
+	set_controller.disabled = true
+	pause_client.paused_at_level = PauseState.Level.WORLD
+	meteor.set_physics_process(true)
+	meteor_pause_client.paused_at_level = PauseState.Level.WORLD
+	invisible_wall.queue_free()
+	black_background.queue_free()
+	boss_triggered = true
 	
 func intro_sequence():
-	var player_HUD = dude.get_node("%HUD")
 	player_HUD.hide()
 	meteor_radar.hide()
 	ship.get_node("%gun_slot").rotation = Vector2.UP.angle()
@@ -47,6 +71,9 @@ func intro_sequence():
 	var meteor_controller = meteor.get_node("%controller")
 	meteor.set_physics_process(false)
 	meteor_controller.enabled = false
+	for i in 5:
+		yield(get_tree(),"idle_frame")
+	
 	Text.say_array([
 		"And so he bounced, he bounced as hard as he could",
 		"But he couldn't leave."],"narrator")
@@ -76,15 +103,11 @@ func intro_sequence():
 	set_controller.disabled = true
 	pause_client.paused_at_level = PauseState.Level.WORLD
 	
-	if false:
+	for i in 8:
+		yield(perimeter,"seen_beacon")
+	Text.say_array(["Wow, this place seems to be huge!"])
 	
-	
-	
-		for i in 8:
-			yield(perimeter,"seen_beacon")
-		Text.say_array(["Wow, this place seems to be huge!"])
-		
-		yield(perimeter,"full_perimeter")
+	yield(perimeter,"full_perimeter")
 	
 	boss_triggered = true
 	Text.say_array(["I think"])
@@ -99,8 +122,6 @@ func intro_sequence():
 	
 	Text.say_array(["Who's there?"])
 
-	
-	Text.say_array(["It matters not.", "For your curiosity will soon cease to perturb you"],"meteor")
 	yield(Text,"finished")
 	meteor_pause_client.paused_at_level = PauseState.Level.MENU
 	Pause.pause(PauseState.Level.TEXT)
@@ -114,8 +135,54 @@ func intro_sequence():
 	
 	Pause.unpause(PauseState.Level.TEXT)
 	
-	Text.say_array(["Wait a second. You are the giant rock that hit my ship in the first place, aren't you!"])
+	Text.say_array(["Hey! It's you! You are the giant rock that hit my ship!"])
 
+	yield(new_reasoning(),"completed")
+	
+
+func new_reasoning():
+	Text.say_array(["I apologize for the suffering and false hope I have caused you.",
+	"I am the guardian of this world.",
+	"You were never meant to survive our first encounter."],"meteor")
+
+	Text.say_array(["What? why? What did I even do?"])
+
+	Text.say_array(["Nothing yet","But I know your kind, I know what you are.",
+	"You are a conqueror's scout.",
+	"You intend to leave this place to inform other members of your lesser species on the benefits of its colonization."],"meteor")
+
+	Text.say_array(["No man, I'm just here to pick up some flowers.",
+	"You see. This is company policy, I work for an alien biology magazine, I collect samples that are used to make articles on how life is on other planets.",
+	"But that's as far as we go, most of the time my samples get shelved.",
+	"I collected samples from about 40 different planets.",
+	"The craziest thing they ever did with them was feature them on Discovery Channel."])
+
+	Text.say_array(["I did not understand anything you just said.",
+	"But it does not matter.",
+	"I have no reason to believe you, and lose nothing by being wrong.",
+	"When it comes to the life under my protection, I shall take no chances."],"meteor")
+
+	Text.say_array(["...So am I like, gonna die now?"])
+
+	Text.say_array(["No, quite the contrary."],"meteor")
+
+	Text.say_array(["Phew.",
+	"Wait. What does that mean?"])
+
+	Text.say_array(["You will feed and turn into the life of this world."],"meteor")
+	
+	Text.say_array(["That sounds really nasty."])
+	Text.say_array(["What if I refuse? Can I refuse?"])
+	Text.say_array(["I refuse."])
+	
+	Text.say_array(["It will make no difference."],"meteor")
+	
+	Text.say_array(["Yeah, well, I guess we'll see about that."])
+	
+	yield(Text,"finished")
+
+
+func old_reasoning():
 	Text.say_array(["I do not remember that."],"meteor")
 
 	Text.say_array(["Well, it happened. Don't play silly with me."])
@@ -149,8 +216,6 @@ func intro_sequence():
 		"You will lay waste to all life, in your quest to ravage and pillage, unhindered."
 	],"meteor")
 	
-#	Text.say_array(["Because you intend to leave this place to inform your lesser lifeform race that it's a planet that can be conquered."])
-
 	Text.say_array(["No man, I just came here to pick up some flowers, I'm doing this because of company policy, no one ever does anything with these things anyway."])
 
 	Text.say_array(["I've collected samples from about forty planets now, the craziest thing they ever did is feature them on Discovery Channel, and that happened like once."])
@@ -199,7 +264,7 @@ func boss_fight():
 	boss_hud.queue_free()
 	
 	Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
-	Text.say_array(["Then maybe take another nap bozo"])
+	Text.say_array(["Then maybe let me go and take a nap bozo"])
 	Text.say_array(["No, you will not get your way, I will not let you destroy this place."],"meteor")
 	yield(Text,"finished")
 	
@@ -228,37 +293,68 @@ func boss_fight():
 	shrink_sound.play()
 	lava_ring.trigger()
 	
-	yield(get_tree().create_timer(1.95),"timeout")
-	set_controller.disabled = true
-	player_controller.disabled = false
-	pause_client.set_paused_at_level(PauseState.Level.WORLD)
-	
+	yield(get_tree().create_timer(0.95),"timeout")
 	
 	detect_inside_lava_bubble.set_physics_process(true)
 	
-	Text.say_array(["This is an anticellular matter bubble"],"meteor")
+	Text.say_array(["This is an antinuclear matter bubble"],"meteor")
+	pause_client.set_paused_at_level(PauseState.Level.WORLD)
+	yield(Text,"finished")
+	yield(get_tree().create_timer(1.95),"timeout")
+	
+	
 	Text.say_array(["It will instantly decompose every living thing it touches."],"meteor")
-	Text.say_array(["I shall make it shrink slowly, so you have enough time to make peace with your demise."],"meteor")
+	
+	yield(Text,"finished")
+	yield(get_tree().create_timer(1.95),"timeout")
+	
+	Text.say_array(["I shall make it shrink slowly, so you have time to make peace with your demise."],"meteor")
 	
 	Text.say_array(["Cool."])
 	
-	Text.say_array(["As for me. I'm done, along with this planet. We are both going to fade to nothing shortly."],"meteor")
+	Text.say_array(["As for me. I am done, along with this planet. We are both going to fade to nothing shortly."],"meteor")
 	
+	
+	yield(Text,"finished")
+	yield(get_tree().create_timer(1.95),"timeout")
+	
+	Text.say_array(["What? So that's it? We are both just gonna die and the planet will disappear?"])
+	
+	Text.say_array(["Yes"],"meteor")
+	Text.say_array(["Then what the hell was the point of this? the planet's still going to be destroyed"])
+	
+	Text.say_array(["That you will not get to colonize it, they will die free."],"meteor")
 	Text.say_array(["Now I ask you, was it worth it?"],"meteor")
 	
-	Text.say_array(["Not really, no."])
+	Text.say_array(["Was what worth it? You are killing us both over nothing here."])
 	
-	Text.say_array(["I imagined so. Farewell."],"meteor")
+	Text.say_array(["I will take that as a negative. Farewell."],"meteor")
+	
+	
 	yield(Text,"finished")
 	
+	
+	
 	var tween = create_tween().set_loops(5)
-	tween.tween_callback(dead_meteor_sprite,"set_visible",[false]).set_delay(0.1)
-	tween.tween_callback(map,"set_visible",[false])
 	tween.tween_callback(dead_meteor_sprite,"set_visible",[true]).set_delay(0.1)
-	tween.tween_callback(map,"set_visible",[true])
+	tween.tween_callback(dead_meteor_sprite,"set_visible",[false]).set_delay(0.1)
+	yield(tween,"finished")
+	yield(get_tree().create_timer(0.1),"timeout")
+	tween = create_tween().set_loops(5)
+	tween.tween_callback(map,"set_visible",[true]).set_delay(0.1)
+	tween.tween_callback(map,"set_visible",[false]).set_delay(0.1)
 	yield(tween,"finished")
 	dead_meteor_sprite.queue_free()
 	map.queue_free()
+	
+	yield(get_tree().create_timer(1.0),"timeout")
+	
+	set_controller.disabled = true
+	player_controller.disabled = false
+	
+	Text.say_array(["Dumbass"])
+	yield(Text,"finished")
+	
 	player_exited_area.global_position = lava_ring.global_position
 	
 	
@@ -273,8 +369,8 @@ func boss_fight():
 	
 	if player_exited_area.overlaps_body(dude):
 		yield(player_exited_area,"body_exited")
-	else:
-		yield(get_tree().create_timer(2.0),"timeout")
+	
+	yield(get_tree().create_timer(2.0),"timeout")
 	
 	if is_instance_valid(lava_ring):
 		lava_ring.queue_free()

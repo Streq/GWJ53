@@ -33,6 +33,20 @@ initial_velocity_random = 0.7
 damping = 80.0
 script = ExtResource( 5 )
 
+[node name="splash" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.1
+one_shot = true
+explosiveness = 0.9
+lifetime_randomness = 0.5
+texture = ExtResource( 6 )
+spread = 90.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+script = ExtResource( 5 )
+pool_size = 100
+
 [node name="blue_particles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 4

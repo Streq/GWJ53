@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/audio/pool_audio_player.gd" type="Script" id=1]
+[ext_resource path="res://assets/audio/sfx/narrator_text7.wav" type="AudioStream" id=2]
+
+[node name="sfx" type="AudioStreamPlayer"]
+stream = ExtResource( 2 )
+volume_db = -18.0
+script = ExtResource( 1 )

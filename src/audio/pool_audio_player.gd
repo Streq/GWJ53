@@ -1,4 +1,4 @@
-extends AudioStreamPlayer2D
+extends AudioStreamPlayer
 export var pool_size := 10
 
 var index = 0
@@ -16,13 +16,13 @@ func _ready() -> void:
 		
 
 
-func play_at_position(play_global_position):
+func play_at_position(play_global_position := Vector2()):
 	
 	if seconds_since_last_call<cooldown:
 		return
 	seconds_since_last_call = 0.0
-	var sound : AudioStreamPlayer2D = get_child(index)
-	sound.global_position = play_global_position
+	var sound : AudioStreamPlayer = get_child(index)
+#	sound.global_position = play_global_position
 	sound.play()
 	
 	index = (index+1)%pool_size

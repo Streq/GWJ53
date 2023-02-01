@@ -190,6 +190,7 @@ ParticlePool="*res://src/global/ParticlePool/ParticlePool.tscn"
 Pause="*res://src/global/pause.tscn"
 PauseMenu="*res://src/Menu/PauseMenu.tscn"
 ObjectPool="*res://src/global/ObjectPool/ObjectPool.tscn"
+SessionState="*res://src/global/session_state.tscn"
 
 [display]
 

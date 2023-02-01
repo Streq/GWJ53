@@ -9,4 +9,4 @@ func _ready() -> void:
 	var maybe_ship = owner.get_parent()
 	yield(maybe_ship,"ready")
 	if maybe_ship.has_method("enter_pilot"):
-		maybe_ship.enter_pilot(owner)
+		owner.get_node("%ship_enter").enter_ship(maybe_ship)

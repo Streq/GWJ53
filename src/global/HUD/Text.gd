@@ -69,7 +69,8 @@ func say_and_wait_for_input(request):
 	if queue:
 		queue.append(request)
 		return
-	
+	if label:
+		label.text = ""
 	queue.append(request)
 	
 	while !queue.empty():

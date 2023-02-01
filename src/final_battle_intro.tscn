@@ -421,7 +421,6 @@ unique_name_in_owner = true
 paused_at_level = 2
 
 [node name="set_health_to" parent="meteor" instance=ExtResource( 34 )]
-trigger_on_ready = true
 
 [node name="boss_hud" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -494,7 +493,15 @@ script = ExtResource( 32 )
 [node name="lava_ring_cast_sound" type="AudioStreamPlayer2D" parent="dead_meteor_sprite"]
 unique_name_in_owner = true
 stream = ExtResource( 35 )
-volume_db = -18.0
+volume_db = -24.0
+
+[node name="player_position_on_quick_setup" type="Position2D" parent="."]
+unique_name_in_owner = true
+position = Vector2( -304, -272 )
+
+[node name="boss_position_on_quick_setup" type="Position2D" parent="."]
+unique_name_in_owner = true
+position = Vector2( -304, -344 )
 
 [connection signal="body_entered" from="protected_zone" to="protected_zone" method="_on_protected_zone_body_entered"]
 [connection signal="seen" from="perimeter/came_in_beacon" to="orchestrator" method="_on_came_in_beacon_seen"]
