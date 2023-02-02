@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/music/loopable_section_song.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/global/music.gd" type="Script" id=2]
+[ext_resource path="res://src/global/clients/pause_client.tscn" type="PackedScene" id=3]
+
+[node name="Music" type="Node"]
+script = ExtResource( 2 )
+
+[node name="songs" type="Node" parent="."]
+
+[node name="end_song" parent="songs" instance=ExtResource( 1 )]
+volume_db = -24.0
+
+[node name="pause_client" parent="." instance=ExtResource( 3 )]
+paused_at_level = 2

@@ -312,18 +312,23 @@ func boss_fight():
 	
 	Text.say_array(["Cool."])
 	
+	yield(Text,"finished")
+	yield(get_tree().create_timer(1.95),"timeout")
+	
 	Text.say_array(["As for me. I am done, along with this planet. We are both going to fade to nothing shortly."],"meteor")
 	
 	
-	yield(Text,"finished")
-	yield(get_tree().create_timer(1.95),"timeout")
 	
 	Text.say_array(["What? So that's it? We are both just gonna die and the planet will disappear?"])
 	
 	Text.say_array(["Yes"],"meteor")
-	Text.say_array(["Then what the hell was the point of this? the planet's still going to be destroyed"])
 	
-	Text.say_array(["That you will not get to colonize it, they will die free."],"meteor")
+	yield(Text,"finished")
+	yield(get_tree().create_timer(1.95),"timeout")
+	
+	Text.say_array(["Then what the hell was the point of this?"])
+	
+	Text.say_array(["That you will not get to colonize the living beings of my planet, they will die free."],"meteor")
 	Text.say_array(["Now I ask you, was it worth it?"],"meteor")
 	
 	Text.say_array(["Was what worth it? You are killing us both over nothing here."])
@@ -384,11 +389,16 @@ func boss_fight():
 	pause_client.set_paused_at_level(PauseState.Level.MENU)
 	player_HUD.hide()
 	
+	var song = Music.play("end_song")
 	yield(ending_second_version(),"completed")
 	
-	Text.say("THE END",5.0)
-	yield(Text,"finished")
+	Text.say("THE END")
+	song.continue_looping = false
+	yield(song, "finished")
 	
+	ship.queue_free()
+	Text.say("RESTARTING",2.0)
+	yield(Text,"finished")
 	get_tree().change_scene("res://src/cutscene/intro.tscn")
 	
 func ending_first_version():
@@ -413,9 +423,11 @@ func ending_first_version():
 	yield(Text,"finished")
 	
 func ending_second_version():
-	Text.say_array(["And that's how our hero escaped the evil meteor thing."],"narrator")
-	yield(get_tree().create_timer(1.0),"timeout")
 	
+	Text.say_array(["And that's how our hero escaped the evil meteor thing."],"narrator")
+	
+	yield(Text,"finished")
+	yield(get_tree().create_timer(1.0),"timeout")
 	
 	Text.say_array(["And since the planet he collected the bio samples from just got completely disintegrated",
 	"This whole operation, along with everything he has been through, were pointless."],"narrator")

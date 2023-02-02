@@ -191,6 +191,7 @@ Pause="*res://src/global/pause.tscn"
 PauseMenu="*res://src/Menu/PauseMenu.tscn"
 ObjectPool="*res://src/global/ObjectPool/ObjectPool.tscn"
 SessionState="*res://src/global/session_state.tscn"
+Music="*res://src/global/Music.tscn"
 
 [display]
 

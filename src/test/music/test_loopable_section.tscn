@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/audio/music/end_song_end.ogg" type="AudioStream" id=1]
+[ext_resource path="res://assets/audio/music/end_song_middle.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/audio/music/end_song_intro.ogg" type="AudioStream" id=3]
+[ext_resource path="res://src/test/music/test_loopable_section.gd" type="Script" id=4]
+
+[node name="loopable_section_song" type="Node"]
+script = ExtResource( 4 )
+volume_db = -12.0
+
+[node name="intro" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -12.0
+
+[node name="loop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -12.0
+
+[node name="end" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -12.0

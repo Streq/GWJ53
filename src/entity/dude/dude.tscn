@@ -1169,7 +1169,7 @@ volume_db = -12.0
 [node name="water_splash_sound" type="AudioStreamPlayer2D" parent="." index="20"]
 unique_name_in_owner = true
 stream = ExtResource( 35 )
-volume_db = -12.0
+volume_db = -18.0
 
 [node name="hurt" type="AudioStreamPlayer2D" parent="." index="21"]
 stream = ExtResource( 37 )

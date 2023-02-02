@@ -6,7 +6,6 @@ func shrink():
 	var tilemap : TileMap = get_parent()
 	var cell_to_shrink_toward = tilemap.world_to_map(tilemap.to_local(global_position))
 	while true:
-		yield(self,"shrink_step")
 		var new_set_cells = []
 		var cells_to_remove = []
 		if tilemap.get_used_cells().size() == 1:
@@ -29,18 +28,16 @@ func shrink():
 					new_set_cells.append(cell+offset)
 				if tilemap.get_cellv(cell-offset) == -1:
 					cells_to_remove.append(cell)
-				
-		for cell in new_set_cells:
-#			yield(self,"shrink_step")
-			tilemap.set_cellv(cell, 0)
-#			tilemap.update_bitmask_region()
-		tilemap.update_bitmask_region()
-		yield(self,"shrink_step")
-		for cell in cells_to_remove:
-#			yield(self,"shrink_step")
-			tilemap.set_cellv(cell, -1)
-#			tilemap.update_bitmask_region()
-		tilemap.update_bitmask_region()
+		if new_set_cells:
+			yield(self,"shrink_step")
+			for cell in new_set_cells:
+				tilemap.set_cellv(cell, 0)
+			tilemap.update_bitmask_region()
+		if cells_to_remove:
+			yield(self,"shrink_step")
+			for cell in cells_to_remove:
+				tilemap.set_cellv(cell, -1)
+			tilemap.update_bitmask_region()
 #		yield(self,"shrink_step")
 
 
