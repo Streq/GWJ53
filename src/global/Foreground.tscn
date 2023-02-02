@@ -328,6 +328,15 @@ anchor_bottom = 1.0
 margin_top = -15.0
 margin_bottom = -15.0
 
+[node name="TextureRect2" type="TextureRect" parent="choose_your_palette"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 15.0
+margin_bottom = 15.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 1
+
 [node name="TextureRect" type="TextureRect" parent="choose_your_palette"]
 margin_left = 136.0
 margin_top = 87.0
@@ -464,7 +473,7 @@ material = SubResource( 79 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-palette = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1, 0.164706, 0.164706, 0.164706, 1, 0.329412, 0.329412, 0.329412, 1 )
+palette = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1, 0.329412, 0.329412, 0.329412, 1, 0.498039, 0.498039, 0.498039, 1 )
 
 [node name="mono3" type="ColorRect" parent="palettes"]
 visible = false

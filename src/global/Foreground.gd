@@ -41,6 +41,7 @@ func update_palette():
 	pals[index].show()
 	
 func palette_selected():
+	yield(get_tree(),"idle_frame")
 	emit_signal("unpause")
 	self.set_process_input(false)
 	choose_your_palette.hide()

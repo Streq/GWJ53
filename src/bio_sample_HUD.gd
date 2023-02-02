@@ -9,7 +9,7 @@ var format = "d/%d bio samples collected"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	yield(owner,"ready")
+#	yield(owner,"ready")
 	var samples = Group.get_all("bio_sample")
 #	print(samples)
 	total_samples = samples.size()

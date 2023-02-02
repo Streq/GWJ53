@@ -8,6 +8,7 @@
 type = "TELEPORTER"
 texture = ExtResource( 3 )
 label_name = "Teleporter"
+component_flag = 1
 
 [node name="teleporter" type="Node2D" parent="." index="0" groups=["teleporter"]]
 script = ExtResource( 2 )

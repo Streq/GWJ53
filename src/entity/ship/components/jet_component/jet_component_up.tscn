@@ -6,9 +6,13 @@
 [ext_resource path="res://assets/audio/sfx/jet2.wav" type="AudioStream" id=4]
 
 [node name="jet_component_up" instance=ExtResource( 1 )]
+__meta__ = {
+"_edit_pinned_properties_": [ "component_flag" ]
+}
 type = "UP"
 texture = ExtResource( 3 )
-label_name = "elevation jet"
+label_name = "Elevation Jet"
+component_flag = 2
 
 [node name="h_jet" parent="." index="0" instance=ExtResource( 2 )]
 power = 250.0

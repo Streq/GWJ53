@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
+[ext_resource path="res://assets/texture/white_square.png" type="Texture" id=2]
+[ext_resource path="res://src/Menu/menu_entry.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Menu/SaveMenu.gd" type="Script" id=4]
+[ext_resource path="res://src/global/clients/pause_client.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Menu/new_game.gd" type="Script" id=6]
+[ext_resource path="res://src/Menu/continue.gd" type="Script" id=7]
+[ext_resource path="res://assets/texture/dither50black.png" type="Texture" id=10]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 8, 8 )
+
+[node name="SaveMenu" type="CanvasLayer"]
+pause_mode = 2
+layer = 127
+script = ExtResource( 4 )
+
+[node name="panel" type="PanelContainer" parent="."]
+margin_left = 56.0
+margin_top = 64.0
+margin_right = 264.0
+margin_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 208, 0 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="panel"]
+margin_right = 208.0
+margin_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="title" type="Label" parent="panel/VBoxContainer"]
+margin_top = 8.0
+margin_right = 208.0
+margin_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 1 )
+align = 1
+valign = 1
+
+[node name="options" type="VBoxContainer" parent="panel/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 20.0
+margin_right = 208.0
+margin_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="continue" parent="panel/VBoxContainer/options" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_right = 208.0
+focus_mode = 2
+text = "Continue"
+
+[node name="continue" type="Node" parent="panel/VBoxContainer/options/continue"]
+script = ExtResource( 7 )
+
+[node name="new_game" parent="panel/VBoxContainer/options" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 12.0
+margin_right = 208.0
+margin_bottom = 20.0
+focus_mode = 2
+text = "New Game"
+
+[node name="new_game" type="Node" parent="panel/VBoxContainer/options/new_game"]
+script = ExtResource( 6 )
+
+[node name="background" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 80
+
+[node name="background" type="TextureRect" parent="background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 10 )
+stretch_mode = 2
+
+[node name="pause_client" parent="." instance=ExtResource( 5 )]
+paused_at_level = 3
+
+[connection signal="selected" from="panel/VBoxContainer/options/continue" to="panel/VBoxContainer/options/continue/continue" method="trigger"]
+[connection signal="selected" from="panel/VBoxContainer/options/new_game" to="panel/VBoxContainer/options/new_game/new_game" method="trigger"]

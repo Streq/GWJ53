@@ -397,8 +397,12 @@ func boss_fight():
 	yield(song, "finished")
 	
 	ship.queue_free()
-	Text.say("RESTARTING",2.0)
+	Text.say("RESTARTING\n(now you can skip text with X)",3.0)
 	yield(Text,"finished")
+	
+	SessionState.clear()
+	SessionState.can_skip_text = true
+	
 	get_tree().change_scene("res://src/cutscene/intro.tscn")
 	
 func ending_first_version():

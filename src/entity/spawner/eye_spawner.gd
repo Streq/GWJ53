@@ -21,3 +21,6 @@ func spawn():
 
 func stop():
 	emit_signal("stop")
+
+func trigger():
+	spawn()

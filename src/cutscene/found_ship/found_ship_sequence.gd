@@ -26,6 +26,15 @@ onready var ship_components_hud: VBoxContainer = $"%ship_components_HUD"
 onready var ship: KinematicBody2D = $"%ship"
 
 func _ready() -> void:
+	
+	if SessionState.skip_meteor_intro:
+		get_tree().change_scene("res://src/final_battle_intro.tscn")
+		return
+	
+	
+	if SessionState.has_repaired_ship:
+		ship_components_hud.show()
+	
 	if disabled:
 		queue_free()
 		return
@@ -33,7 +42,8 @@ func _ready() -> void:
 	
 	ship_components_hud.observe_ship(ship)
 	
-	Text.say("Ok let's see where the ship is", 5.0)
+	if SessionState.current_checkpoint == -1:
+		Text.say("Ok let's see where the ship is", 5.0)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
@@ -41,10 +51,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_saw_ship_area_triggered() -> void:
+	if SessionState.current_checkpoint != -1 or SessionState.has_repaired_ship:
+		return
 	Text.say_array(["Oh there's my ship!"])
 
 
 func _on_closer_look_triggered() -> void:
+	if SessionState.current_checkpoint != -1 or SessionState.has_repaired_ship:
+		return
 	Text.say_array([
 		"Wait, it's only the hull!!",
 		"At least tell me the healing system is still working"
@@ -54,6 +68,9 @@ func _on_closer_look_triggered() -> void:
 
 
 func _on_ship_pilot_entered(pilot) -> void:
+	if SessionState.has_repaired_ship:
+		return
+	
 	if entered_ship:
 		return
 	entered_ship = true
@@ -101,6 +118,10 @@ func unpause():
 
 
 func _on_ship_health_full() -> void:
+	if SessionState.has_repaired_ship:
+		return
+	SessionState.has_repaired_ship = true
+	
 	if ship_health_full:
 		return
 	ship_health_full = true
@@ -162,7 +183,7 @@ func _on_teleporter_done() -> void:
 
 func _on_up_done() -> void:
 	Text.say(
-		"Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no DOME to keep the air inside the ship",15.0
+		"Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no Dome to keep the air inside the ship",15.0
 	)
 
 onready var bio_sample_hud: Label = $"%bio_sample_HUD"
@@ -170,26 +191,30 @@ onready var bio_sample_hud: Label = $"%bio_sample_HUD"
 onready var bio_sample_radar: Node2D = $"%bio_sample_radar"
 
 func _on_ship_components_HUD_ship_complete() -> void:
-	Text.say_array([
-		"Well that's it! I'm done here",
-		"Let's power the ship and get out",
-		"...",
-		"...",
-		"Oh right, the bio samples.",
-		"Ok, let's just uhhhh", 
-		"let's collect 10 flowers and call it a day", 
-		"I conveniently got a flower radar in this thing so let's just get it over with",
-		])
-	yield(Text,"finished")
+	if !SessionState.has_all_flowers():
+		
+		Text.say_array([
+			"Well that's it! I'm done here",
+			"Let's power the ship and get out",
+			"...",
+			"...",
+			"Oh right, the bio samples.",
+			"Ok, let's just uhhhh", 
+			"let's collect 10 flowers and call it a day", 
+			"I conveniently got a flower radar in this thing so let's just get it over with",
+			])
+		yield(Text,"finished")
+		bio_sample_hud.show()
+		bio_sample_radar.show()
+		
+		Text.say("Some dots have appeared on the border of the screen, just follow them to find the flowers!",7.5)
+		
+		get_tree().call_group("bio_sample","make_important")
+		
+		yield(bio_sample_hud,"done")
+	
 	bio_sample_hud.show()
-	bio_sample_radar.show()
-	
-	Text.say("Some dots have appeared on the border of the screen, just follow them to find the flowers!",7.5)
-	
-	get_tree().call_group("bio_sample","make_important")
-	
-	yield(bio_sample_hud,"done")
-	
+		
 	Text.say_array([
 		"Well that's it! I'm done here",
 		"Let's power the ship and get out",

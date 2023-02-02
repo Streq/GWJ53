@@ -3,6 +3,7 @@ class_name ShipComponent
 signal connected_to(slot)
 signal disconnected_from(slot)
 signal owned_by(ship)
+signal connected
 
 signal trigger()
 signal release()
@@ -10,6 +11,8 @@ signal release()
 export var type := ""
 export var texture : Texture
 export var label_name := ""
+
+export (SessionState.Components) var component_flag
 
 var slot = null
 
@@ -22,6 +25,7 @@ func connect_to_slot(new_slot):
 	transform = Transform2D.IDENTITY
 	slot.add_component(self)
 	emit_signal("connected_to",slot)
+	emit_signal("connected")
 	emit_signal("owned_by",slot.owner)
 	
 

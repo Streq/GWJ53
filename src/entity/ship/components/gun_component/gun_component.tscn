@@ -9,6 +9,7 @@
 type = "GUN"
 texture = ExtResource( 4 )
 label_name = "Gun"
+component_flag = 3
 
 [node name="gun" parent="." index="0" instance=ExtResource( 2 )]
 position = Vector2( 5, 0 )

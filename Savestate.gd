@@ -1,4 +1,106 @@
 extends Node
 
-export var skip_meteor_intro := false
+export var skip_intro := false setget set_skip_intro
+export var skip_meteor_intro := false setget set_skip_meteor_intro
+export var has_repaired_ship := false setget set_has_repaired_ship
+export var can_skip_text := false setget set_can_skip_text
 
+
+func set_skip_intro(val):
+	skip_intro = val
+	_save()
+
+func set_skip_meteor_intro(val):
+	skip_meteor_intro = val
+	_save()
+
+func set_has_repaired_ship(val):
+	has_repaired_ship = val
+	_save()
+
+func set_can_skip_text(val):
+	can_skip_text = val
+	_save()
+
+var SAVE_PATH := "user://stranded.save"
+
+var loading = false
+func _save():
+	if loading:
+		return
+	var save_game = File.new()
+	save_game.open(SAVE_PATH, File.WRITE)
+	
+	var save = {}
+	
+	for prop in get_script().get_script_property_list():
+		var val = get(prop.name)
+		save[prop.name] = val
+	
+	save_game.store_var(save)
+
+func _load():
+	loading = true
+	var save_game = File.new()
+
+	if save_game.open(SAVE_PATH, File.READ) == 0:
+		var save = save_game.get_var()
+		for prop in get_script().get_script_property_list():
+			var val = save[prop.name]
+			set(prop.name, val)
+	loading = false
+enum Components{
+	REAR,
+	TELEPORT,
+	UP,
+	GUN,
+	DOWN,
+	DOME
+}
+
+export (Components, FLAGS) var components
+
+export (Array, bool) var flowers = [false,false,false,false,false,false,false,false,false,false]
+
+export var current_checkpoint := -1
+
+	
+func clear():
+	skip_intro = false
+	skip_meteor_intro = false
+	has_repaired_ship = false
+	can_skip_text = false
+	components = 0
+	flowers = []
+	for i in 10:
+		flowers.append(false)
+	current_checkpoint = -1
+	
+	
+func should_ask_if_continue():
+	return skip_intro
+
+func set_component(component):
+	components |= 1<<component
+	_save()
+
+func get_component(component):
+	return ((components>>component)&1) == 1
+
+func set_flower(index):
+	flowers[index] = true
+	_save()
+
+func set_checkpoint(index):
+	current_checkpoint = index
+	_save()
+
+func has_all_flowers():
+	var count = 0
+	for flower in flowers:
+		if flower:
+			count += 1
+	return count == 10
+
+func has_save():
+	return File.new().open(SAVE_PATH, File.READ) == 0

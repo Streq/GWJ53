@@ -18,6 +18,7 @@ func done_components():
 func _ready():
 	canvas_layer.hide()
 	
+	
 func _on_leave_world_area_body_entered(body: Node) -> void:
 	if can_leave:
 		end()
@@ -30,7 +31,6 @@ func end():
 	
 	get_tree().change_scene("res://src/final_battle_intro.tscn")
 	
-	SessionState.skip_meteor_intro = false
 	return
 	
 	canvas_layer.show()

@@ -13,7 +13,7 @@ onready var dude_sprite: Sprite = $"%dude_sprite"
 onready var fallen_parachute: Sprite = $"%fallen_parachute"
 
 var text_index = 0
-	
+
 func trigger() -> void:
 	#step 0
 	show_text("So there's this guy, right?")
@@ -127,3 +127,8 @@ func show_text(text):
 	appearing_label.text = text
 	appearing_label.trigger()
 	text_index += 1
+
+
+func _input(event):
+	if event.is_action_pressed("B") and (SessionState.can_skip_text or OS.is_debug_build()):
+		appearing_label.force_finish()

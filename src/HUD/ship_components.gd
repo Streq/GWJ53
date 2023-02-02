@@ -18,7 +18,9 @@ func observe_ship(ship):
 		slot.connect("coupled",component_indicator,"done")
 		slot.connect("coupled",self,"component_done")
 		slot.connect("decoupled",component_indicator,"todo")
-
+		if slot.component:
+			component_indicator.done()
+			component_done()
 func component_done():
 	current_components += 1
 	if current_components == total_components:

@@ -5,7 +5,7 @@ signal finished()
 signal player_pressed_A()
 
 signal done_with_current_text()
-
+signal finished_loading()
 
 onready var continue_label: Control = $continue
 onready var palette_client: Node = $"%palette_client"
@@ -81,6 +81,7 @@ func say_and_wait_for_input(request):
 		label.text = next_request.text
 		label.trigger()
 		yield(label,"finished")
+		emit_signal("finished_loading")
 		continue_label.display()
 		yield(self, "player_pressed_A")
 		label.text = ""
@@ -98,7 +99,7 @@ func say_array(texts,theme := "default"):
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
 		emit_signal("player_pressed_A")
-	if event.is_action_pressed("B") and OS.is_debug_build():
+	if event.is_action_pressed("B") and (OS.is_debug_build() or SessionState.can_skip_text):
 #		return
 		emit_signal("player_pressed_A")
 		skip()

@@ -12,6 +12,11 @@ onready var label: Label = $Label
 var player = null
 var ship = null
 
+func _ready() -> void:
+	player = Group.get_one("player")
+	ship = Group.get_one("ship")
+
+
 func on():
 	get_tree().call_group(ACTIVE_CHECKPOINT,"off")
 	add_to_group(ACTIVE_CHECKPOINT)
@@ -36,7 +41,7 @@ func off():
 	label.hide()
 	
 func revive():
-	yield(get_tree().create_timer(1.0),"timeout")
+#	yield(get_tree().create_timer(1.0),"timeout")
 	player.global_position = player_spawn.global_position
 	player.revive()
 	ship.global_position = ship_spawn.global_position
@@ -48,7 +53,5 @@ func revive():
 
 	
 func _on_checkpoint_body_entered(body: Node) -> void:
-	player = body
-	ship = Group.get_one("ship")
 	on()
 	

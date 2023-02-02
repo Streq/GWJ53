@@ -4,8 +4,12 @@
 [ext_resource path="res://assets/audio/sfx/jet.wav" type="AudioStream" id=2]
 
 [node name="jet_component_rear" instance=ExtResource( 1 )]
+__meta__ = {
+"_edit_pinned_properties_": [ "component_flag" ]
+}
 type = "REAR"
 label_name = "Rear Jet"
+component_flag = 0
 
 [node name="h_jet" parent="." index="0"]
 __meta__ = {
