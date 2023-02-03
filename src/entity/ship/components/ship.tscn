@@ -38,7 +38,7 @@ extents = Vector2( 6, 5 )
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 7, 6 )
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=18]
 resource_name = "hurt"
 length = 2.0
 tracks/0/type = "animation"
@@ -205,7 +205,7 @@ value = 8.0
 unique_name_in_owner = true
 playback_process_mode = 0
 method_call_mode = 1
-anims/hurt = SubResource( 13 )
+anims/hurt = SubResource( 18 )
 
 [node name="blink_animation" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

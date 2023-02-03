@@ -43,5 +43,5 @@ func next():
 	current_scene.trigger()
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("A"):
+	if event.is_action_pressed("A") or (event.is_action_pressed("B") and SessionState.can_skip_text):
 		emit_signal("player_pressed_next")

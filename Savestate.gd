@@ -6,6 +6,8 @@ export var has_repaired_ship := false setget set_has_repaired_ship
 export var can_skip_text := false setget set_can_skip_text
 export var has_beaten_meteor := false setget set_has_beaten_meteor
 
+export var lava_ring_deaths := 0 setget set_lava_ring_deaths
+
 func set_skip_intro(val):
 	skip_intro = val
 	_save()
@@ -24,6 +26,10 @@ func set_can_skip_text(val):
 
 func set_has_beaten_meteor(val):
 	has_beaten_meteor = val
+	_save()
+
+func set_lava_ring_deaths(val):
+	lava_ring_deaths = val
 	_save()
 
 var SAVE_PATH := "user://stranded.save"
@@ -45,14 +51,17 @@ func _save():
 
 func _load():
 	loading = true
+	clear()
 	var save_game = File.new()
-
+	
 	if save_game.open(SAVE_PATH, File.READ) == 0:
 		var save = save_game.get_var()
 		for prop in get_script().get_script_property_list():
-			var val = save[prop.name]
-			set(prop.name, val)
+			if save.has(prop.name):
+				var val = save[prop.name]
+				set(prop.name, val)
 	loading = false
+
 enum Components{
 	REAR,
 	TELEPORT,
@@ -73,7 +82,8 @@ func clear():
 	skip_intro = false
 	skip_meteor_intro = false
 	has_repaired_ship = false
-	can_skip_text = false
+#	can_skip_text = false
+	has_beaten_meteor = false
 	components = 0
 	flowers = []
 	for i in 10:
