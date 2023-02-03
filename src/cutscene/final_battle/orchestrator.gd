@@ -263,6 +263,8 @@ func boss_fight():
 	
 	boss_hud.queue_free()
 	
+	Text.skippable = SessionState.has_beaten_meteor
+	SessionState.has_beaten_meteor = true
 	Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
 	Text.say_array(["Then maybe let me go and take a nap bozo"])
 	Text.say_array(["No, you will not get your way, I will not let you destroy this place."],"meteor")
@@ -358,7 +360,9 @@ func boss_fight():
 	player_controller.disabled = false
 	
 	Text.say_array(["Dumbass"])
+	
 	yield(Text,"finished")
+	Text.skippable = false
 	
 	player_exited_area.global_position = lava_ring.global_position
 	

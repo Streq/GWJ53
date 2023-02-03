@@ -253,7 +253,7 @@ shader_param/palette = SubResource( 139 )
 
 [sub_resource type="Image" id=157]
 data = {
-"data": PoolByteArray( 255, 255, 255, 255, 0, 0, 0, 255, 42, 42, 42, 255, 84, 84, 84, 255 ),
+"data": PoolByteArray( 255, 255, 255, 255, 0, 0, 0, 255, 84, 84, 84, 255, 126, 126, 126, 255 ),
 "format": "RGBA8",
 "height": 1,
 "mipmaps": false,

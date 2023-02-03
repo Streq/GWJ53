@@ -13,6 +13,8 @@ onready var labels: Control = $"%labels"
 
 export var skip_on_debug := false
 
+export var skippable := false
+
 var label_map = {}
 
 const BASE_PALETTE = 9
@@ -35,7 +37,7 @@ func say(text, time := -1.0, theme := "default"):
 	latest_stamp += 1
 	done_with_current_text()
 	label = label_map[theme]
-	label.text = text
+	label.text = tr(text)
 	label.visible_characters = -1
 
 	var current_stamp = latest_stamp
@@ -48,9 +50,6 @@ func say(text, time := -1.0, theme := "default"):
 			emit_signal("finished")
 			
 #	label.trigger()
-
-func add(text):
-	label.text += "\n\n" + text
 
 func clear():
 	label.text = ""
@@ -78,7 +77,7 @@ func say_and_wait_for_input(request):
 		var next_request = queue.front()
 		done_with_current_text()
 		label = label_map[next_request.theme]
-		label.text = next_request.text
+		label.text = tr(next_request.text)
 		label.trigger()
 		yield(label,"finished")
 		emit_signal("finished_loading")
@@ -99,6 +98,8 @@ func say_array(texts,theme := "default"):
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
 		emit_signal("player_pressed_A")
+		if skippable:
+			skip()
 	if event.is_action_pressed("B") and (OS.is_debug_build() or SessionState.can_skip_text):
 #		return
 		emit_signal("player_pressed_A")

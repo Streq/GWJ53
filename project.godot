@@ -275,6 +275,11 @@ START={
 2d_physics/layer_12="meteor"
 2d_physics/layer_13="lava"
 
+[locale]
+
+test="es"
+translations=PoolStringArray(  )
+
 [physics]
 
 common/enable_pause_aware_picking=true

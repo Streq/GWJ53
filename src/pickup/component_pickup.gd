@@ -40,7 +40,7 @@ func _init() -> void:
 	yield(self,"ready")
 	ship_component = COMPONENT.instance()
 	sprite.texture = ship_component.texture
-	label.text = ship_component.label_name
+	label.text = tr(ship_component.label_name)
 
 func set_grabbed(val):
 	if grabbed == val:

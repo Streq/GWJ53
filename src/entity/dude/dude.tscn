@@ -684,7 +684,7 @@ tracks/4/keys = {
 "values": [ 8.0, 9.0 ]
 }
 
-[sub_resource type="Image" id=74]
+[sub_resource type="Image" id=39]
 data = {
 "data": PoolByteArray( 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
 "format": "RGBA8",
@@ -693,20 +693,20 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=73]
+[sub_resource type="ImageTexture" id=37]
 flags = 0
 flags = 0
-image = SubResource( 74 )
+image = SubResource( 39 )
 size = Vector2( 4, 1 )
 
-[sub_resource type="ShaderMaterial" id=71]
+[sub_resource type="ShaderMaterial" id=38]
 resource_local_to_scene = true
 shader = ExtResource( 20 )
 shader_param/palette_size = 4
 shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
 shader_param/alpha_factor = 0.0
-shader_param/palette = SubResource( 73 )
+shader_param/palette = SubResource( 37 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 2, 3 )
@@ -998,7 +998,7 @@ animation = "ledge_up"
 on_finish_goto_state = "idle"
 
 [node name="Sprite" type="Sprite" parent="pivot" index="0"]
-material = SubResource( 71 )
+material = SubResource( 38 )
 texture = ExtResource( 3 )
 hframes = 4
 vframes = 4
