@@ -1,0 +1,108 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
+[ext_resource path="res://assets/texture/white_square.png" type="Texture" id=2]
+[ext_resource path="res://src/Menu/menu_entry.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Menu/LocaleMenu.gd" type="Script" id=4]
+[ext_resource path="res://src/global/clients/pause_client.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Menu/set_locale.gd" type="Script" id=6]
+[ext_resource path="res://assets/texture/vertical_arrows.png" type="Texture" id=7]
+[ext_resource path="res://src/cutscene/translate.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/texture/dither50black.png" type="Texture" id=10]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 8, 8 )
+
+[node name="LocaleMenu" type="CanvasLayer"]
+pause_mode = 2
+layer = 127
+script = ExtResource( 4 )
+
+[node name="panel" type="PanelContainer" parent="."]
+margin_left = 96.0
+margin_top = 60.0
+margin_right = 224.0
+margin_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 128, 0 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="panel"]
+margin_right = 128.0
+margin_bottom = 56.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="panel/VBoxContainer"]
+margin_right = 128.0
+margin_bottom = 20.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="panel/VBoxContainer/HBoxContainer"]
+margin_right = 124.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="options" type="VBoxContainer" parent="panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 124.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="English" parent="panel/VBoxContainer/HBoxContainer/VBoxContainer/options" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_right = 124.0
+focus_mode = 2
+text = "English"
+
+[node name="set_locale" type="Node" parent="panel/VBoxContainer/HBoxContainer/VBoxContainer/options/English" groups=["locale"]]
+script = ExtResource( 6 )
+locale = "en"
+
+[node name="Español" parent="panel/VBoxContainer/HBoxContainer/VBoxContainer/options" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 12.0
+margin_right = 124.0
+margin_bottom = 20.0
+focus_mode = 2
+text = "Español"
+
+[node name="set_locale" type="Node" parent="panel/VBoxContainer/HBoxContainer/VBoxContainer/options/Español" groups=["locale"]]
+script = ExtResource( 6 )
+
+[node name="TextureRect" type="TextureRect" parent="panel/VBoxContainer/HBoxContainer"]
+margin_left = 128.0
+margin_right = 128.0
+margin_bottom = 20.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 4
+
+[node name="continue" type="Label" parent="panel/VBoxContainer"]
+margin_top = 24.0
+margin_right = 128.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 0, 32 )
+theme = ExtResource( 1 )
+text = "Z to continue"
+align = 1
+valign = 1
+
+[node name="translate" parent="panel/VBoxContainer/continue" instance=ExtResource( 8 )]
+
+[node name="background" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 80
+
+[node name="background" type="TextureRect" parent="background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 10 )
+stretch_mode = 2
+
+[node name="pause_client" parent="." instance=ExtResource( 5 )]
+paused_at_level = 3

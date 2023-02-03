@@ -316,19 +316,19 @@ func _on_talked_to_locals_triggered() -> void:
 		["Wow, won't even stop and look at me.", 3.0],
 		["", 1.0],
 		["Whatever.", 3.0],
-		["", 1.0],
-		["Rude ass.", 3.0],
-		["Maybe I don't come in peace.", 3.0],
-		["", 1.0],
-		["Nothing. It's like I'm talking to a wall here.", 3.0],
-		["", 1.0],
-		["Maybe they can't hear me?", 3.0],
-		["Yeah it's probably that", 3.0],
-		["I'm sorry for calling you rude if that's the case", 3.0],
-		["", 1.0],
-		["Ok, uhhhh", 3.0], 
-		["I'm gonna go find my ship now.", 3.0],
-		["Good luck with the walking.", 3.0]
+#		["", 1.0],
+#		["Rude.", 3.0]
+#		["Maybe I don't come in peace.", 3.0],
+#		["", 1.0],
+#		["Nothing. It's like I'm talking to a wall here.", 3.0],
+#		["", 1.0],
+#		["Maybe they can't hear me?", 3.0],
+#		["Yeah it's probably that", 3.0],
+#		["I'm sorry for calling you rude if that's the case", 3.0],
+#		["", 1.0],
+#		["Ok, uhhhh", 3.0], 
+#		["I'm gonna go find my ship now.", 3.0],
+#		["Good luck with the walking.", 3.0]
 	]:
 		Text.say(entry[0],entry[1])
 		stamp = Text.latest_stamp

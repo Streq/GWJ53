@@ -12,7 +12,7 @@ func _ready() -> void:
 	post_duration.connect("timeout",self,"finish")
 	
 func _enter(params):
-	Text.say("Air. Water. Gravity.\nLet's see how well a lesser lifeform fares without.", 7.5, "meteor")
+	Text.say("meteor.drain.attack", 7.5, "meteor")
 	root.velocity = Vector2()
 	duration.start()
 	done = false

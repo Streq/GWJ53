@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
 [ext_resource path="res://assets/texture/white_square.png" type="Texture" id=2]
 [ext_resource path="res://src/Menu/menu_entry.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Menu/SaveMenu.gd" type="Script" id=4]
@@ -35,21 +34,11 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="title" type="Label" parent="panel/VBoxContainer"]
-margin_top = 8.0
-margin_right = 208.0
-margin_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource( 1 )
-align = 1
-valign = 1
-
 [node name="options" type="VBoxContainer" parent="panel/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 20.0
+margin_top = 14.0
 margin_right = 208.0
-margin_bottom = 40.0
+margin_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1

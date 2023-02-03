@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/entity/dude/pickup_grabber.gd" type="Script" id=1]
 [ext_resource path="res://assets/theme/small.tres" type="Theme" id=2]
 [ext_resource path="res://src/entity/dude/grab_with_b.gd" type="Script" id=3]
 [ext_resource path="res://src/entity/dude/connect_component_with_b.gd" type="Script" id=4]
 [ext_resource path="res://src/entity/dude/HUD_pivot.gd" type="Script" id=5]
+[ext_resource path="res://src/cutscene/translate.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6, 5 )
@@ -30,6 +31,8 @@ text = "X - Grab"
 align = 1
 script = ExtResource( 3 )
 
+[node name="translate" parent="HUD_pivot/grab_with_b" instance=ExtResource( 6 )]
+
 [node name="connect_component_with_b" type="Label" parent="HUD_pivot"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -44,6 +47,8 @@ theme = ExtResource( 2 )
 text = "X - Put"
 align = 1
 script = ExtResource( 4 )
+
+[node name="translate" parent="HUD_pivot/connect_component_with_b" instance=ExtResource( 6 )]
 
 [node name="pickup_hold" type="Node2D" parent="."]
 position = Vector2( 0, -5 )

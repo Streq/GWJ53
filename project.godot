@@ -171,7 +171,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GWJ53"
-run/main_scene="res://src/Menu/SaveMenu.tscn"
+run/main_scene="res://main.tscn"
 config/icon="res://assets/texture/icon.png"
 
 [autoload]
@@ -194,6 +194,8 @@ SessionState="*res://src/global/session_state.tscn"
 Music="*res://src/global/Music.tscn"
 Log="*res://src/Menu/Log.tscn"
 MenuStack="*res://src/Menu/MenuStack.tscn"
+LocaleMenu="*res://src/Menu/LocaleMenu.tscn"
+SaveMenu="*res://src/Menu/SaveMenu.tscn"
 
 [display]
 
@@ -280,7 +282,7 @@ START={
 [locale]
 
 test="es"
-translations=PoolStringArray(  )
+translations=PoolStringArray( "res://assets/translation/translation_test.en.translation", "res://assets/translation/translation_test.es.translation" )
 
 [physics]
 

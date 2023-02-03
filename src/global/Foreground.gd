@@ -10,10 +10,8 @@ var index = 0
 
 
 func _ready() -> void:
-	#TODO FIX, HACER MENU INTRO APARTE
-	#ESTO ESTA ACA PORQUE SI NO LOS SONIDOS NO SE INICIALIZAN
-#	yield(get_tree(),"idle_frame")
-	emit_signal("pause")
+	exit()
+	pass
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_right"):
@@ -43,6 +41,16 @@ func update_palette():
 	
 func palette_selected():
 	yield(get_tree(),"idle_frame")
-	emit_signal("unpause")
+	MenuStack.pop()
+
+
+func enter():
+	self.set_process_input(true)
+	choose_your_palette.show()
+	emit_signal("pause")
+
+func exit():
 	self.set_process_input(false)
 	choose_your_palette.hide()
+	emit_signal("unpause")
+	
