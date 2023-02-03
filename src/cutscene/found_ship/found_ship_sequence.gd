@@ -131,7 +131,9 @@ func _on_ship_health_full() -> void:
 		"Now that's more like it!",
 		"It's still a useless potato, but at least now it's not on the brink of falling apart!",
 		"Let's see if we can find the rest of the ship components",
-		"Also I've no idea how to say this without sounding weird but you can pause by pressing ENTER"
+		"Also I've no idea how to say this without sounding weird but you can pause by pressing ENTER",
+		"You can view the log there of everything that's been said, in case you missed anything.",
+		"Also you can change the color palette."
 	])
 	yield(Text,"finished")
 	ship_components_hud.show()

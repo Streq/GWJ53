@@ -192,6 +192,8 @@ PauseMenu="*res://src/Menu/PauseMenu.tscn"
 ObjectPool="*res://src/global/ObjectPool/ObjectPool.tscn"
 SessionState="*res://src/global/session_state.tscn"
 Music="*res://src/global/Music.tscn"
+Log="*res://src/Menu/Log.tscn"
+MenuStack="*res://src/Menu/MenuStack.tscn"
 
 [display]
 

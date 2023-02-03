@@ -4,8 +4,8 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_parent().connect("focus_entered",self,"activate")
-	get_parent().connect("focus_exited",self,"deactivate")
+	get_parent().connect("entered",self,"activate")
+	get_parent().connect("exited",self,"deactivate")
 	deactivate()
 
 

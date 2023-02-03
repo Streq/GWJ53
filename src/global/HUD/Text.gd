@@ -7,6 +7,8 @@ signal player_pressed_A()
 signal done_with_current_text()
 signal finished_loading()
 
+signal display_text(text)
+
 onready var continue_label: Control = $continue
 onready var palette_client: Node = $"%palette_client"
 onready var labels: Control = $"%labels"
@@ -38,6 +40,7 @@ func say(text, time := -1.0, theme := "default"):
 	done_with_current_text()
 	label = label_map[theme]
 	label.text = tr(text)
+	emit_signal("display_text",label.text)
 	label.visible_characters = -1
 
 	var current_stamp = latest_stamp
@@ -78,6 +81,7 @@ func say_and_wait_for_input(request):
 		done_with_current_text()
 		label = label_map[next_request.theme]
 		label.text = tr(next_request.text)
+		emit_signal("display_text",label.text)
 		label.trigger()
 		yield(label,"finished")
 		emit_signal("finished_loading")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=84 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/texture/meteor_eye.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/texture/pupil.png" type="Texture" id=10]
 [ext_resource path="res://src/entity/enemy/enemy_hurt_animation.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/texture/meteor.png" type="Texture" id=12]
+[ext_resource path="res://assets/audio/sfx/tackle_warmup.wav" type="AudioStream" id=13]
 [ext_resource path="res://src/entity/enemy/meteor/state/air_dead.gd" type="Script" id=14]
 [ext_resource path="res://src/global/clients/sfx_player.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/entity/enemy/meteor/eye_spawner.gd" type="Script" id=16]
@@ -473,20 +474,20 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=73]
+[sub_resource type="ImageTexture" id=37]
 flags = 0
 flags = 0
 image = SubResource( 76 )
 size = Vector2( 4, 1 )
 
-[sub_resource type="ShaderMaterial" id=71]
+[sub_resource type="ShaderMaterial" id=38]
 resource_local_to_scene = true
 shader = ExtResource( 39 )
 shader_param/palette_size = 4
 shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
 shader_param/alpha_factor = 0.0
-shader_param/palette = SubResource( 73 )
+shader_param/palette = SubResource( 37 )
 
 [sub_resource type="Image" id=77]
 data = {
@@ -905,7 +906,25 @@ process_mode = 0
 wait_time = 1.25
 one_shot = true
 
-[node name="spawning" type="Node" parent="state_machine" index="6"]
+[node name="fast_shoot_warmup" type="Node" parent="state_machine" index="6"]
+script = ExtResource( 26 )
+animation = "shoot_warmup"
+change_on_animation_finish = false
+on_finish_goto_state = "idle"
+toward_velocity = 2.0
+shots = 6
+
+[node name="warmup_time" type="Timer" parent="state_machine/fast_shoot_warmup" index="0"]
+process_mode = 0
+wait_time = 1.25
+one_shot = true
+
+[node name="cooldown_time" type="Timer" parent="state_machine/fast_shoot_warmup" index="1"]
+process_mode = 0
+wait_time = 0.5
+one_shot = true
+
+[node name="spawning" type="Node" parent="state_machine" index="7"]
 script = ExtResource( 19 )
 animation = "spawning"
 change_on_animation_finish = false
@@ -916,12 +935,12 @@ one_shot = true
 
 [node name="cooldown" type="Timer" parent="state_machine/spawning" index="1"]
 
-[node name="air_dead" type="Node" parent="state_machine" index="7"]
+[node name="air_dead" type="Node" parent="state_machine" index="8"]
 script = ExtResource( 14 )
 animation = "air_dead"
 is_dead_state = true
 
-[node name="stun" type="Node" parent="state_machine" index="8"]
+[node name="stun" type="Node" parent="state_machine" index="9"]
 script = ExtResource( 22 )
 animation = "stunned"
 change_on_animation_finish = false
@@ -969,7 +988,7 @@ script = ExtResource( 6 )
 shape = SubResource( 4 )
 
 [node name="eye" type="Sprite" parent="pivot" index="3"]
-material = SubResource( 71 )
+material = SubResource( 38 )
 texture = ExtResource( 2 )
 
 [node name="pupil" type="Sprite" parent="pivot/eye" index="0"]
@@ -1081,24 +1100,28 @@ volume_db = -32.0
 stream = ExtResource( 25 )
 volume_db = -32.0
 
-[node name="shoot" type="AudioStreamPlayer2D" parent="." index="17"]
+[node name="fast_shoot_warmup" type="AudioStreamPlayer2D" parent="." index="17"]
+stream = ExtResource( 13 )
+volume_db = -32.0
+
+[node name="shoot" type="AudioStreamPlayer2D" parent="." index="18"]
 stream = ExtResource( 42 )
 volume_db = -32.0
 
-[node name="chase" type="AudioStreamPlayer2D" parent="." index="18"]
+[node name="chase" type="AudioStreamPlayer2D" parent="." index="19"]
 stream = ExtResource( 33 )
 volume_db = -24.0
 
-[node name="drain_air" type="AudioStreamPlayer2D" parent="." index="19"]
+[node name="drain_air" type="AudioStreamPlayer2D" parent="." index="20"]
 stream = ExtResource( 50 )
 volume_db = -32.0
 
-[node name="drain_air_loop" type="AudioStreamPlayer2D" parent="." index="20"]
+[node name="drain_air_loop" type="AudioStreamPlayer2D" parent="." index="21"]
 stream = ExtResource( 49 )
 volume_db = -32.0
 attenuation = 2.37841
 
-[node name="aim_at_player" type="Node2D" parent="." index="21"]
+[node name="aim_at_player" type="Node2D" parent="." index="22"]
 script = ExtResource( 38 )
 
 [node name="muzzle" type="Node2D" parent="aim_at_player" index="0"]
@@ -1115,7 +1138,7 @@ script = ExtResource( 43 )
 script = ExtResource( 37 )
 sfx = "shoot_bullet_enemy"
 
-[node name="tackle_particles" type="Node2D" parent="." index="22"]
+[node name="tackle_particles" type="Node2D" parent="." index="23"]
 script = ExtResource( 45 )
 
 [node name="tackle_particles0" type="CPUParticles2D" parent="tackle_particles" index="0"]
@@ -1146,7 +1169,7 @@ damping = 100.0
 anims/RESET = SubResource( 51 )
 anims/play = SubResource( 52 )
 
-[node name="drain_air_particles" type="Node2D" parent="." index="23"]
+[node name="drain_air_particles" type="Node2D" parent="." index="24"]
 script = ExtResource( 45 )
 
 [node name="drain_air_particles0" type="CPUParticles2D" parent="drain_air_particles" index="0"]
@@ -1179,7 +1202,7 @@ radial_accel = -256.0
 anims/RESET = SubResource( 63 )
 anims/play = SubResource( 64 )
 
-[node name="chase_particles" type="Node2D" parent="." index="24"]
+[node name="chase_particles" type="Node2D" parent="." index="25"]
 script = ExtResource( 45 )
 
 [node name="chase_particles0" type="CPUParticles2D" parent="chase_particles" index="0"]
@@ -1207,35 +1230,35 @@ damping = 50.0
 anims/RESET = SubResource( 59 )
 anims/play = SubResource( 56 )
 
-[node name="scope" type="Node2D" parent="." index="25"]
+[node name="scope" type="Node2D" parent="." index="26"]
 visible = false
 script = ExtResource( 46 )
 texture = ExtResource( 41 )
 
-[node name="pull_player" type="Node2D" parent="." index="26"]
+[node name="pull_player" type="Node2D" parent="." index="27"]
 unique_name_in_owner = true
 script = ExtResource( 51 )
 enabled = false
 
-[node name="explosion" parent="." index="27" instance=ExtResource( 15 )]
+[node name="explosion" parent="." index="28" instance=ExtResource( 15 )]
 sfx = "explosion"
 
-[node name="explosion2" parent="." index="28" instance=ExtResource( 15 )]
+[node name="explosion2" parent="." index="29" instance=ExtResource( 15 )]
 sfx = "explosion2"
 
-[node name="explosion3" parent="." index="29" instance=ExtResource( 15 )]
+[node name="explosion3" parent="." index="30" instance=ExtResource( 15 )]
 sfx = "explosion3"
 
-[node name="explosion4" parent="." index="30" instance=ExtResource( 15 )]
+[node name="explosion4" parent="." index="31" instance=ExtResource( 15 )]
 sfx = "explosion4"
 
-[node name="explosion5" parent="." index="31" instance=ExtResource( 15 )]
+[node name="explosion5" parent="." index="32" instance=ExtResource( 15 )]
 sfx = "explosion5"
 
-[node name="explosion6" parent="." index="32" instance=ExtResource( 15 )]
+[node name="explosion6" parent="." index="33" instance=ExtResource( 15 )]
 sfx = "explosion6"
 
-[node name="explosion7" parent="." index="33" instance=ExtResource( 15 )]
+[node name="explosion7" parent="." index="34" instance=ExtResource( 15 )]
 sfx = "explosion7"
 
 [connection signal="body_shape_entered" from="terrain_destroyer" to="terrain_destroyer" method="_on_body_shape_entered"]
@@ -1254,6 +1277,11 @@ sfx = "explosion7"
 [connection signal="shoot" from="state_machine/shoot_warmup" to="shoot" method="play"]
 [connection signal="shoot" from="state_machine/shoot_warmup" to="aim_at_player/muzzle" method="shoot"]
 [connection signal="warmup_done" from="state_machine/shoot_warmup" to="shoot_warmup" method="stop"]
+[connection signal="entered" from="state_machine/fast_shoot_warmup" to="shoot_warmup" method="play"]
+[connection signal="entered" from="state_machine/fast_shoot_warmup" to="fast_shoot_warmup" method="play"]
+[connection signal="shoot" from="state_machine/fast_shoot_warmup" to="shoot" method="play"]
+[connection signal="shoot" from="state_machine/fast_shoot_warmup" to="aim_at_player/muzzle" method="shoot"]
+[connection signal="warmup_done" from="state_machine/fast_shoot_warmup" to="shoot_warmup" method="stop"]
 [connection signal="entered" from="state_machine/spawning" to="spawning" method="play"]
 [connection signal="timeout" from="state_machine/spawning/warmup" to="spawned" method="play"]
 [connection signal="hit" from="pivot/hitbox" to="state_machine/chase" method="finish"]

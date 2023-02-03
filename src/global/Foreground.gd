@@ -22,6 +22,7 @@ func _input(event: InputEvent) -> void:
 		prev_palette()
 	elif event.is_action_pressed("A"):
 		palette_selected()
+		get_tree().set_input_as_handled()
 	
 
 func next_palette():

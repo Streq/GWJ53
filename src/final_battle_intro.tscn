@@ -134,6 +134,7 @@ script = ExtResource( 40 )
 
 [node name="orchestrator" type="Node" parent="."]
 script = ExtResource( 6 )
+skip_intro = true
 LAVA_RING = ExtResource( 23 )
 
 [node name="black_background" type="Node2D" parent="."]

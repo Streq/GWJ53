@@ -11,7 +11,8 @@ enum {
 	SHOOT,
 	TACKLE,
 	CHASE,
-	DRAIN
+	DRAIN,
+	SHOOT_FAST,
 	NOTHING,
 }
 
@@ -57,6 +58,7 @@ var chances = [
 		"attacks": {
 #			SPAWN: 0.0,
 #			SHOOT: 0.0,
+			SHOOT_FAST: 0.35,
 			TACKLE: 0.35,
 			CHASE: 0.35
 		}
@@ -98,6 +100,9 @@ func _physics_process(delta: float) -> void:
 		DRAIN:
 			owner.input_state.A.pressed = !owner.input_state.A.pressed
 			owner.input_state.B.pressed = !owner.input_state.B.pressed
+		SHOOT_FAST:
+			owner.input_state.R.pressed = !owner.input_state.R.pressed
+			owner.input_state.L.pressed = !owner.input_state.L.pressed
 		NOTHING:
 			if time > idle_time:
 				for config_index in chances.size():

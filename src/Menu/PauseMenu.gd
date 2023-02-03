@@ -1,46 +1,40 @@
 extends CanvasLayer
 onready var options: VBoxContainer = $"%options"
 onready var background: CanvasLayer = $"%background"
+signal entered()
+signal exited()
 
-var active := false setget set_active
 var enabled := false setget set_enabled
 
 func set_enabled(val):
 	enabled = val
 	set_process_input(val)
-	
-onready var pause_client: Node = $pause_client
 
-func set_active(val):
-	if active == val:
-		return
-	if val:
-		on()
-	else:
-		off()
 
-func on():
+func enter():
 	pause()
 	show()
+	set_enabled(true)
 	background.show()
 	options.get_child(0).grab_focus()
-	
+	emit_signal("entered")
 
-func off():
+func exit():
 	unpause()
+	set_enabled(false)
 	background.hide()
 	hide()
+	emit_signal("exited")
 
 func _ready() -> void:
-	off()
+	exit()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("START"):
-		self.active = !active
+		get_tree().set_input_as_handled()
+		MenuStack.pop()
 
 func pause():
-	active = true
 	Pause.pause(PauseState.Level.MENU)
 func unpause():
-	active = false
 	Pause.unpause(PauseState.Level.MENU)

@@ -93,7 +93,7 @@ tracks/0/keys = {
 
 [node name="text" type="CanvasLayer"]
 pause_mode = 2
-layer = 127
+layer = 126
 script = ExtResource( 2 )
 
 [node name="labels" type="Control" parent="."]

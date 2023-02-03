@@ -6,6 +6,9 @@ func _physics_update(delta:float) -> void:
 	if root.input_state.A.is_just_pressed() and root.input_state.B.is_just_pressed():
 		goto("drain_air")
 		return
+	if root.input_state.R.is_just_pressed() and root.input_state.L.is_just_pressed():
+		goto("fast_shoot_warmup")
+		return
 	if root.input_state.A.is_just_pressed():
 		goto("spawning")
 		return

@@ -24,6 +24,8 @@ func _exit() -> void:
 	cooldown_time.stop()
 
 func _physics_update(delta:float) -> void:
+	root.velocity += root.input_state.dir*root.speed*toward_velocity*delta
+
 	if !warmup_time.is_stopped():
 		return
 	
