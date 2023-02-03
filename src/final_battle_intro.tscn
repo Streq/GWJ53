@@ -421,7 +421,6 @@ unique_name_in_owner = true
 paused_at_level = 2
 
 [node name="set_health_to" parent="meteor" instance=ExtResource( 34 )]
-trigger_on_ready = true
 
 [node name="boss_hud" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

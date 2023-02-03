@@ -48,3 +48,4 @@ func hit_destructible_terrain(point: Vector2, damage := 1, can_damage_strong := 
 func terrain_get_hit(bullet, collision:KinematicCollision2D):
 	hit_destructible_terrain(collision.position-collision.normal)
 	pass
+

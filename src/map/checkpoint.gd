@@ -41,7 +41,11 @@ func off():
 	label.hide()
 	
 func revive():
-#	yield(get_tree().create_timer(1.0),"timeout")
+	yield(get_tree().create_timer(1.0),"timeout")
+	Text.say("Oh it was just some vivid thought, thank goodness!", 5.0)
+	revive_quick()
+
+func revive_quick():
 	player.global_position = player_spawn.global_position
 	player.revive()
 	ship.global_position = ship_spawn.global_position

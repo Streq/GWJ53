@@ -19,7 +19,7 @@ func _ready() -> void:
 		checkpoint.connect("active",self,"active_checkpoint",[i])
 		if i == SessionState.current_checkpoint:
 			checkpoint.on()
-			checkpoint.revive()
+			checkpoint.revive_quick()
 		i+=1
 		
 	

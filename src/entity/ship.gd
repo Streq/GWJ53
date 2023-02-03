@@ -6,6 +6,9 @@ signal dead()
 signal revived()
 signal in_water()
 signal out_of_water()
+
+signal heavy_ground_friction()
+
 export var jump := 100.0
 export var velocity := Vector2()
 export var jet_power := 200.0 
@@ -28,6 +31,7 @@ onready var pivot: Node2D = $pivot
 onready var input_state: InputState = $input_state
 onready var pilot_seat: Node2D = $pivot/pilot_seat
 onready var slots: Node2D = $pivot/slots
+onready var ground_particle_source: Position2D = $"%ground_particle_source"
 
 export var team := 0
 
@@ -86,8 +90,8 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
 		velocity.x = move_toward(velocity.x,0.0,ground_friction*delta)
-	
-	
+		if abs(velocity.x) > 50.0:
+			emit_signal("heavy_ground_friction")
 	var _damping = water_damping if in_water else air_damping if in_air else damping
 	velocity *= 1-delta*_damping
 	previous_velocity = velocity
