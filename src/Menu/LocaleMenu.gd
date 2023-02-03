@@ -11,7 +11,8 @@ var locale_to_option_index = {}
 func enter():
 	show()
 	background.show()
-	var selected_index = locale_to_option_index[TranslationServer.get_locale()]
+	var current_locale = TranslationServer.get_locale()
+	var selected_index = locale_to_option_index[current_locale]
 	options.get_child(selected_index).grab_focus()
 	set_process_input(true)
 	Pause.pause(PauseState.Level.MENU)
@@ -22,6 +23,7 @@ func exit():
 	set_process_input(false)
 	Pause.unpause(PauseState.Level.MENU)
 func _ready() -> void:
+	set_locale(SessionState.locale)
 	var locales = Group.get_all("locale")
 	var locale_option_index = 0
 	for locale in locales:
@@ -33,6 +35,7 @@ func _ready() -> void:
 
 func set_locale(locale):
 	TranslationServer.set_locale(locale)
+	SessionState.locale = locale
 	emit_signal("locale_changed")
 
 func _input(event: InputEvent) -> void:

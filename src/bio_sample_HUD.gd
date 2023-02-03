@@ -10,9 +10,10 @@ var format = original_format
 
 func _ready() -> void:
 	var samples = Group.get_all("bio_sample")
+	total_samples = samples.size()
+	padding = str(str(total_samples).length())
 	for sample in samples:
 		sample.connect("collected",self,"collected_sample")
-	
 	update_display()
 	LocaleMenu.connect("locale_changed",self,"update_display")
 	
@@ -21,9 +22,6 @@ func update_display():
 	update_text()
 
 func update_format():
-	var samples = Group.get_all("bio_sample")
-	total_samples = samples.size()
-	padding = str(str(total_samples).length())
 	format = "%"+padding+tr(original_format)
 
 	

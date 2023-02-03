@@ -281,7 +281,6 @@ START={
 
 [locale]
 
-test="es"
 translations=PoolStringArray( "res://assets/translation/translation_test.en.translation", "res://assets/translation/translation_test.es.translation" )
 
 [physics]
