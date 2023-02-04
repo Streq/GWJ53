@@ -3,7 +3,6 @@ extends Node
 export var disabled := false setget set_disabled
 export var dir := Vector2()
 
-
 func set_disabled(val):
 	disabled = val
 	set_physics_process(!disabled)
