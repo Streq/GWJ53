@@ -15,11 +15,9 @@ text = " !\"#$%&'()*+,-./0123456789:;<=>?
 £abcdefghijklmnopqrstuvwxyz{|}~©
 áéíóúñÁÉÍÓÚÑ"
 script = ExtResource( 1 )
-font_texture_path = "res://assets/font/font.png"
+font_texture_path = "res://assets/font/ZX Eurostile.png"
 reference_string = " !\"#$%&'()*+,-./0123456789:;<=>?
 @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_
 £abcdefghijklmnopqrstuvwxyz{|}~©
 áéíóúñÁÉÍÓÚÑ"
-output_font = "res://assets/font/4x5.res"
-width = 4
-height = 5
+output_font = "res://assets/font/ZX Eurostile"

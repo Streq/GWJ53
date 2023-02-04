@@ -363,18 +363,15 @@ func boss_fight():
 	player_controller.disabled = false
 	
 	
-	if SessionState.lava_ring_deaths == 0:
+	if SessionState.lava_ring_deaths < 2:
 		Text.say_array(["Dumbass"])
 		Text.say_array(["Okay, don't panic, there must be SOME way to get out of here"])
-
-	elif SessionState.lava_ring_deaths < 3:
-		Text.say_array(["There's definitely a way to get out of here, I know it."])
-		Text.say_array(["The meteor said it decomposes \"living things\", maybe the ship itself is immune?"])
+		Text.say_array(["The meteor said it decomposes \"living things\", maybe the ship itself is immune, but if *I* pass through it I'm done?"])
 	
-	elif SessionState.lava_ring_deaths < 5:
+	elif SessionState.lava_ring_deaths < 4:
 		Text.say_array(["Oh man I WISH I could just TELEPORT out of here."])
 	
-	elif SessionState.lava_ring_deaths >= 5:
+	elif SessionState.lava_ring_deaths >= 4:
 		Text.say_array(["Okay this isn't going anywhere. Do you wanna know how to get out of here?"])
 		yield(Text,"finished")
 		Text.say("Just move toward the edge of the ring, press A, and then S right after, the ship will move through the ring unharmed (since it's not a living thing), and you will teleport outside the ring")
@@ -426,7 +423,7 @@ func boss_fight():
 	yield(song, "finished")
 	
 	ship.queue_free()
-	Text.say("RESTARTING\n(now you can skip text with X)",3.0)
+	Text.say("restarting.msg",3.0)
 	yield(Text,"finished")
 	
 	SessionState.clear()

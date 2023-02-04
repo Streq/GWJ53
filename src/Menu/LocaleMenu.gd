@@ -23,7 +23,7 @@ func exit():
 	set_process_input(false)
 	Pause.unpause(PauseState.Level.MENU)
 func _ready() -> void:
-	set_locale(SessionState.locale)
+	set_locale_no_save(SessionState.locale)
 	var locales = Group.get_all("locale")
 	var locale_option_index = 0
 	for locale in locales:
@@ -34,9 +34,13 @@ func _ready() -> void:
 	pass
 
 func set_locale(locale):
-	TranslationServer.set_locale(locale)
 	SessionState.locale = locale
+	set_locale_no_save(locale)
+
+func set_locale_no_save(locale):
+	TranslationServer.set_locale(locale)
 	emit_signal("locale_changed")
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):

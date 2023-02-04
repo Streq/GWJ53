@@ -2,7 +2,7 @@ id,en,es
 "So there's this guy, right?","So there's this guy, right?","Está este tipo, no?"
 He's in the middle of nowhere in outer space.,He's in the middle of nowhere in outer space.,En medio de la nada en el espacio.
 In a spaceship about as big as a bathroom stall.,In a spaceship about as big as a bathroom stall.,En una nave del tamaño de un cubículo de baño público.
-He was supposed to bring back some bio samples from the closest earth like planet or something like that.,He was supposed to bring back some bio samples from the closest earth like planet or something like that.,El flaco tenía que traer unas muestras biológicas del planeta que se parezca a la Tierra más cercano o algo por el estilo.
+He was supposed to bring back some bio samples from the closest earth like planet or something like that.,He was supposed to bring back some bio samples from the closest earth like planet or something like that.,Tenía que traer unas muestras biológicas del planeta que se parezca a la Tierra más cercano o algo por el estilo.
 But he spent the whole time on his phone playing snake.,But he spent the whole time on his phone playing snake.,Pero se la pasó jugando a la viborita en el celu.
 "So now it's late, the day is almost over, and he has to make it back quickly","So now it's late, the day is almost over, and he has to make it back quickly","Ahora ya se hizo tarde, el día casi termina, y tiene que volver rápido"
 So he was pulling up to a planet that seemed to fit the criteria,So he was pulling up to a planet that seemed to fit the criteria,Así que se dispuso a aterrizar en un planeta que parecía cumplir con el criterio.
@@ -37,7 +37,7 @@ The GUN will allow the ship to GUN,The GUN will allow the ship to GUN,El CAÑÓN
 "Finally, we don't have to worry about oxygen if the ship has this thing","Finally, we don't have to worry about oxygen if the ship has this thing","Al fin, no nos vamos a tener que preocupar por oxígeno nunca más si la nave tiene esta cosa."
 "That's the teleporter antenna!!, if I put it on the ship I'll be able to teleport by pressing S","That's the teleporter antenna!!, if I put it on the ship I'll be able to teleport by pressing S",Esa es la antena de teletransportación!! Si la pongo en la nave me voy a poder teletransportar apretando S
 "Great, now if I'm away from the ship, I can get back to it by pressing S","Great, now if I'm away from the ship, I can get back to it by pressing S","Buenísimo, ahora si estoy lejos de la nave, puedo volver apretando S"
-"Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no Dome to keep the air inside the ship","Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no Dome to keep the air inside the ship","Vamos todavía! Ahora podemos VOLAR, igual todavía no me puedo ir, porque no tengo la Cúpula que mantiene el aire adentro de la nave."
+"Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no Dome to keep the air inside the ship","Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no Dome to keep the air inside the ship","Vamos todavía! Ahora podemos VOLAR, igual todavía no me puedo ir, porque no tengo la Cúpula que mantiene el aire dentro de la nave."
 Well that's it! I'm done here,Well that's it! I'm done here,Bueno listo! Me las tomo.
 Let's power the ship and get out,Let's power the ship and get out,Arranquemos la nave y vayámonos.
 ...,...,...
@@ -132,7 +132,7 @@ I will take that as a negative. Farewell.,I will take that as a negative. Farewe
 Dumbass,Dumbass,Alto gil
 Ok let's get out of here.,Ok let's get out of here.,Bueno listo nos fuimos.
 THE END,THE END,FIN
-RESTARTING\n(now you can skip text with X),RESTARTING\n(now you can skip text with X),REINICIANDO\n(ahora podés saltear texto con X)
+restarting.msg,RESTARTING\n(now you can skip text with X),REINICIANDO\n(ahora podés saltear texto con X)
 And that's how our hero escaped the evil meteor thing.,And that's how our hero escaped the evil meteor thing.,Y así es como nuestro héroe escapó del meteoro malo ese.
 And since the planet he collected the bio samples from just got completely disintegrated,And since the planet he collected the bio samples from just got completely disintegrated,Y ya que el planeta del cual recolectó las muestras biológicas acaba de desintegrarse por completo
 "This whole operation, along with everything he has been through, were pointless.","This whole operation, along with everything he has been through, were pointless.","Esta operación, junto con todo lo que pasó, fueron en vano."
@@ -141,9 +141,9 @@ But his boss doesn't know that.,But his boss doesn't know that.,Pero su jefe no 
 "So he's just gonna play it cool with the flowers on monday, and see how it goes.","So he's just gonna play it cool with the flowers on monday, and see how it goes.","Así que se va a hacer el tonto con las flores el lunes, y a ver cómo sale."
 "Now he marches home, tired but relieved.","Now he marches home, tired but relieved.","Ahora se marcha a casa, cansado pero aliviado."
 He will not be there until 3 in the morning.,He will not be there until 3 in the morning.,No va a llegar sino hasta las 3 de la mañana.
-"He will have to shower and eat, but he will say \""I'm not dealing with that\"" and just go right to sleep.","He will have to shower and eat, but he will say \""I'm not dealing with that\"" and just go right to sleep.","Va a tener que ducharse y comer, pero va a decir “Ni a palos hago eso ahora” y va a ir directo a la cama todo chivado."
+"He will have to shower and eat, but he will say ""I'm not dealing with that"" and just go right to sleep.","He will have to shower and eat, but he will say ""I'm not dealing with that"" and just go right to sleep.","Va a tener que ducharse y comer, pero va a decir ""Ni a palos hago eso ahora"" y va a ir directo a la cama."
 "On monday, he will present the samples, and his boss will congratulate him on the task, but ask where the ship's FTL Drive is.","On monday, he will present the samples, and his boss will congratulate him on the task, but ask where the ship's FTL Drive is.","El lunes, va a presentar las muestras, su jefe lo va a felicitar, pero le va a preguntar donde está el Impulsor FTL."
-"And our hero will say \""I don't know\""","And our hero will say \""I don't know\""",Y nuestro héroe va a decir “\no sé\”
+"And our hero will say ""I don't know""","And our hero will say ""I don't know""","Y nuestro héroe va a decir ""no sé"""
 "Wait a second, this is the place I came from, there shouldn't be a wall here!!","Wait a second, this is the place I came from, there shouldn't be a floor here!!",Pará un toque. Yo vengo de acá! Cómo apareció este suelo?!
 Dome,Dome,Cúpula
 Gun,Gun,Cañón
@@ -158,7 +158,7 @@ You are a GENIUS.,You are a GENIUS.,SOS UNA LUZ.
 "Okay, don't panic, there must be SOME way to get out of here","Okay, don't panic, there must be SOME way to get out of here","Bueno, a no entrar en pánico, tiene que haber ALGUNA forma de salir de acá."
 "There's definitely a way to get out of here, I know it.","There's definitely a way to get out of here, I know it.","Hay definitivamente una forma de salir de acá, lo sé."
 Oh man I WISH I could just TELEPORT out of here.,Oh man I WISH I could just TELEPORT out of here.,Loco como me GUSTARÍA poder TELETRANSPORTARME lejos de acá.
-Okay this isn't going anywhere. Do you wanna know how to get out of here?,Okay this isn't going anywhere. Do you wanna know how to get out of here?,Bueno che esto no está yendo a ningun lado. Querés saber cómo salir?
+Okay this isn't going anywhere. Do you wanna know how to get out of here?,Okay this isn't going anywhere. Do you wanna know how to get out of here?,Bueno che esto no está yendo a ningún lado. Querés saber cómo salir?
 "Just move toward the edge of the ring, press A, and then S right after, the ship will move through the ring unharmed (since it's not a living thing), and you will teleport outside the ring","Just move toward the edge of the ring, press A, and then S right after, the ship will move through the ring unharmed (since it's not a living thing), and you will teleport outside the ring","Arrancá yendo para el borde del anillo, apretá A, y justo después S, la nave se va a mover y atravesar el anillo sin problemas (porque no es un ser vivo) y vos vas a teletransportarte dentro de la nave y afuera del anillo."
 "If that's the case, check the latest message in the logs (by pressing Enter)","If that's the case, check the latest message in the logs (by pressing Enter)","Si ese es el caso, fijate el último mensaje en la bitácora (apretando Enter)"
 "That's an antinuclear matter bubble, I know, just go and let me die man","That's an antinuclear matter bubble, I know, just go and let me die man","Esa es una burbuja de materia antinuclear, ya sé, dejame morir en paz"
@@ -202,4 +202,4 @@ The energy from this place seems protective,The energy from this place seems pro
 Leaving the atmosphere without the full ship was a bad idea,Leaving the atmosphere without the full ship was a bad idea,Dejar la atmósfera con la nave incompleta fue mala idea
 meteor.drain.attack,Air. Water. Gravity.\nLet's see how well a lesser lifeform fares without.,Aire. Agua. Gravedad.\nVeamos qué tan bien se adapta una especie inferior a su ausencia.
 Change Language,Change Language,Cambiar Idioma
-"The meteor said it decomposes ""living things"", maybe the ship itself is immune?","The meteor said it decomposes ""living things"", maybe the ship itself is immune?","El meteorito dijo que descompone a todo ""ser viviente"", por ahí la nave por sí sola es inmune."
+"The meteor said it decomposes ""living things"", maybe the ship itself is immune, but if *I* pass through it I'm done?","The meteor said it decomposes ""living things"", maybe the ship itself is immune, but if *I* pass through it I'm done?","El meteorito dijo que descompone a todo ""ser viviente"", por ahí la nave en sí es inmune, pero si *yo* lo atravieso muero."
