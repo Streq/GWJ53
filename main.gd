@@ -10,9 +10,7 @@ extends Node
 func _ready() -> void:
 	
 	yield(get_tree(),"idle_frame")
-	MenuStack.push(SaveMenu)
-	MenuStack.push(Foreground)
-	MenuStack.push(LocaleMenu)
+	MenuStack.push_array([SaveMenu,Foreground,LocaleMenu])
 	
 	
 	

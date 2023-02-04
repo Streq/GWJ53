@@ -9,6 +9,12 @@ func push(menu):
 	menu_stack.append(menu)
 	menu.enter()
 
+func push_array(arr):
+	if menu_stack:
+		menu_stack.back().exit()
+	menu_stack.append_array(arr)
+	menu_stack.back().enter()
+
 func pop():
 	if !menu_stack:
 		return

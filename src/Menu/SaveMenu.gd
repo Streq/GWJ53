@@ -1,10 +1,11 @@
 extends CanvasLayer
 onready var options: VBoxContainer = $"%options"
 onready var background: CanvasLayer = $"%background"
-	
+
+var has_save = false
 
 func enter():
-	if SessionState.has_save():
+	if has_save:
 		show()
 		background.show()
 		options.get_child(0).grab_focus()
@@ -17,4 +18,5 @@ func exit():
 	background.hide()
 
 func _ready() -> void:
+	has_save = SessionState.has_save()
 	exit()
