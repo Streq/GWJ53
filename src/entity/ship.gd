@@ -31,7 +31,6 @@ onready var pivot: Node2D = $pivot
 onready var input_state: InputState = $input_state
 onready var pilot_seat: Node2D = $pivot/pilot_seat
 onready var slots: Node2D = $pivot/slots
-onready var ground_particle_source: Position2D = $"%ground_particle_source"
 
 export var team := 0
 
