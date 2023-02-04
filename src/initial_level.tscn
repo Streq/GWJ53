@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://src/map/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://src/entity/ship/components/jet_component/jet_component_down.tscn" type="PackedScene" id=2]
@@ -55,6 +55,7 @@
 [ext_resource path="res://src/save.gd" type="Script" id=53]
 [ext_resource path="res://src/cutscene/trigger_if_has_down_jet.gd" type="Script" id=54]
 [ext_resource path="res://src/cutscene/translate.tscn" type="PackedScene" id=55]
+[ext_resource path="res://src/initial_level/music_decider.gd" type="Script" id=56]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 92 )
@@ -762,6 +763,9 @@ shape = SubResource( 11 )
 
 [node name="save" type="Node" parent="."]
 script = ExtResource( 53 )
+
+[node name="music_decider" type="Node" parent="."]
+script = ExtResource( 56 )
 
 [connection signal="restart" from="." to="terrain/reset_tiles_on_respawn" method="trigger"]
 [connection signal="pilot_entered" from="ship" to="found_ship_sequence" method="_on_ship_pilot_entered" flags=6]

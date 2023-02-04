@@ -248,15 +248,20 @@ func _on_down_jet_pickup_picked_up() -> void:
 	if down_jet_picked_up:
 		return
 	
+	Music.stop()
 	down_jet_picked_up = true
 	Shake.shake(Vector2.RIGHT)
 	rumble.play()
 	yield(get_tree().create_timer(1.0),"timeout")
 	Text.say_array(["Something's wrong", "I feel like I've awakened something"])
+	
 	eye_spawner.spawn()
 	protected_zone_detect.set_deferred("monitoring", true)
 	protected_zone_detect.enabled = true
-
+	
+	yield(get_tree().create_timer(1.0),"timeout")
+	Music.play("jazz")
+	
 
 
 func _on_rear_done() -> void:

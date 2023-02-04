@@ -33,9 +33,6 @@ crash_velocity = 200.0
 [node name="rumble" parent="." index="71"]
 stream = ExtResource( 3 )
 
-[connection signal="hit" from="common_alien/pivot/hitbox" to="found_ship_sequence" method="_on_local_hitbox_hit" flags=6]
-[connection signal="done" from="ship_GUI/Control/VBoxContainer/bio_sample_HUD" to="leave_world_area" method="done"]
-
 [editable path="terrain/air_area"]
 [editable path="terrain/water_area"]
 [editable path="common_alien"]

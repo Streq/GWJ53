@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/hectic.ogg-0fbf5bf0081f65e3a7dfd0343dc9c977.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/music/hectic.ogg"
+dest_files=[ "res://.import/hectic.ogg-0fbf5bf0081f65e3a7dfd0343dc9c977.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

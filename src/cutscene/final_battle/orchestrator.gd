@@ -62,6 +62,8 @@ func boss_quick_setup():
 	black_background.queue_free()
 	boss_triggered = true
 	
+	Music.play("meteor")
+	
 func intro_sequence():
 	player_HUD.hide()
 	meteor_radar.hide()
@@ -121,8 +123,10 @@ func intro_sequence():
 	Text.say_array(["You cannot leave this place"],"meteor")
 	
 	Text.say_array(["Who's there?"])
-
 	yield(Text,"finished")
+	
+	Music.play("meteor")
+	
 	meteor_pause_client.paused_at_level = PauseState.Level.MENU
 	Pause.pause(PauseState.Level.TEXT)
 	meteor.set_physics_process(true)
@@ -144,7 +148,9 @@ func new_reasoning():
 	Text.say_array(["I apologize for the suffering and false hope I have caused you.",
 	"I am the guardian of this world.",
 	"You were never meant to survive our first encounter."],"meteor")
-
+	
+	yield(Text,"finished")
+	
 	Text.say_array(["What? why? What did I even do?"])
 
 	Text.say_array(["Nothing yet","But I know your kind, I know what you are.",
@@ -253,6 +259,7 @@ func boss_fight():
 	
 	
 	yield(meteor,"dying")
+	Music.stop()
 	get_tree().call_group("air","queue_free")
 	get_tree().call_group("water","queue_free")
 	dead_meteor_sprite.global_position = meteor.global_position
@@ -416,13 +423,16 @@ func boss_fight():
 	player_HUD.hide()
 	
 	var song = Music.play("end_song")
+#	var song = Music.play("chill")
 	yield(ending_second_version(),"completed")
 	
 	Text.say("THE END")
+	yield(get_tree().create_timer(5.0),"timeout")
 	song.continue_looping = false
 	yield(song, "finished")
 	
 	ship.queue_free()
+	Music.stop()
 	Text.say("restarting.msg",3.0)
 	yield(Text,"finished")
 	

@@ -12,6 +12,7 @@ onready var continue_label: Control = $continue
 
 
 func _ready() -> void:
+	Music.stop()
 	if SessionState.skip_intro:
 		get_tree().change_scene(scene_on_finish)
 		return

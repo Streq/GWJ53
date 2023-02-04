@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/music/loopable_section_song.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/global/music.gd" type="Script" id=2]
 [ext_resource path="res://src/global/clients/pause_client.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/audio/music/nes_07-lost_blues.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/music/nes_23-chill.ogg" type="AudioStream" id=5]
+[ext_resource path="res://assets/audio/music/hectic.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/audio/music/jazz.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/audio/music/cheery.ogg" type="AudioStream" id=8]
 
 [node name="Music" type="Node"]
 script = ExtResource( 2 )
@@ -11,6 +16,26 @@ script = ExtResource( 2 )
 
 [node name="end_song" parent="songs" instance=ExtResource( 1 )]
 volume_db = -24.0
+
+[node name="meteor" type="AudioStreamPlayer" parent="songs"]
+stream = ExtResource( 4 )
+volume_db = -24.0
+
+[node name="chill" type="AudioStreamPlayer" parent="songs"]
+stream = ExtResource( 5 )
+volume_db = -24.0
+
+[node name="jazz" type="AudioStreamPlayer" parent="songs"]
+stream = ExtResource( 7 )
+volume_db = -32.0
+
+[node name="hectic" type="AudioStreamPlayer" parent="songs"]
+stream = ExtResource( 6 )
+volume_db = -40.0
+
+[node name="cheery" type="AudioStreamPlayer" parent="songs"]
+stream = ExtResource( 8 )
+volume_db = -32.0
 
 [node name="pause_client" parent="." instance=ExtResource( 3 )]
 paused_at_level = 2

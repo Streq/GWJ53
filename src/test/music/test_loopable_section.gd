@@ -9,6 +9,11 @@ onready var end: AudioStreamPlayer = $end
 
 export var continue_looping := true
 
+var playing:bool setget, is_playing
+
+func is_playing():
+	return intro.playing or loop.playing or end.playing
+
 export (float, -80, 24)var volume_db := 0.0 setget set_volume_db
 export (float) var pitch_scale := 1.0 setget set_pitch_scale
 
@@ -34,16 +39,30 @@ func set_pitch_scale(val: float):
 	for child in get_children():
 		child.pitch_scale = val
 
+var current_play :GDScriptFunctionState = null
+
 func play(at := 0.0):
-	
+	stop = false
 	intro.play()
 	yield(intro,"finished")
-	
+	if stop:
+		return
 	while continue_looping:
 		loop.play()
 		yield(loop,"finished")
+		if stop:
+			return
 		emit_signal("loop_finished")
 	
 	end.play()
 	yield(end,"finished")
+	if stop:
+		return
 	emit_signal("finished")
+
+var stop = false
+func stop():
+	stop = true
+	intro.stop()
+	loop.stop()
+	end.stop()
