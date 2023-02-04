@@ -34,6 +34,7 @@ onready var meteor_shake = $"%meteor_shake"
 var boss_triggered = false
 
 func _ready() -> void:
+	Music.stop()
 	yield(owner,"ready")
 	
 	if !skip_intro and !SessionState.skip_meteor_intro:
