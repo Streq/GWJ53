@@ -54,7 +54,7 @@ Something's wrong,Something's wrong,Hay algo mal.
 I feel like I've awakened something,I feel like I've awakened something,Siento que desperté algo
 "Great, this jet will allow us to dive into deep waters, now for the Dome and we're good to go!","Great, this jet will allow us to dive into deep waters, now for the Dome and we're good to go!","Genial, este jet nos va a permitir sumergirnos en aguas profundas, ahora a buscar la Cúpula y estamos."
 Now we can fend for ourselves.,Now we can fend for ourselves.,Ahora sí nos podemos valer por nosotros.
-"Shoot with X, hold to fix aim, tap to shoot faster, and remember: you cannot fire when you've just been hurt!","Shoot with X, hold to fix aim, tap to shoot faster, and remember: you cannot fire when you've just been hurt!","Dispará con X, mantené apretado para fijar el arma en una dirección, y acordate: no podés disparar si te acaban de lastimar!"
+"Shoot with X, hold to fix aim, tap to shoot faster, and remember: you cannot fire when you've just been hurt!","Shoot with X, hold to fix aim, tap to shoot faster, and remember: you cannot fire when you've just been hurt!","Dispará apretando X, mantené apretado X para disparar con el arma fija en una dirección, y acordate: no podés disparar si te acaban de lastimar!"
 Oh look! some locals! Maybe we can talk to them by pressing X!,Oh look! some locals! Maybe we can talk to them by pressing X!,Ah mirá! Gente local! Por ahí podemos hablarles apretando X!
 "Hey! I'm an alien, but I come in peace!","Hey! I'm an alien, but I come in peace!","Hola! Soy un alien, pero vengo en son de paz!"
 "I'm here by accident in fact,","I'm here by accident in fact,",Estoy acá sin querer en realidad.
@@ -132,7 +132,7 @@ I will take that as a negative. Farewell.,I will take that as a negative. Farewe
 Dumbass,That guy was a jerk,Ese tipo era un tarado
 Ok let's get out of here.,Ok let's get out of here.,Bueno listo nos fuimos.
 THE END,THE END,FIN
-restarting.msg,RESTARTING\n(now you can skip text with X),REINICIANDO\n(ahora podés saltear texto con X)
+restarting.msg,RESTARTING,REINICIANDO
 And that's how our hero escaped the evil meteor thing.,And that's how our hero escaped the evil meteor thing.,Y así es como nuestro héroe escapó del meteoro malo ese.
 And since the planet he collected the bio samples from just got completely disintegrated,And since the planet he collected the bio samples from just got completely disintegrated,Y ya que el planeta del cual recolectó las muestras biológicas acaba de desintegrarse por completo
 "This whole operation, along with everything he has been through, were pointless.","This whole operation, along with everything he has been through, were pointless.","Esta operación, junto con todo lo que pasó, fueron en vano."
@@ -203,3 +203,4 @@ Leaving the atmosphere without the full ship was a bad idea,Leaving the atmosphe
 meteor.drain.attack,Air. Water. Gravity.\nLet's see how well a lesser lifeform fares without.,Aire. Agua. Gravedad.\nVeamos qué tan bien se adapta una especie inferior a su ausencia.
 Change Language,Change Language,Cambiar Idioma
 "The meteor said it decomposes ""living things"", maybe the ship itself is immune, but if *I* pass through it I'm done?","The meteor said it decomposes ""living things"", maybe the ship itself is immune, but if *I* pass through it I'm done?","El meteorito dijo que descompone a todo ""ser viviente"", por ahí la nave en sí es inmune, pero si *yo* lo atravieso muero."
+also.skip.with.B,Oh and you can skip text with X!,Ah y podés saltear texto con X!

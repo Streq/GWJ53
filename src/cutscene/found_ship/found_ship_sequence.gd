@@ -133,7 +133,8 @@ func _on_ship_health_full() -> void:
 		"Let's see if we can find the rest of the ship components",
 		"Also I've no idea how to say this without sounding weird but you can pause by pressing ENTER",
 		"You can view the log there of everything that's been said, in case you missed anything.",
-		"Also you can change the color palette."
+		"Also you can change the color palette.",
+		"also.skip.with.B"
 	])
 	yield(Text,"finished")
 	ship_components_hud.show()

@@ -11,7 +11,7 @@
 [ext_resource path="res://assets/audio/sfx/narrator_text10.wav" type="AudioStream" id=9]
 [ext_resource path="res://assets/theme/narrator.tres" type="Theme" id=10]
 
-[sub_resource type="Image" id=3]
+[sub_resource type="Image" id=9]
 data = {
 "data": PoolByteArray( 60, 60, 2, 255, 126, 126, 1, 255, 0, 0, 3, 255, 255, 255, 0, 255 ),
 "format": "RGBA8",
@@ -23,7 +23,7 @@ data = {
 [sub_resource type="ImageTexture" id=4]
 flags = 0
 flags = 0
-image = SubResource( 3 )
+image = SubResource( 9 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=5]
@@ -35,7 +35,7 @@ shader_param/blue_index_offset = 0.0
 shader_param/alpha_factor = 1.0
 shader_param/palette = SubResource( 4 )
 
-[sub_resource type="Image" id=6]
+[sub_resource type="Image" id=10]
 data = {
 "data": PoolByteArray( 60, 60, 2, 255, 0, 0, 3, 255, 255, 255, 0, 255, 126, 126, 1, 255 ),
 "format": "RGBA8",
@@ -47,7 +47,7 @@ data = {
 [sub_resource type="ImageTexture" id=7]
 flags = 0
 flags = 0
-image = SubResource( 6 )
+image = SubResource( 10 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=8]

@@ -270,8 +270,6 @@ func boss_fight():
 #	show_meteor_dead()
 	
 	boss_hud.queue_free()
-	
-	Text.skippable = SessionState.has_beaten_meteor
 	SessionState.has_beaten_meteor = true
 	Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
 	Text.say_array(["Then maybe let me go and take a nap bozo"])
@@ -390,7 +388,6 @@ func boss_fight():
 	count_death_as_lava()
 	
 	yield(Text,"finished")
-	Text.skippable = false
 	
 	player_exited_area.global_position = lava_ring.global_position
 	
@@ -438,7 +435,7 @@ func boss_fight():
 	yield(Text,"finished")
 	
 	SessionState.clear()
-	SessionState.can_skip_text = true
+#	SessionState.can_skip_text = true
 	
 	get_tree().change_scene("res://src/cutscene/intro.tscn")
 	

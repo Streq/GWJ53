@@ -16,8 +16,6 @@ onready var labels: Control = $"%labels"
 
 export var skip_on_debug := false
 
-export var skippable := false
-
 var label_map = {}
 
 const BASE_PALETTE = 9
@@ -40,7 +38,7 @@ func say(text, time := -1.0, theme := "default"):
 	latest_stamp += 1
 	done_with_current_text()
 	label = label_map[theme]
-	label.text = tr(text)
+	label.text = text
 	emit_signal("display_text",label.text)
 	emit_signal("display_label",label)
 	label.visible_characters = -1
@@ -82,7 +80,7 @@ func say_and_wait_for_input(request):
 		var next_request = queue.front()
 		done_with_current_text()
 		label = label_map[next_request.theme]
-		label.text = tr(next_request.text)
+		label.text = next_request.text
 		emit_signal("display_text",label.text)
 		emit_signal("display_label",label)
 		label.trigger()
@@ -105,23 +103,16 @@ func say_array(texts,theme := "default"):
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("A"):
 		emit_signal("player_pressed_A")
-		if skippable:
-			skip()
-	if event.is_action_pressed("B") and (OS.is_debug_build() or SessionState.can_skip_text):
-#		return
-		emit_signal("player_pressed_A")
+	if event.is_action_pressed("B"):
 		skip()
-#	if event.is_action_pressed("R"):
-#		pause_mode = PAUSE_MODE_INHERIT
-#		yield(get_tree().create_timer(1.0),"timeout")
-#		pause_mode = PAUSE_MODE_PROCESS
-#	if event.is_action_pressed("L"):
-#		pause_mode = PAUSE_MODE_PROCESS
-	
-	
+
+
 func skip():
 	if label:
-		label.force_finish()
+		if label.is_done():
+			emit_signal("player_pressed_A")
+		else:
+			label.force_finish()
 	
 func unpause():
 	for i in 2: #prevent jump after dialog end

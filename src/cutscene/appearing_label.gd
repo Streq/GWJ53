@@ -17,9 +17,12 @@ func trigger():
 	emit_signal("finished")
 
 func force_finish():
-	if !is_instance_valid(tween):
+	if is_done():
 		return
 	tween.custom_step(get_total_character_count()*0.05)
+
+func is_done():
+	return !is_instance_valid(tween)
 
 func show_characters(count):
 	if visible_characters != count:

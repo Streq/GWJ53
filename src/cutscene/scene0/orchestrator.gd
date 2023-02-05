@@ -129,5 +129,7 @@ func show_text(text):
 
 
 func _input(event):
-	if event.is_action_pressed("B") and (SessionState.can_skip_text or OS.is_debug_build()):
-		appearing_label.force_finish()
+	if event.is_action_pressed("B"):
+		if !appearing_label.is_done():
+			appearing_label.force_finish()
+			get_tree().set_input_as_handled()

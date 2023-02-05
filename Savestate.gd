@@ -3,7 +3,7 @@ extends Node
 export var skip_intro := false setget set_skip_intro
 export var skip_meteor_intro := false setget set_skip_meteor_intro
 export var has_repaired_ship := false setget set_has_repaired_ship
-export var can_skip_text := false setget set_can_skip_text
+#export var can_skip_text := false setget set_can_skip_text
 export var has_beaten_meteor := false setget set_has_beaten_meteor
 export var lava_ring_deaths := 0 setget set_lava_ring_deaths
 export var locale = "en" setget set_locale
@@ -25,9 +25,9 @@ func set_has_repaired_ship(val):
 	has_repaired_ship = val
 	_save()
 
-func set_can_skip_text(val):
-	can_skip_text = val
-	_save()
+#func set_can_skip_text(val):
+#	can_skip_text = val
+#	_save()
 
 func set_has_beaten_meteor(val):
 	has_beaten_meteor = val
