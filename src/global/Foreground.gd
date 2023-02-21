@@ -2,6 +2,9 @@ extends CanvasLayer
 signal pause
 signal unpause
 
+signal enter
+signal exit
+
 onready var palettes: Control = $palettes
 onready var choose_your_palette: Control = $choose_your_palette
 
@@ -45,6 +48,7 @@ func palette_selected():
 
 
 func enter():
+	emit_signal("enter")
 	self.set_process_input(true)
 	choose_your_palette.show()
 	emit_signal("pause")
@@ -53,4 +57,4 @@ func exit():
 	self.set_process_input(false)
 	choose_your_palette.hide()
 	emit_signal("unpause")
-	
+	emit_signal("exit")
