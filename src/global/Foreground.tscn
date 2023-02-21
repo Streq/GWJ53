@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://assets/texture/white_square.png" type="Texture" id=1]
 [ext_resource path="res://src/global/game_palette.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/global/clients/pause_client.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/shader/foreground_palette_change.gdshader" type="Shader" id=8]
 [ext_resource path="res://src/cutscene/translate.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/Menu/password_skip.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Image" id=146]
 data = {
@@ -513,3 +514,8 @@ palette = PoolColorArray( 0, 0, 0, 1, 0.862745, 0.14902, 0.498039, 1, 0.996078, 
 [node name="pause_client" parent="." instance=ExtResource( 7 )]
 paused_at_level = 4
 pause_level = 3
+
+[node name="password_skip" parent="." instance=ExtResource( 10 )]
+
+[connection signal="enter" from="." to="password_skip" method="enter"]
+[connection signal="exit" from="." to="password_skip" method="exit"]

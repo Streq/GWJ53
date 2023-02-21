@@ -24,6 +24,10 @@ func pop():
 		return
 	menu_stack.back().enter()
 
+func clear():
+	while(menu_stack):
+		pop()
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("START"):
 		if !menu_stack:
