@@ -57,10 +57,14 @@ func _save():
 func _load():
 	loading = true
 	clear()
-	var save_game = File.new()
+	var save_game : File = File.new()
 	
 	if save_game.open(SAVE_PATH, File.READ) == 0:
+			
 		var save = save_game.get_var()
+		if !save:
+			loading = false
+			return
 		for prop in get_script().get_script_property_list():
 			if save.has(prop.name):
 				var val = save[prop.name]
