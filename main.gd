@@ -8,9 +8,5 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	yield(get_tree(),"idle_frame")
 	MenuStack.push_array([SaveMenu,Foreground,LocaleMenu])
-	
-	
-	

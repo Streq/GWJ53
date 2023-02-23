@@ -2,8 +2,8 @@ extends Node
 
 export var skip_intro := false setget set_skip_intro
 export var skip_meteor_intro := false setget set_skip_meteor_intro
+export var skip_meteor_fight := false setget set_skip_meteor_fight
 export var has_repaired_ship := false setget set_has_repaired_ship
-#export var can_skip_text := false setget set_can_skip_text
 export var has_beaten_meteor := false setget set_has_beaten_meteor
 export var lava_ring_deaths := 0 setget set_lava_ring_deaths
 export var locale = "en" setget set_locale
@@ -15,6 +15,10 @@ func set_locale(val):
 
 func set_skip_intro(val):
 	skip_intro = val
+	_save()
+
+func set_skip_meteor_fight(val):
+	skip_meteor_fight = val
 	_save()
 
 func set_skip_meteor_intro(val):
@@ -90,8 +94,8 @@ export var current_checkpoint := -1
 func clear():
 	skip_intro = false
 	skip_meteor_intro = false
+	skip_meteor_fight = false
 	has_repaired_ship = false
-#	can_skip_text = false
 	has_beaten_meteor = false
 	components = 0
 	flowers = []

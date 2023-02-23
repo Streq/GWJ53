@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=92 format=2]
 
 [ext_resource path="res://src/entity/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/texture/meteor_eye.png" type="Texture" id=2]
@@ -51,6 +51,11 @@
 [ext_resource path="res://assets/audio/sfx/drain_air_loop.wav" type="AudioStream" id=49]
 [ext_resource path="res://assets/audio/sfx/drain_air.wav" type="AudioStream" id=50]
 [ext_resource path="res://src/entity/enemy/meteor/pull_player.gd" type="Script" id=51]
+[ext_resource path="res://src/entity/enemy/meteor/significant_health_drop_detect.gd" type="Script" id=52]
+[ext_resource path="res://src/entity/enemy/meteor/meteor_fade.material" type="Material" id=53]
+[ext_resource path="res://src/entity/enemy/meteor/teleport.gd" type="Script" id=54]
+[ext_resource path="res://src/entity/enemy/meteor/default_teleport_point_source.gd" type="Script" id=55]
+[ext_resource path="res://assets/audio/sfx/meteor_teleport.wav" type="AudioStream" id=56]
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 8.0
@@ -465,7 +470,7 @@ radius = 4.0
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3, 4 )
 
-[sub_resource type="Image" id=76]
+[sub_resource type="Image" id=85]
 data = {
 "data": PoolByteArray( 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
 "format": "RGBA8",
@@ -477,7 +482,7 @@ data = {
 [sub_resource type="ImageTexture" id=37]
 flags = 0
 flags = 0
-image = SubResource( 76 )
+image = SubResource( 85 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=38]
@@ -489,7 +494,7 @@ shader_param/blue_index_offset = 0.0
 shader_param/alpha_factor = 0.0
 shader_param/palette = SubResource( 37 )
 
-[sub_resource type="Image" id=77]
+[sub_resource type="Image" id=86]
 data = {
 "data": PoolByteArray( 0, 0, 3, 255, 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255 ),
 "format": "RGBA8",
@@ -501,7 +506,7 @@ data = {
 [sub_resource type="ImageTexture" id=75]
 flags = 0
 flags = 0
-image = SubResource( 77 )
+image = SubResource( 86 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=42]
@@ -790,6 +795,269 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=78]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ null ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/Sprite:material:shader_param/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivot/Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivot/eye:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("pivot/hurtbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("pivot/Sprite/enemy_hurt_animation:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("teleport_sound:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=84]
+resource_name = "fade_in"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 53 ), null ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/Sprite:material:shader_param/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivot/Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivot/eye:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("pivot/hurtbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("pivot/Sprite/enemy_hurt_animation:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("teleport_sound:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=81]
+resource_name = "fade_out"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/Sprite:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 53 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/Sprite:material:shader_param/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivot/Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivot/eye:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("pivot/hurtbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("pivot/Sprite/enemy_hurt_animation:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("teleport_sound:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -1121,7 +1389,11 @@ stream = ExtResource( 49 )
 volume_db = -32.0
 attenuation = 2.37841
 
-[node name="aim_at_player" type="Node2D" parent="." index="22"]
+[node name="teleport_sound" type="AudioStreamPlayer2D" parent="." index="22"]
+stream = ExtResource( 56 )
+volume_db = -18.0
+
+[node name="aim_at_player" type="Node2D" parent="." index="23"]
 script = ExtResource( 38 )
 
 [node name="muzzle" type="Node2D" parent="aim_at_player" index="0"]
@@ -1138,7 +1410,7 @@ script = ExtResource( 43 )
 script = ExtResource( 37 )
 sfx = "shoot_bullet_enemy"
 
-[node name="tackle_particles" type="Node2D" parent="." index="23"]
+[node name="tackle_particles" type="Node2D" parent="." index="24"]
 script = ExtResource( 45 )
 
 [node name="tackle_particles0" type="CPUParticles2D" parent="tackle_particles" index="0"]
@@ -1169,7 +1441,7 @@ damping = 100.0
 anims/RESET = SubResource( 51 )
 anims/play = SubResource( 52 )
 
-[node name="drain_air_particles" type="Node2D" parent="." index="24"]
+[node name="drain_air_particles" type="Node2D" parent="." index="25"]
 script = ExtResource( 45 )
 
 [node name="drain_air_particles0" type="CPUParticles2D" parent="drain_air_particles" index="0"]
@@ -1202,7 +1474,7 @@ radial_accel = -256.0
 anims/RESET = SubResource( 63 )
 anims/play = SubResource( 64 )
 
-[node name="chase_particles" type="Node2D" parent="." index="25"]
+[node name="chase_particles" type="Node2D" parent="." index="26"]
 script = ExtResource( 45 )
 
 [node name="chase_particles0" type="CPUParticles2D" parent="chase_particles" index="0"]
@@ -1230,36 +1502,58 @@ damping = 50.0
 anims/RESET = SubResource( 59 )
 anims/play = SubResource( 56 )
 
-[node name="scope" type="Node2D" parent="." index="26"]
+[node name="scope" type="Node2D" parent="." index="27"]
 visible = false
 script = ExtResource( 46 )
 texture = ExtResource( 41 )
 
-[node name="pull_player" type="Node2D" parent="." index="27"]
+[node name="pull_player" type="Node2D" parent="." index="28"]
 unique_name_in_owner = true
 script = ExtResource( 51 )
 enabled = false
 
-[node name="explosion" parent="." index="28" instance=ExtResource( 15 )]
+[node name="explosion" parent="." index="29" instance=ExtResource( 15 )]
 sfx = "explosion"
 
-[node name="explosion2" parent="." index="29" instance=ExtResource( 15 )]
+[node name="explosion2" parent="." index="30" instance=ExtResource( 15 )]
 sfx = "explosion2"
 
-[node name="explosion3" parent="." index="30" instance=ExtResource( 15 )]
+[node name="explosion3" parent="." index="31" instance=ExtResource( 15 )]
 sfx = "explosion3"
 
-[node name="explosion4" parent="." index="31" instance=ExtResource( 15 )]
+[node name="explosion4" parent="." index="32" instance=ExtResource( 15 )]
 sfx = "explosion4"
 
-[node name="explosion5" parent="." index="32" instance=ExtResource( 15 )]
+[node name="explosion5" parent="." index="33" instance=ExtResource( 15 )]
 sfx = "explosion5"
 
-[node name="explosion6" parent="." index="33" instance=ExtResource( 15 )]
+[node name="explosion6" parent="." index="34" instance=ExtResource( 15 )]
 sfx = "explosion6"
 
-[node name="explosion7" parent="." index="34" instance=ExtResource( 15 )]
+[node name="explosion7" parent="." index="35" instance=ExtResource( 15 )]
 sfx = "explosion7"
+
+[node name="fade" type="AnimationPlayer" parent="." index="36"]
+unique_name_in_owner = true
+playback_process_mode = 0
+anims/RESET = SubResource( 78 )
+anims/fade_in = SubResource( 84 )
+anims/fade_out = SubResource( 81 )
+
+[node name="significant_health_drop_detect" type="Node" parent="." index="37"]
+script = ExtResource( 52 )
+
+[node name="rest_time" type="Timer" parent="significant_health_drop_detect" index="0"]
+process_mode = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="teleport" type="Node" parent="." index="38"]
+unique_name_in_owner = true
+script = ExtResource( 54 )
+
+[node name="default_teleport_point_source" type="Node" parent="teleport" index="0"]
+script = ExtResource( 55 )
 
 [connection signal="body_shape_entered" from="terrain_destroyer" to="terrain_destroyer" method="_on_body_shape_entered"]
 [connection signal="entered" from="state_machine/chase" to="chase" method="play"]
@@ -1290,3 +1584,4 @@ sfx = "explosion7"
 [connection signal="stop" from="eye_spawner" to="eye_spawner/Timer" method="stop"]
 [connection signal="timeout" from="eye_spawner/Timer" to="eye_spawner" method="spawn"]
 [connection signal="fired_shot" from="aim_at_player/muzzle" to="shoot" method="play"]
+[connection signal="trigger" from="significant_health_drop_detect" to="teleport" method="teleport"]
