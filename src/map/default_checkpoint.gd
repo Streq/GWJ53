@@ -23,5 +23,8 @@ func revive():
 	revive_quick()
 	
 func revive_quick():
+	Text.clear_queue()
+	Text.clear()
+
 	Text.say("Oh it was just some vivid thought, thank goodness!", 5.0)
 	get_tree().reload_current_scene()

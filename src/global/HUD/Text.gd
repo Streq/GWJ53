@@ -55,8 +55,12 @@ func say(text, time := -1.0, theme := "default"):
 #	label.trigger()
 
 func clear():
-	label.text = ""
+	for label in label_map.values():
+		label.force_finish()
+		label.text = ""
 
+func clear_queue():
+	queue = []
 
 func say_and_wait_for_input(request):
 	#FOR DEBUG

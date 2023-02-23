@@ -1,6 +1,7 @@
 extends Node
 
 export var skip_intro:= false 
+export var skip_fight:= false 
 
 onready var ship: KinematicBody2D = $"%ship"
 onready var dude: KinematicBody2D = $"%dude"
@@ -22,6 +23,7 @@ onready var shrink_sound: AudioStreamPlayer2D = $"%shrink_sound"
 onready var detect_inside_lava_bubble: Node2D = $"%detect_inside_lava_bubble"
 onready var player_exited_area: Area2D = $"%player exited_area"
 onready var dead_meteor_sprite: Node2D = $"%dead_meteor_sprite"
+onready var timer_ensure_dude_is_outside_exit_area: Timer = $"%timer_ensure_dude_is_outside_exit_area"
 
 onready var meteor_radar: Node2D = $"%meteor_radar"
 
@@ -258,8 +260,11 @@ func boss_fight():
 	meteor_controller.enabled = true
 	
 	
-	
-	yield(meteor,"dying")
+	if skip_fight or SessionState.skip_meteor_fight:
+		meteor.queue_free()
+	else:
+		yield(meteor,"dying")
+	SessionState.skip_meteor_fight = true
 	Music.stop()
 	get_tree().call_group("air","queue_free")
 	get_tree().call_group("water","queue_free")
@@ -401,11 +406,13 @@ func boss_fight():
 	Text.say_array(["Ok let's get out of here."])
 	yield(Text,"finished")
 	
-	
-	
-	if player_exited_area.overlaps_body(dude):
+	if !player_exited_area.overlaps_body(dude):
+		timer_ensure_dude_is_outside_exit_area.start()
+		yield(timer_ensure_dude_is_outside_exit_area,"timeout")
+	while player_exited_area.overlaps_body(dude):
 		yield(player_exited_area,"body_exited")
-	
+		timer_ensure_dude_is_outside_exit_area.start()
+		yield(timer_ensure_dude_is_outside_exit_area,"timeout")
 	yield(get_tree().create_timer(2.0),"timeout")
 	
 	if is_instance_valid(lava_ring):

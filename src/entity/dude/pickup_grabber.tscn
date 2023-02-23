@@ -18,6 +18,7 @@ position = Vector2( 0, -22 )
 script = ExtResource( 5 )
 
 [node name="grab_with_b" type="Label" parent="HUD_pivot"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -35,6 +36,7 @@ script = ExtResource( 3 )
 [node name="translate" parent="HUD_pivot/grab_with_b" instance=ExtResource( 6 )]
 
 [node name="connect_component_with_b" type="Label" parent="HUD_pivot"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

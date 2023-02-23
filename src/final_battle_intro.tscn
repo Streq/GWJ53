@@ -455,6 +455,12 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player exited_area"]
 shape = SubResource( 8 )
 
+[node name="timer_ensure_dude_is_outside_exit_area" type="Timer" parent="player exited_area"]
+unique_name_in_owner = true
+process_mode = 0
+wait_time = 2.0
+one_shot = true
+
 [node name="meteor_teleport" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 33 )
 volume_db = -18.0
