@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://src/map/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://src/entity/ship/full_ship.tscn" type="PackedScene" id=2]
@@ -35,6 +35,7 @@
 [ext_resource path="res://assets/audio/sfx/meteor_teleport.wav" type="AudioStream" id=33]
 [ext_resource path="res://src/entity/set_health_to.tscn" type="PackedScene" id=34]
 [ext_resource path="res://assets/audio/sfx/lava_cast_sound.wav" type="AudioStream" id=35]
+[ext_resource path="res://src/teleport_area.gd" type="Script" id=36]
 [ext_resource path="res://src/entity/spawner/eye_spawner.tscn" type="PackedScene" id=38]
 [ext_resource path="res://src/initial_level.gd" type="Script" id=40]
 [ext_resource path="res://src/map/protected_zone.gd" type="Script" id=44]
@@ -131,6 +132,12 @@ tracks/0/keys = {
 
 [node name="main" type="Node2D" groups=["world"]]
 script = ExtResource( 40 )
+
+[node name="teleport_area" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+color = Color( 1, 1, 1, 0 )
+polygon = PoolVector2Array( -815, -367, -469, -453, -292, -453, -85, -438, 172, -383, 328, -325, 436, -275, 555, -172, 609, -76, 621, 66, 594, 164, 557, 238, 472, 332, 323, 385, 139, 432, -208, 447, -512, 398, -695, 332, -850, 230, -982, 98, -1018, -46, -950, -285 )
+script = ExtResource( 36 )
 
 [node name="orchestrator" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -464,6 +471,8 @@ one_shot = true
 [node name="meteor_teleport" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 33 )
 volume_db = -18.0
+max_distance = 360.0
+attenuation = 5.27803
 
 [node name="pause_client" parent="meteor_teleport" instance=ExtResource( 8 )]
 paused_at_level = 2

@@ -33,10 +33,13 @@ export var LAVA_RING : PackedScene
 onready var meteor_pause_client: Node = $"%meteor_pause_client"
 onready var meteor_shake = $"%meteor_shake"
 
+onready var teleport_area: Polygon2D = $"%teleport_area"
+onready var meteor_teleport : Node = meteor.get_node("%teleport")
 var boss_triggered = false
 
 func _ready() -> void:
-	Music.stop()
+	if !skip_intro and !SessionState.skip_meteor_intro:
+		Music.stop()
 	yield(owner,"ready")
 	
 	if !skip_intro and !SessionState.skip_meteor_intro:
@@ -64,8 +67,8 @@ func boss_quick_setup():
 	invisible_wall.queue_free()
 	black_background.queue_free()
 	boss_triggered = true
-	
-	Music.play("meteor")
+	if !skip_fight and !SessionState.skip_meteor_fight:
+		Music.call_deferred("play","meteor")
 	
 func intro_sequence():
 	player_HUD.hide()
@@ -249,8 +252,10 @@ func old_reasoning():
 	yield(Text,"finished")
 
 func boss_fight():
+	meteor_teleport.set_custom_point_source(teleport_area)
 	meteor_radar.show()
 	boss_hud.show()
+	meteor_teleport.teleport()
 	
 	var player_HUD = dude.get_node("%HUD")
 	var bar = meteor.get_node("%health").bar
@@ -382,7 +387,7 @@ func boss_fight():
 	elif SessionState.lava_ring_deaths < 4:
 		Text.say_array(["Oh man I WISH I could just TELEPORT out of here."])
 	
-	elif SessionState.lava_ring_deaths >= 4:
+	elif SessionState.lava_ring_deaths >= 8:
 		Text.say_array(["Okay this isn't going anywhere. Do you wanna know how to get out of here?"])
 		yield(Text,"finished")
 		Text.say("Just move toward the edge of the ring, press A, and then S right after, the ship will move through the ring unharmed (since it's not a living thing), and you will teleport outside the ring")
