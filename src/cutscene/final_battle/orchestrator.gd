@@ -418,7 +418,7 @@ func boss_fight():
 		yield(player_exited_area,"body_exited")
 		timer_ensure_dude_is_outside_exit_area.start()
 		yield(timer_ensure_dude_is_outside_exit_area,"timeout")
-	yield(get_tree().create_timer(2.0),"timeout")
+	yield(get_tree().create_timer(1.0),"timeout")
 	
 	if is_instance_valid(lava_ring):
 		lava_ring.queue_free()

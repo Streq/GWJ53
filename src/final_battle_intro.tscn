@@ -53,7 +53,7 @@ extents = Vector2( 5084, 38 )
 radius = 24.0
 
 [sub_resource type="CircleShape2D" id=8]
-radius = 560.057
+radius = 283.132
 
 [sub_resource type="Animation" id=10]
 length = 0.001
@@ -465,7 +465,6 @@ shape = SubResource( 8 )
 [node name="timer_ensure_dude_is_outside_exit_area" type="Timer" parent="player exited_area"]
 unique_name_in_owner = true
 process_mode = 0
-wait_time = 2.0
 one_shot = true
 
 [node name="meteor_teleport" type="AudioStreamPlayer2D" parent="."]

@@ -2,6 +2,8 @@ extends Node2D
 
 signal shrink_step
 
+signal done
+
 func shrink():
 	var tilemap : TileMap = get_parent()
 	var cell_to_shrink_toward = tilemap.world_to_map(tilemap.to_local(global_position))
@@ -11,6 +13,7 @@ func shrink():
 		if tilemap.get_used_cells().size() == 1:
 			owner.queue_free()
 			SFX.play("lava_shrink_end",owner.global_position)
+			emit_signal("done")
 			return
 		for cell in tilemap.get_used_cells():
 			var distance = cell_to_shrink_toward-cell

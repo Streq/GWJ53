@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		frames_since_oxygen += 1
 		if frames_since_oxygen > GRACE_FRAMES:
-			bar.value -= delta*5.0
+			bar.value -= delta*2.5
 	
 	if bar.value != bar.max_value:
 		emit_signal("not_full")
