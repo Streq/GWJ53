@@ -32,6 +32,14 @@ func _physics_update(delta):
 		goto("idle")
 		emit_signal("landed")
 		return
+		
+	var dir = root.input_state.dir
+	if dir.x and root.in_air and (
+		sign(root.velocity.x) != sign(dir.x) or 
+		abs(root.velocity.x) < root.speed
+	):
+		root.velocity.x = move_toward(root.velocity.x, dir.x*root.speed, root.horizontal_air_acceleration*delta)
+		
 	if coyote_jump_frames > 0:
 #		print(coyote_jump_frames)
 		coyote_jump_frames -= 1

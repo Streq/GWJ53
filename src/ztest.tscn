@@ -6,16 +6,16 @@
 
 [node name="main" instance=ExtResource( 1 )]
 
-[node name="saw_ship_area" parent="ship" index="18"]
+[node name="saw_ship_area" parent="ship" index="19"]
 monitoring = false
 monitorable = false
 
-[node name="closer_look" parent="ship" index="19"]
+[node name="closer_look" parent="ship" index="20"]
 monitoring = false
 monitorable = false
 
 [node name="dude" parent="." index="4"]
-position = Vector2( 2236, 336 )
+position = Vector2( 2236, 340 )
 
 [node name="leave_world_area" parent="." index="46"]
 can_leave = true
@@ -32,6 +32,9 @@ crash_velocity = 200.0
 
 [node name="rumble" parent="." index="71"]
 stream = ExtResource( 3 )
+
+[node name="save" parent="." index="73"]
+disabled = true
 
 [editable path="terrain/air_area"]
 [editable path="terrain/water_area"]

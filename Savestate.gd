@@ -9,6 +9,9 @@ export var lava_ring_deaths := 0 setget set_lava_ring_deaths
 export var locale := "en" setget set_locale
 export var deaths := 0 setget set_deaths
 
+#var achievements : AchievementState
+
+
 func set_deaths(val):
 	deaths = val
 	_save()

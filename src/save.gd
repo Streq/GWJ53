@@ -1,6 +1,6 @@
 extends Node
 
-
+export var disabled := false
 func _ready() -> void:
 	SessionState.skip_intro = true
 	
@@ -19,6 +19,8 @@ func _ready() -> void:
 		checkpoint.connect("active",self,"active_checkpoint",[i])
 		if i == SessionState.current_checkpoint:
 			checkpoint.on()
+			if disabled:
+				continue
 			checkpoint.revive_quick()
 		i+=1
 		
