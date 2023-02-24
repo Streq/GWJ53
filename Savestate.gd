@@ -6,8 +6,12 @@ export var skip_meteor_fight := false setget set_skip_meteor_fight
 export var has_repaired_ship := false setget set_has_repaired_ship
 export var has_beaten_meteor := false setget set_has_beaten_meteor
 export var lava_ring_deaths := 0 setget set_lava_ring_deaths
-export var locale = "en" setget set_locale
+export var locale := "en" setget set_locale
+export var deaths := 0 setget set_deaths
 
+func set_deaths(val):
+	deaths = val
+	_save()
 
 func set_locale(val):
 	locale = val
