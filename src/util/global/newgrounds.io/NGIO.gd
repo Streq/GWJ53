@@ -1,7 +1,7 @@
 extends Node
 
-var app_id = "" # Put your app ID from NewGrounds here
-var aes_key = "" # Put your AES-128/Base64 encryption key 
+var app_id = "***REMOVED***" # Put your app ID from NewGrounds here
+var aes_key = "***REMOVED***" # Put your AES-128/Base64 encryption key 
 var show_cloudsave_results = true # Whether to show API call results in Developer Tools - Console
 #                                   You might want to turn that false in the final published version
 

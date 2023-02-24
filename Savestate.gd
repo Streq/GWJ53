@@ -98,6 +98,8 @@ func clear():
 	has_repaired_ship = false
 	has_beaten_meteor = false
 	components = 0
+	lava_ring_deaths = 0
+	deaths = 0
 	flowers = []
 	for i in 10:
 		flowers.append(false)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://src/entity/ship/components/pilot_seat.gd" type="Script" id=1]
 [ext_resource path="res://src/entity/health.gd" type="Script" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://src/entity/ship/components/crash_handler.tscn" type="PackedScene" id=27]
 [ext_resource path="res://assets/texture/health_bar_ship_back.png" type="Texture" id=28]
 [ext_resource path="res://src/entity/ship/components/ground_particle_source.gd" type="Script" id=29]
+[ext_resource path="res://src/entity/dude/death_counter.gd" type="Script" id=30]
 
 [sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 7, 6 )
@@ -285,6 +286,9 @@ stream = ExtResource( 26 )
 volume_db = -24.0
 
 [node name="crash_handler" parent="." instance=ExtResource( 27 )]
+
+[node name="death_counter" type="Node" parent="."]
+script = ExtResource( 30 )
 
 [connection signal="crash_collision" from="." to="crash_handler" method="crash"]
 [connection signal="dead" from="." to="pivot/pilot_seat" method="unseat"]
