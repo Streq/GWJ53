@@ -15,7 +15,7 @@ monitoring = false
 monitorable = false
 
 [node name="dude" parent="." index="4"]
-position = Vector2( 2236, 340 )
+position = Vector2( 656, 164 )
 
 [node name="leave_world_area" parent="." index="46"]
 can_leave = true
