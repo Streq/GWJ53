@@ -890,7 +890,7 @@ speed = 45.0
 jump_speed = 50.0
 water_gravity = -15.0
 water_damping = 2.0
-horizontal_air_acceleration = 125.0
+horizontal_air_acceleration = 250.0
 swim_speed = 40.0
 swim_acceleration = 60.0
 

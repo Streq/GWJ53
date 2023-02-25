@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://src/map/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://src/entity/ship/components/jet_component/jet_component_down.tscn" type="PackedScene" id=2]
@@ -56,6 +56,7 @@
 [ext_resource path="res://src/cutscene/trigger_if_has_down_jet.gd" type="Script" id=54]
 [ext_resource path="res://src/cutscene/translate.tscn" type="PackedScene" id=55]
 [ext_resource path="res://src/initial_level/music_decider.gd" type="Script" id=56]
+[ext_resource path="res://src/maybe_if_i_hold_z.gd" type="Script" id=57]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 92 )
@@ -87,6 +88,12 @@ extents = Vector2( 5084, 324 )
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 3, 5 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 38.5, 10 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 4, 10 )
 
 [node name="main" type="Node2D" groups=["world"]]
 script = ExtResource( 40 )
@@ -766,6 +773,29 @@ script = ExtResource( 53 )
 
 [node name="music_decider" type="Node" parent="."]
 script = ExtResource( 56 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( -181, 185 )
+collision_layer = 0
+collision_mask = 32
+script = ExtResource( 57 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -28.5, 0 )
+shape = SubResource( 12 )
+
+[node name="Timer" type="Timer" parent="Area2D"]
+process_mode = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="player_got_past" type="Area2D" parent="Area2D"]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D/player_got_past"]
+position = Vector2( 9, -19 )
+shape = SubResource( 13 )
 
 [connection signal="restart" from="." to="terrain/reset_tiles_on_respawn" method="trigger"]
 [connection signal="pilot_entered" from="ship" to="found_ship_sequence" method="_on_ship_pilot_entered" flags=6]

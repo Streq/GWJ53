@@ -72,7 +72,7 @@ I'm sorry for calling you rude if that's the case,I'm sorry for calling you rude
 I'm gonna go find my ship now.,I'm gonna go find my ship now.,"Bueno, me voy."
 Good luck with the walking.,Good luck with the walking.,Chau.
 Ok no talking,Ok no talking,Listo me callo
-I better avoid these,I better avoid these,Esto mejor no lo tocamos
+I better avoid these,I better avoid these red thingies,Esto rojo mejor no lo tocamos
 "And so he bounced, he bounced as hard as he could","And so he bounced, he bounced as hard as he could","Y se fue, se fue con todas sus fuerzas"
 But he couldn't leave.,But he couldn't leave.,Pero no pudo salir.
 What the..?,What the..?,Uia y esto..?
@@ -206,3 +206,4 @@ meteor.drain.attack,Air. Water. Gravity.\nLet's see how well a lesser lifeform f
 Change Language,Change Language,Cambiar Idioma
 "The meteor said it decomposes ""living things"", maybe the ship itself is immune, but if *I* pass through it I'm done?","I might not be able to use the ship to protect me, but I feel like I can still somehow get out of here.","Quizá no pueda usar la nave para protegerme, pero igualmente siento de alguna forma que puedo salir de acá."
 also.skip.with.B,Oh and you can skip text with X!,Ah y podés saltear texto con X!
+MAYBE_HOLD_Z,Maybe if I hold Z I'll jump higher,Por ahí si mantengo apretado Z salto más alto

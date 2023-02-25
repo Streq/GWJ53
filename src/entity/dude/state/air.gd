@@ -60,9 +60,7 @@ func _physics_update(delta):
 #		print(coyote_jump_frames)
 		coyote_jump_frames -= 1
 		if root.input_state.A.is_just_pressed():
-			root.velocity.y = -root.jump_speed
-#			print("coyote_jump")
-			coyote_jump_frames = 0
+			jump()
 			return
 	
 	var ledge = ledge_grab.get_ledge()
