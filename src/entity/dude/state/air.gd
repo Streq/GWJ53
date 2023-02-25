@@ -36,7 +36,8 @@ func _physics_update(delta):
 	#horizontal air braking
 	var dir = root.input_state.dir
 	if dir.x and root.in_air and (
-		sign(root.velocity.x) != sign(dir.x)
+		sign(root.velocity.x) != sign(dir.x) or
+		abs(root.velocity.x) < abs(root.speed)
 	):
 		root.velocity.x = move_toward(root.velocity.x, dir.x*root.speed, root.horizontal_air_acceleration*delta)
 		
