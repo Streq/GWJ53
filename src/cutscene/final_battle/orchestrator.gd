@@ -545,6 +545,7 @@ func player_should_leave_bubble():
 	setup_escaped_by_player_left_exiting_area()
 
 
+var lava_done = false
 func setup_escaped_by_player_left_entering_area():
 	yield(leave_world_area,"body_entered")
 	print_debug("player escaped through enter")
@@ -561,8 +562,9 @@ func setup_bubble_escape():
 
 func setup_escape_by_lava_done():
 	yield(lava_ring,"done")
+	lava_done = true
 	player_outside_bubble()
-
+	
 func setup_win_by_player_left_entering_area():
 	yield(leave_world_area,"body_entered")
 	print_debug("won through entering area")
@@ -578,7 +580,8 @@ func setup_win_by_timeout():
 	emit_signal("player_left")
 	
 func setup_win_by_lava_done():
-	yield(lava_ring,"done")
+	if !lava_done:
+		yield(lava_ring,"done")
 	yield(get_tree().create_timer(2.5),"timeout")
 	emit_signal("player_left")
 
