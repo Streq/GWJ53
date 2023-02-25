@@ -7,13 +7,17 @@ signal landed()
 
 export var COYOTE_JUMP_FRAMES := 5
 var coyote_jump_frames := 0
-
+var jumping = false
 func _enter(params):
-	if params and params[0] == "coyote":
-		coyote_jump_frames = COYOTE_JUMP_FRAMES
-#		print("can_coyote_jump")
+	if params:
+		match params[0]:
+			"coyote":
+				coyote_jump_frames = COYOTE_JUMP_FRAMES
+			"jump":
+				jumping = true
 	else:
 		coyote_jump_frames = 0
+		jumping = false
 
 func _physics_update(delta):
 	if root.input_state.L.is_just_pressed():
@@ -33,6 +37,8 @@ func _physics_update(delta):
 		emit_signal("landed")
 		return
 	
+	var input = root.input_state
+	
 	#horizontal air braking
 	var dir = root.input_state.dir
 	if dir.x and root.in_air and (
@@ -40,7 +46,16 @@ func _physics_update(delta):
 		abs(root.velocity.x) < abs(root.speed)
 	):
 		root.velocity.x = move_toward(root.velocity.x, dir.x*root.speed, root.horizontal_air_acceleration*delta)
+	
+	if jumping:
+		if root.velocity.y > 0:
+			jumping = false
 		
+		if !input.A.is_pressed():
+			jumping = false
+			if root.in_air:
+				root.velocity.y *= 0.5
+	
 	if coyote_jump_frames > 0:
 #		print(coyote_jump_frames)
 		coyote_jump_frames -= 1

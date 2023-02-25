@@ -26,11 +26,11 @@ func _physics_update(delta):
 		return
 	
 	if !root.is_on_floor():
-		goto("air")
+		goto_args("air",["coyote"])
 		return
 
 	if root.input_state.A.is_just_pressed():
-		root.velocity.y -= root.jump_speed
+		jump()
 		return
 		
 	if !root.input_state.B.is_pressed() or !ship_repair.get_ship() or hurt_invincibility.active:

@@ -23,3 +23,6 @@ func exit():
 func _on_animation_finished(name):
 	if change_on_animation_finish and on_finish_goto_state:
 		goto(on_finish_goto_state)
+func jump():
+	root.velocity.y -= root.jump_speed
+	goto_args("air",["jump"])

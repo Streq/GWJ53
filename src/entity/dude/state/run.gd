@@ -17,16 +17,13 @@ func _physics_update(delta):
 	
 	if !root.is_on_floor():
 		if root.input_state.A.is_just_pressed():
-			root.velocity.y -= root.jump_speed
-			goto("air")
-#			print("precoyote_jump")
+			jump()
 			return
 		goto_args("air",["coyote"])
 		return
 	
 	if root.input_state.A.is_just_pressed():
-		root.velocity.y -= root.jump_speed
-		goto("air")
+		jump()
 		return
 
 	if root.input_state.B.is_just_pressed() and !hurt_invincibility.active:

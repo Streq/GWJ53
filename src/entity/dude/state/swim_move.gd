@@ -19,11 +19,6 @@ func _physics_update(delta):
 		goto("idle")
 		return
 	
-	
-#	if root.input_state.A.is_just_pressed():
-#		root.velocity.y -= root.jump_speed
-#		return
-#
 	var dir = root.input_state.dir
 	if !dir:
 		goto("swim_idle")

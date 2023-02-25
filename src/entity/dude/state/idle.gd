@@ -20,8 +20,7 @@ func _physics_update(delta):
 	
 	if !root.is_on_floor():
 		if root.input_state.A.is_just_pressed():
-			root.velocity.y -= root.jump_speed
-			goto("air")
+			jump()
 #			print("precoyote_jump")
 			return
 		goto_args("air",["coyote"])
@@ -34,8 +33,7 @@ func _physics_update(delta):
 			return
 	
 	if root.input_state.A.is_just_pressed():
-		root.velocity.y -= root.jump_speed
-		goto("air")
+		jump()
 		
 		return
 	
