@@ -319,12 +319,14 @@ func boss_fight():
 		
 	if SessionState.lava_ring_deaths < 3:
 		Text.say_array(["This is an antinuclear matter bubble"],"meteor")
-	
+		Text.say_array(["It will instantly decompose every living thing it touches."],"meteor")
+		
 		yield(Text,"finished")
 		yield(get_tree().create_timer(1.95),"timeout")
 		
 		
-		Text.say_array(["It will instantly decompose every living thing it touches."],"meteor")
+		Text.say_array(["UNORGANIC_MATERIALS"],"meteor")
+		Text.say_array(["SHIP_CANT_PROTECT_YOU"],"meteor")
 		
 		yield(Text,"finished")
 		yield(get_tree().create_timer(1.95),"timeout")

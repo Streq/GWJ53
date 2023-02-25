@@ -9,11 +9,15 @@ onready var breathe_air_detect: Area2D = $"../breathe_air_detect"
 
 const GRACE_FRAMES = 2
 
+var disabled := false
+
 #this variable is to ensure the oxygen bar doesn't show on teleport, 
 #given teleportation for some reason makes the player stop colliding with air for a single frame
 var frames_since_oxygen = 0
 
 func _physics_process(delta: float) -> void:
+	if disabled:
+		return
 	if !bar.value:
 		emit_signal("drown")
 		return

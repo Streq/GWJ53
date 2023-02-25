@@ -3,6 +3,7 @@ signal teleporting
 signal teleported
 onready var teleport_animation: AnimationPlayer = $"../teleport_animation"
 onready var pickup_grabber: Node2D = $"../pivot/pickup_grabber"
+onready var oxygen: Node = $"%oxygen"
 
 var abort = false
 var ongoing = false
@@ -13,6 +14,7 @@ func trigger():
 		return
 #	pickup_grabber.drop()
 	ongoing = true
+	oxygen.disabled = true
 	emit_signal("teleporting")
 	
 	owner.connect("dead",self,"abort")
@@ -32,6 +34,7 @@ func trigger():
 		
 	teleport()
 	
+	oxygen.disabled = false
 	owner.state_machine._change_state("idle")
 	teleport_animation.play("deteleport")
 	yield(teleport_animation,"animation_finished")
@@ -48,4 +51,5 @@ func abort():
 func clean_up():
 	abort = false
 	ongoing = false
+	oxygen.disabled = false
 	
