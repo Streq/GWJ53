@@ -21,7 +21,6 @@ onready var boss_health_bar: TextureProgress = $"%health_bar"
 onready var map: Node2D = $"../map"
 onready var shrink_sound: AudioStreamPlayer2D = $"%shrink_sound"
 onready var detect_inside_lava_bubble: Node2D = $"%detect_inside_lava_bubble"
-onready var player_exited_area: Area2D = $"%player exited_area"
 onready var dead_meteor_sprite: Node2D = $"%dead_meteor_sprite"
 onready var timer_ensure_dude_is_outside_exit_area: Timer = $"%timer_ensure_dude_is_outside_exit_area"
 
@@ -36,6 +35,10 @@ onready var meteor_shake = $"%meteor_shake"
 onready var teleport_area: Polygon2D = $"%teleport_area"
 onready var meteor_teleport : Node = meteor.get_node("%teleport")
 var boss_triggered = false
+
+signal player_can_leave()
+signal player_left()
+
 
 func _ready() -> void:
 	if !skip_intro and !SessionState.skip_meteor_intro:
@@ -251,6 +254,9 @@ func old_reasoning():
 	
 	yield(Text,"finished")
 
+
+var lava_ring
+
 func boss_fight():
 	meteor_teleport.set_custom_point_source(teleport_area)
 	meteor_radar.show()
@@ -304,10 +310,10 @@ func boss_fight():
 	pause_client.set_paused_at_level(PauseState.Level.MENU)
 	ship.velocity = Vector2()
 	
-	var lava_ring = LAVA_RING.instance()
+	lava_ring = LAVA_RING.instance()
 	owner.add_child(lava_ring)
 	lava_ring.global_position = dude.global_position
-	
+	leave_world_area.global_position = dude.global_position
 	shrink_sound.global_position = dude.global_position
 	shrink_sound.play()
 	lava_ring.trigger()
@@ -400,27 +406,21 @@ func boss_fight():
 	count_death_as_lava()
 	
 	yield(Text,"finished")
-	
-	player_exited_area.global_position = lava_ring.global_position
-	
+		
 	
 	yield(detect_inside_lava_bubble,"outside")
 	if dude.dead:
 		return
-	yield(get_tree().create_timer(2.0),"timeout")
+	yield(get_tree().create_timer(0.5),"timeout")
+	if dude.dead:
+		return
 	if SessionState.lava_ring_deaths == 0:
 		Text.say_array(["DUDE.", "You are a GENIUS."])
 	Text.say_array(["Ok let's get out of here."])
 	yield(Text,"finished")
 	
-	if !player_exited_area.overlaps_body(dude):
-		timer_ensure_dude_is_outside_exit_area.start()
-		yield(timer_ensure_dude_is_outside_exit_area,"timeout")
-	while player_exited_area.overlaps_body(dude):
-		yield(player_exited_area,"body_exited")
-		timer_ensure_dude_is_outside_exit_area.start()
-		yield(timer_ensure_dude_is_outside_exit_area,"timeout")
-	yield(get_tree().create_timer(1.0),"timeout")
+	player_can_leave()
+	yield(self,"player_left")
 	
 	if is_instance_valid(lava_ring):
 		lava_ring.queue_free()
@@ -524,4 +524,27 @@ func on_lava_death():
 	dude.disconnect("dead", self, "on_lava_death")
 
 	SessionState.lava_ring_deaths += 1
+
+
+onready var leave_world_area: Area2D = $"%leave_world_area"
+
+func player_can_leave():
+	emit_signal("player_can_leave")
+	setup_win_by_player_left()
+	setup_win_by_timeout()
+	setup_win_by_lava_done()
 	
+func setup_win_by_player_left():
+	yield(leave_world_area,"body_entered")
+	print("won through leaving")
+	emit_signal("player_left")
+
+func setup_win_by_timeout():
+	yield(get_tree().create_timer(30.0),"timeout")
+	print("won through timeout")
+	emit_signal("player_left")
+	
+func setup_win_by_lava_done():
+	yield(lava_ring,"done")
+	yield(get_tree().create_timer(2.5),"timeout")
+	emit_signal("player_left")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://src/map/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://src/entity/ship/full_ship.tscn" type="PackedScene" id=2]
@@ -51,9 +51,6 @@ extents = Vector2( 5084, 38 )
 
 [sub_resource type="CircleShape2D" id=7]
 radius = 24.0
-
-[sub_resource type="CircleShape2D" id=8]
-radius = 210.01
 
 [sub_resource type="Animation" id=10]
 length = 0.001
@@ -129,6 +126,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ Vector2( -1, -1 ), Vector2( 1, 1 ) ]
 }
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 5690, 527 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 14964, 4340 )
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 3167, 527 )
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 1406.12, 223.75 )
 
 [node name="main" type="Node2D" groups=["world"]]
 script = ExtResource( 40 )
@@ -294,8 +303,6 @@ process_priority = -1215752192
 script = ExtResource( 3 )
 dir = Vector2( 0, -1 )
 
-[node name="Area2D" type="Area2D" parent="ship/dude"]
-
 [node name="detect_inside_lava_bubble" type="Node2D" parent="ship/dude"]
 unique_name_in_owner = true
 script = ExtResource( 26 )
@@ -454,19 +461,6 @@ unique_name_in_owner = true
 stream = ExtResource( 25 )
 volume_db = -18.0
 
-[node name="player exited_area" type="Area2D" parent="."]
-unique_name_in_owner = true
-collision_layer = 0
-collision_mask = 32
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player exited_area"]
-shape = SubResource( 8 )
-
-[node name="timer_ensure_dude_is_outside_exit_area" type="Timer" parent="player exited_area"]
-unique_name_in_owner = true
-process_mode = 0
-one_shot = true
-
 [node name="meteor_teleport" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 33 )
 volume_db = -18.0
@@ -516,6 +510,87 @@ position = Vector2( -304, -272 )
 [node name="boss_position_on_quick_setup" type="Position2D" parent="."]
 unique_name_in_owner = true
 position = Vector2( -304, -344 )
+
+[node name="leave_world_area" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 0, -5233 )
+shape = SubResource( 13 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 5233, 0 )
+rotation = 1.57079
+shape = SubResource( 13 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( -5233, 0 )
+rotation = 1.57079
+shape = SubResource( 13 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 0, 5233 )
+rotation = 3.14159
+shape = SubResource( 13 )
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 0, -12538 )
+shape = SubResource( 14 )
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 14132, 0 )
+rotation = 1.57079
+shape = SubResource( 14 )
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( -14100, 0 )
+rotation = 1.57079
+shape = SubResource( 14 )
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 0, 12680 )
+rotation = 3.14159
+shape = SubResource( 14 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 0, -2518 )
+shape = SubResource( 15 )
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 2880, 0 )
+rotation = 1.57079
+shape = SubResource( 15 )
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( -2744, 0 )
+rotation = 1.57079
+shape = SubResource( 15 )
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 0, 2472 )
+rotation = 3.14159
+shape = SubResource( 15 )
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( -64, -777 )
+shape = SubResource( 16 )
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( 763, 22 )
+rotation = 1.57079
+shape = SubResource( 16 )
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( -894, 28 )
+rotation = 1.57079
+shape = SubResource( 16 )
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="leave_world_area"]
+position = Vector2( -91, 786 )
+rotation = 3.14159
+shape = SubResource( 16 )
 
 [connection signal="body_entered" from="protected_zone" to="protected_zone" method="_on_protected_zone_body_entered"]
 [connection signal="seen" from="perimeter/came_in_beacon" to="orchestrator" method="_on_came_in_beacon_seen"]
