@@ -34,7 +34,10 @@ onready var meteor_shake = $"%meteor_shake"
 
 onready var teleport_area: Polygon2D = $"%teleport_area"
 onready var meteor_teleport : Node = meteor.get_node("%teleport")
+
 var boss_triggered = false
+
+var player_got_hurt = false
 
 signal player_can_leave()
 signal player_left()
@@ -259,6 +262,8 @@ func old_reasoning():
 var lava_ring
 
 func boss_fight():
+	listen_for_player_hurt()
+	listen_for_ship_hurt()
 	meteor_teleport.set_custom_point_source(teleport_area)
 	meteor_radar.show()
 	boss_hud.show()
@@ -288,6 +293,9 @@ func boss_fight():
 	
 	boss_hud.queue_free()
 	SessionState.has_beaten_meteor = true
+	Achievements.complete("beat_boss")
+	if !player_got_hurt:
+		Achievements.complete("beat_boss_no_damage")
 	if !skip_talking:
 		Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
 		Text.say_array(["Then maybe let me go and take a nap bozo"])
@@ -390,15 +398,13 @@ func boss_fight():
 	player_controller.disabled = false
 	
 	if !skip_talking:
-		if SessionState.lava_ring_deaths < 2:
+		if SessionState.lava_ring_deaths <= 3:
 			Text.say_array(["Dumbass"])
 			Text.say_array(["Okay, don't panic, there must be SOME way to get out of here"])
 			Text.say_array(["The meteor said it decomposes \"living things\", maybe the ship itself is immune, but if *I* pass through it I'm done?"])
-		
-		elif SessionState.lava_ring_deaths < 4:
+		elif SessionState.lava_ring_deaths <= 6:
 			Text.say_array(["Oh man I WISH I could just TELEPORT out of here."])
-		
-		elif SessionState.lava_ring_deaths >= 8:
+		else:
 			Text.say_array(["Okay this isn't going anywhere. Do you wanna know how to get out of here?"])
 			Text.say_array(["If that's the case, check the latest message in the logs (by pressing Enter)"])
 			yield(Text,"finished")
@@ -436,6 +442,9 @@ func boss_fight():
 	
 	pause_client.set_paused_at_level(PauseState.Level.MENU)
 	player_HUD.hide()
+	
+	Achievements.complete("beat_game")
+	
 	
 	var song = Music.play("end_song")
 #	var song = Music.play("chill")
@@ -587,3 +596,12 @@ func setup_win_by_lava_done():
 
 func player_outside_bubble():
 	emit_signal("player_outside_bubble")
+
+onready var player_health = dude.get_node("%health")
+onready var ship_health = ship.get_node("%health")
+func listen_for_player_hurt():
+	yield(player_health,"damage")
+	player_got_hurt = true
+func listen_for_ship_hurt():
+	yield(ship_health,"damage")
+	player_got_hurt = true

@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "Achievements",
+"class": "Achievement",
 "language": "GDScript",
-"path": "res://src/global/achievements.gd"
+"path": "res://src/global/Achievements/achievement.gd"
 }, {
 "base": "Reference",
 "class": "Aiming",
@@ -145,7 +145,7 @@ _global_script_classes=[ {
 "path": "res://src/util/tilemap/tilemap_utils.gd"
 } ]
 _global_script_class_icons={
-"Achievements": "",
+"Achievement": "",
 "Aiming": "",
 "AudioCrossfadePlayer": "",
 "Bool": "",
@@ -202,6 +202,7 @@ Log="*res://src/Menu/Log.tscn"
 MenuStack="*res://src/Menu/MenuStack.tscn"
 LocaleMenu="*res://src/Menu/LocaleMenu.tscn"
 SaveMenu="*res://src/Menu/SaveMenu.tscn"
+Achievements="*res://src/global/Achievements/Achievements.tscn"
 
 [display]
 
