@@ -31,7 +31,7 @@ func unseat():
 	pilot.set_physics_process(true)
 	NodeUtils.reparent(pilot,owner.get_parent())
 	pilot.global_position = global_position
-	pilot.velocity = owner.velocity
+	pilot.velocity = owner.velocity*0.5
 	var ejected_pilot = pilot
 	pilot = null
 	emit_signal("pilot_off", ejected_pilot)

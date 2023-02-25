@@ -2,6 +2,7 @@ extends Node
 
 export var skip_intro:= false 
 export var skip_fight:= false 
+export var skip_talking:= false 
 
 onready var ship: KinematicBody2D = $"%ship"
 onready var dude: KinematicBody2D = $"%dude"
@@ -22,7 +23,6 @@ onready var map: Node2D = $"../map"
 onready var shrink_sound: AudioStreamPlayer2D = $"%shrink_sound"
 onready var detect_inside_lava_bubble: Node2D = $"%detect_inside_lava_bubble"
 onready var dead_meteor_sprite: Node2D = $"%dead_meteor_sprite"
-onready var timer_ensure_dude_is_outside_exit_area: Timer = $"%timer_ensure_dude_is_outside_exit_area"
 
 onready var meteor_radar: Node2D = $"%meteor_radar"
 
@@ -38,6 +38,7 @@ var boss_triggered = false
 
 signal player_can_leave()
 signal player_left()
+signal player_outside_bubble()
 
 
 func _ready() -> void:
@@ -287,10 +288,11 @@ func boss_fight():
 	
 	boss_hud.queue_free()
 	SessionState.has_beaten_meteor = true
-	Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
-	Text.say_array(["Then maybe let me go and take a nap bozo"])
-	Text.say_array(["No, you will not get your way, I will not let you destroy this place."],"meteor")
-	yield(Text,"finished")
+	if !skip_talking:
+		Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
+		Text.say_array(["Then maybe let me go and take a nap bozo"])
+		Text.say_array(["No, you will not get your way, I will not let you destroy this place."],"meteor")
+		yield(Text,"finished")
 	
 	meteor_shake.play("play")
 	var lava_ring_cast_sound: AudioStreamPlayer2D = $"%lava_ring_cast_sound"
@@ -300,10 +302,10 @@ func boss_fight():
 	
 	meteor_shake.play("RESET")
 	
-	
-	if SessionState.lava_ring_deaths == 0:
-		Text.say_array(["What are you doing?"])
-		yield(Text,"finished")
+	if !skip_talking:
+		if SessionState.lava_ring_deaths == 0:
+			Text.say_array(["What are you doing?"])
+			yield(Text,"finished")
 	set_controller.disabled = false
 	set_controller.dir = Vector2()
 	player_controller.disabled = true
@@ -322,52 +324,53 @@ func boss_fight():
 	
 	detect_inside_lava_bubble.set_physics_process(true)
 	pause_client.set_paused_at_level(PauseState.Level.WORLD)
-		
-	if SessionState.lava_ring_deaths < 3:
-		Text.say_array(["This is an antinuclear matter bubble"],"meteor")
-		Text.say_array(["It will instantly decompose every living thing it touches."],"meteor")
-		
-		yield(Text,"finished")
-		yield(get_tree().create_timer(1.95),"timeout")
-		
-		
-		Text.say_array(["UNORGANIC_MATERIALS"],"meteor")
-		Text.say_array(["SHIP_CANT_PROTECT_YOU"],"meteor")
-		
-		yield(Text,"finished")
-		yield(get_tree().create_timer(1.95),"timeout")
-		
-		Text.say_array(["I shall make it shrink slowly, so you have time to make peace with your demise."],"meteor")
-		
-		Text.say_array(["Cool."])
-		
-		yield(Text,"finished")
-		yield(get_tree().create_timer(1.95),"timeout")
-		
-		Text.say_array(["As for me. I am done, along with this planet. We are both going to fade to nothing shortly."],"meteor")
-		
-		
-		
-		Text.say_array(["What? So that's it? We are both just gonna die and the planet will disappear?"])
-		
-		Text.say_array(["Yes"],"meteor")
-		
-		yield(Text,"finished")
-		yield(get_tree().create_timer(1.95),"timeout")
-		
-		Text.say_array(["Then what the hell was the point of this?"])
-		
-		Text.say_array(["That you will not get to colonize the living beings of my planet, they will die free."],"meteor")
-		Text.say_array(["Now I ask you, was it worth it?"],"meteor")
-		
-		Text.say_array(["Was what worth it? You are killing us both over nothing here."])
-		
-		Text.say_array(["I will take that as a negative. Farewell."],"meteor")
-	else:
-		Text.say_array(["That's an antinuclear matter bubble, I know, just go and let me die man"])
-		Text.say_array(["Farewell."], "meteor")
 	
-	yield(Text,"finished")
+	if !skip_talking:
+		if SessionState.lava_ring_deaths < 3:
+			Text.say_array(["This is an antinuclear matter bubble"],"meteor")
+			Text.say_array(["It will instantly decompose every living thing it touches."],"meteor")
+			
+			yield(Text,"finished")
+			yield(get_tree().create_timer(1.95),"timeout")
+			
+			
+			Text.say_array(["UNORGANIC_MATERIALS"],"meteor")
+			Text.say_array(["SHIP_CANT_PROTECT_YOU"],"meteor")
+			
+			yield(Text,"finished")
+			yield(get_tree().create_timer(1.95),"timeout")
+			
+			Text.say_array(["I shall make it shrink slowly, so you have time to make peace with your demise."],"meteor")
+			
+			Text.say_array(["Cool."])
+			
+			yield(Text,"finished")
+			yield(get_tree().create_timer(1.95),"timeout")
+			
+			Text.say_array(["As for me. I am done, along with this planet. We are both going to fade to nothing shortly."],"meteor")
+			
+			
+			
+			Text.say_array(["What? So that's it? We are both just gonna die and the planet will disappear?"])
+			
+			Text.say_array(["Yes"],"meteor")
+			
+			yield(Text,"finished")
+			yield(get_tree().create_timer(1.95),"timeout")
+			
+			Text.say_array(["Then what the hell was the point of this?"])
+			
+			Text.say_array(["That you will not get to colonize the living beings of my planet, they will die free."],"meteor")
+			Text.say_array(["Now I ask you, was it worth it?"],"meteor")
+			
+			Text.say_array(["Was what worth it? You are killing us both over nothing here."])
+			
+			Text.say_array(["I will take that as a negative. Farewell."],"meteor")
+		else:
+			Text.say_array(["That's an antinuclear matter bubble, I know, just go and let me die man"])
+			Text.say_array(["Farewell."], "meteor")
+		
+		yield(Text,"finished")
 	
 	var tween = create_tween().set_loops(5)
 	tween.tween_callback(dead_meteor_sprite,"set_visible",[true]).set_delay(0.1)
@@ -386,29 +389,29 @@ func boss_fight():
 	set_controller.disabled = true
 	player_controller.disabled = false
 	
-	
-	if SessionState.lava_ring_deaths < 2:
-		Text.say_array(["Dumbass"])
-		Text.say_array(["Okay, don't panic, there must be SOME way to get out of here"])
-		Text.say_array(["The meteor said it decomposes \"living things\", maybe the ship itself is immune, but if *I* pass through it I'm done?"])
-	
-	elif SessionState.lava_ring_deaths < 4:
-		Text.say_array(["Oh man I WISH I could just TELEPORT out of here."])
-	
-	elif SessionState.lava_ring_deaths >= 8:
-		Text.say_array(["Okay this isn't going anywhere. Do you wanna know how to get out of here?"])
-		yield(Text,"finished")
-		Text.say("Just move toward the edge of the ring, press A, and then S right after, the ship will move through the ring unharmed (since it's not a living thing), and you will teleport outside the ring")
-		Text.say_array(["If that's the case, check the latest message in the logs (by pressing Enter)"])
+	if !skip_talking:
+		if SessionState.lava_ring_deaths < 2:
+			Text.say_array(["Dumbass"])
+			Text.say_array(["Okay, don't panic, there must be SOME way to get out of here"])
+			Text.say_array(["The meteor said it decomposes \"living things\", maybe the ship itself is immune, but if *I* pass through it I'm done?"])
 		
+		elif SessionState.lava_ring_deaths < 4:
+			Text.say_array(["Oh man I WISH I could just TELEPORT out of here."])
+		
+		elif SessionState.lava_ring_deaths >= 8:
+			Text.say_array(["Okay this isn't going anywhere. Do you wanna know how to get out of here?"])
+			Text.say_array(["If that's the case, check the latest message in the logs (by pressing Enter)"])
+			yield(Text,"finished")
+			Text.say("Just move toward the edge of the ring, press A, and then S right after, the ship will move through the ring unharmed (since it's not a living thing), and you will teleport outside the ring")
+			Text.say("")
+
 	
+		yield(Text,"finished")
 	
 	count_death_as_lava()
 	
-	yield(Text,"finished")
-		
-	
-	yield(detect_inside_lava_bubble,"outside")
+	player_should_leave_bubble()
+	yield(self,"player_outside_bubble")
 	if dude.dead:
 		return
 	yield(get_tree().create_timer(0.5),"timeout")
@@ -530,21 +533,54 @@ onready var leave_world_area: Area2D = $"%leave_world_area"
 
 func player_can_leave():
 	emit_signal("player_can_leave")
-	setup_win_by_player_left()
+	setup_win_by_player_left_entering_area()
+	setup_win_by_player_left_exiting_area()
 	setup_win_by_timeout()
 	setup_win_by_lava_done()
-	
-func setup_win_by_player_left():
+
+func player_should_leave_bubble():
+	setup_bubble_escape()
+	setup_escape_by_lava_done()
+	setup_escaped_by_player_left_entering_area()
+	setup_escaped_by_player_left_exiting_area()
+
+
+func setup_escaped_by_player_left_entering_area():
 	yield(leave_world_area,"body_entered")
-	print("won through leaving")
+	print_debug("player escaped through enter")
+	player_outside_bubble()
+func setup_escaped_by_player_left_exiting_area():
+	yield(leave_world_area,"body_exited")
+	print_debug("player escaped through exit")
+	player_outside_bubble()
+
+func setup_bubble_escape():
+	yield(detect_inside_lava_bubble,"outside")
+	print_debug("player escaped bubble")
+	player_outside_bubble()
+
+func setup_escape_by_lava_done():
+	yield(lava_ring,"done")
+	player_outside_bubble()
+
+func setup_win_by_player_left_entering_area():
+	yield(leave_world_area,"body_entered")
+	print_debug("won through entering area")
+	emit_signal("player_left")
+func setup_win_by_player_left_exiting_area():
+	yield(leave_world_area,"body_exited")
+	print_debug("won through exiting area")
 	emit_signal("player_left")
 
 func setup_win_by_timeout():
 	yield(get_tree().create_timer(30.0),"timeout")
-	print("won through timeout")
+	print_debug("won through timeout")
 	emit_signal("player_left")
 	
 func setup_win_by_lava_done():
 	yield(lava_ring,"done")
 	yield(get_tree().create_timer(2.5),"timeout")
 	emit_signal("player_left")
+
+func player_outside_bubble():
+	emit_signal("player_outside_bubble")
