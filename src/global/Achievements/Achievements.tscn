@@ -20,7 +20,7 @@ title = "Earning Your Salary"
 description = "Collect all the biosamples"
 
 [node name="beat_boss" parent="list" instance=ExtResource( 1 )]
-title = "Messed With The Wrong Guy"
+title = "Messed With The Wrong Fella"
 description = "Beat the boss"
 
 [node name="beat_game" parent="list" instance=ExtResource( 1 )]
@@ -41,12 +41,12 @@ script = ExtResource( 3 )
 [node name="newgrounds_notifier" type="Node" parent="."]
 script = ExtResource( 4 )
 id_map = {
-"beat_boss": 0,
-"beat_boss_no_damage": 0,
-"beat_game": 0,
-"beat_game_no_deaths": 0,
-"flowers": 0,
-"full_ship": 0
+"beat_boss": 72845,
+"beat_boss_no_damage": 72847,
+"beat_game": 72846,
+"beat_game_no_deaths": 72848,
+"flowers": 72832,
+"full_ship": 72831
 }
 
 [connection signal="changed" from="." to="storage" method="save_to_file"]
