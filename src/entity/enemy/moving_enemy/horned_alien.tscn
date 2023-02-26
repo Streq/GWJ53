@@ -25,3 +25,5 @@ __meta__ = {
 script = null
 
 [node name="shoot_player_on_sight" parent="." index="7" instance=ExtResource( 3 )]
+pool_name = "enemy_bullet"
+use_pool = true

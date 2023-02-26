@@ -10,10 +10,14 @@ export var cooldown_value := 5.0
 
 export var predict_target_position := false
 export var BULLET : PackedScene
+export var pool_name := "bullet"
+export var use_pool := false
 
 func _ready():
 	cooldown.wait_time = cooldown_value
 	muzzle.BULLET = BULLET
+	muzzle.pool_name = pool_name
+	muzzle.use_pool = use_pool
 func _physics_process(delta: float) -> void:
 	var player = Group.get_one("player")
 	if !is_instance_valid(player):

@@ -23,8 +23,9 @@ export var BULLET : PackedScene
 
 var shooting = false
 export var use_pool = false
-export var pool_name := "bullet"
+export var pool_name := "bullet" setget set_pool_name
 var pool
+
 func _ready() -> void:
 	pool = ObjectPool.map[pool_name]
 	pass
@@ -75,3 +76,7 @@ func instance_bullet(wearer):
 	var bullet = BULLET.instance()
 	wearer.get_parent().add_child(bullet)
 	return bullet
+
+func set_pool_name(val):
+	pool_name = val
+	pool = ObjectPool.map[pool_name]

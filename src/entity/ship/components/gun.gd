@@ -25,6 +25,7 @@ func stop():
 
 func _physics_process(delta: float) -> void:
 	if !just_started_firing and !autofire_cooldown.is_stopped() or !cooldown.is_stopped():
+#	if !cooldown.is_stopped():
 		return
 	if firing:
 		emit_signal("fire")

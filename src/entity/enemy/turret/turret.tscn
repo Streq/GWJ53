@@ -237,6 +237,8 @@ value = 4.0
 cooldown_value = 0.5
 predict_target_position = true
 BULLET = ExtResource( 10 )
+pool_name = "big_enemy_bullet"
+use_pool = true
 
 [node name="disable_if_invisible" parent="." index="8" instance=ExtResource( 12 )]
 scale = Vector2( 12.4, 8.4 )
