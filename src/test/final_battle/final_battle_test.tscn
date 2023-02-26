@@ -7,7 +7,7 @@
 [node name="orchestrator" parent="." index="1"]
 skip_intro = true
 skip_fight = true
-skip_talking = true
+lava_deaths_override = 9
 
 [editable path="map/terrain/air_area"]
 [editable path="map/terrain/water_area"]

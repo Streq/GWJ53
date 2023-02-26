@@ -8,8 +8,10 @@ export var has_beaten_meteor := false setget set_has_beaten_meteor
 export var lava_ring_deaths := 0 setget set_lava_ring_deaths
 export var locale := "en" setget set_locale
 export var deaths := 0 setget set_deaths
+export var is_loaded_game := false
 
 #var achievements : AchievementState
+
 
 
 func set_deaths(val):
@@ -52,6 +54,9 @@ var SAVE_PATH := "user://stranded.save"
 
 var loading = false
 func _save():
+	print("loaded_game:",is_loaded_game)
+	print("deaths:",deaths)
+	
 	if loading:
 		return
 	var save_game = File.new()
@@ -80,6 +85,7 @@ func _load():
 			if save.has(prop.name):
 				var val = save[prop.name]
 				set(prop.name, val)
+		self.is_loaded_game = true
 	loading = false
 
 enum Components{
@@ -111,6 +117,7 @@ func clear():
 	for i in 10:
 		flowers.append(false)
 	current_checkpoint = -1
+	is_loaded_game = false
 	
 	
 func should_ask_if_continue():

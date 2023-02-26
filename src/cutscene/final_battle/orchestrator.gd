@@ -44,7 +44,12 @@ signal player_left()
 signal player_outside_bubble()
 
 
+export var lava_deaths_override := -1
+
 func _ready() -> void:
+	if lava_deaths_override >= 0:
+		SessionState.lava_ring_deaths = lava_deaths_override 
+	
 	if !skip_intro and !SessionState.skip_meteor_intro:
 		Music.stop()
 	yield(owner,"ready")
@@ -444,7 +449,8 @@ func boss_fight():
 	player_HUD.hide()
 	
 	Achievements.complete("beat_game")
-	
+	if SessionState.deaths == 0 and !SessionState.is_loaded_game:
+		Achievements.complete("beat_game_no_deaths")
 	
 	var song = Music.play("end_song")
 #	var song = Music.play("chill")
@@ -566,7 +572,7 @@ func setup_escaped_by_player_left_exiting_area():
 
 func setup_bubble_escape():
 	yield(detect_inside_lava_bubble,"outside")
-	print_debug("player escaped bubble")
+	print_debug("player escaped through inside detect")
 	player_outside_bubble()
 
 func setup_escape_by_lava_done():

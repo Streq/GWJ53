@@ -107,6 +107,7 @@ shape = SubResource( 17 )
 texture = ExtResource( 3 )
 
 [node name="pilot_seat" type="Node2D" parent="pivot"]
+unique_name_in_owner = true
 script = ExtResource( 1 )
 
 [node name="pilot_control" type="Node" parent="pivot/pilot_seat"]
