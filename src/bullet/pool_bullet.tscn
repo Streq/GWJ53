@@ -64,5 +64,7 @@ script = ExtResource( 7 )
 [connection signal="despawn" from="." to="spawn" method="despawn"]
 [connection signal="hit" from="." to="blast" method="trigger"]
 [connection signal="spawn" from="." to="spawn" method="spawn"]
+[connection signal="velocity_update" from="." to="orthogonal/hide_if_diagonal" method="trigger"]
+[connection signal="velocity_update" from="." to="diagonal/hide_if_diagonal" method="trigger"]
 [connection signal="timeout" from="lifetime" to="." method="despawn"]
 [connection signal="hit" from="hitbox" to="." method="hit"]

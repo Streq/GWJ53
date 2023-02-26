@@ -54,8 +54,8 @@ func shoot_bullet(wearer = owner, angle = 0.0, power = 0.0):
 		bullet.team = wearer.team
 		bullet.global_position = global_position
 		var bullet_vel = Vector2.RIGHT.rotated(angle)*power
-		bullet.velocity = bullet_vel + carried_inertia_from_shooter*wearer.velocity
 		bullet.global_rotation = bullet_vel.angle()
+		bullet.velocity = bullet_vel + carried_inertia_from_shooter*wearer.velocity
 		bullet.scale*=scale
 #		bullet.team = wearer.team
 		if override_drag >= 0.0:

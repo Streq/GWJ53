@@ -14,12 +14,14 @@ func trigger():
 		SFX.play(sfx,global_position)
 	
 	var blue_particles :CPUParticles2D = ParticlePool.play("blue_particles",global_position)
-	blue_particles.global_rotation = global_rotation
-	blue_particles.lifetime = lifetime
+	if is_instance_valid(blue_particles):
+		blue_particles.global_rotation = global_rotation
+		blue_particles.lifetime = lifetime
 	
 	var red_particles :CPUParticles2D = ParticlePool.play("red_particles",global_position)
-	red_particles.global_rotation = global_rotation
-	red_particles.lifetime = lifetime
+	if is_instance_valid(red_particles):
+		red_particles.global_rotation = global_rotation
+		red_particles.lifetime = lifetime
 	
 
 func initialize_from_collision(collision:KinematicCollision2D):

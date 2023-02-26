@@ -7,8 +7,9 @@ func _on_water_area_body_entered(body: Node) -> void:
 		if !particle_count:
 			return
 		var splash :CPUParticles2D= ParticlePool.play("splash",body.global_position)
-		splash.global_rotation = (-body.velocity).angle()
-		splash.amount = particle_count
+		if is_instance_valid(splash):
+			splash.global_rotation = (-body.velocity).angle()
+			splash.amount = particle_count
 
 func _on_water_area_body_exited(body: Node) -> void:
 	body.in_water = false

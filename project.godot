@@ -204,6 +204,7 @@ LocaleMenu="*res://src/Menu/LocaleMenu.tscn"
 SaveMenu="*res://src/Menu/SaveMenu.tscn"
 Achievements="*res://src/global/Achievements/Achievements.tscn"
 NGIO="*res://src/util/global/newgrounds.io/NGIO.gd"
+FPS="*res://src/util/global/FPS/fps.tscn"
 
 [display]
 

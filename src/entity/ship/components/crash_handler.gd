@@ -10,8 +10,9 @@ func crash(previous_velocity:Vector2):
 		return
 	invulnerable = true
 	var particles : CPUParticles2D = ParticlePool.play("ship_crash", owner.global_position)
-	particles.direction = previous_velocity.normalized()
-	particles.initial_velocity = previous_velocity.length()*0.7
+	if is_instance_valid(particles):
+		particles.direction = previous_velocity.normalized()
+		particles.initial_velocity = previous_velocity.length()*0.7
 	hurtbox.take_damage(1.0)
 	Shake.shake(previous_velocity.normalized()*2.0)
 	invulnerability_window.start()

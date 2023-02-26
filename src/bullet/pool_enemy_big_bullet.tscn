@@ -25,3 +25,7 @@ position = Vector2( 0, 0 )
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
 shape = SubResource( 2 )
+
+[connection signal="despawn" from="." to="spawn" method="despawn"]
+[connection signal="spawn" from="." to="spawn" method="spawn"]
+[connection signal="hit" from="hitbox" to="." method="hit"]

@@ -611,3 +611,46 @@ func listen_for_player_hurt():
 func listen_for_ship_hurt():
 	yield(ship_health,"damage")
 	player_got_hurt = true
+
+
+#PACIFIST ROUTE
+#I intended to kill you on our first encounter, but now that I've observed you, I'm glad I didn't.
+#
+#The fact that you took extra effort not to hurt any of the creatures down there
+#(besides the ones I sent to kill you)
+#tells me you are curious, yet peaceful lifeform. I shall let you go. 
+#
+#Thank you. I'm very grateful. I'll never bother you again!
+#
+#As long as you give back the flowers you took.
+#
+#What?
+#
+#This place is sacred, it's not to be consumed by turists. The only creatures that shall bask on its greatness are those born within its soil.
+#
+#Please, please, please don't make me do that. 
+#I've been here too long for this to be in vain. 
+#I will probably get fired if I don't bring these back with me.
+#
+#I am certain whatever business you hold with your own does not stake a value greater than your life.
+#
+#Well. No. But do you really have to kill me?
+#
+#If you don't meet my demands. I do.
+#
+#Are you serious?
+#
+#Yes.
+#
+#You won't cut me any slack?
+#
+#No.
+#
+#Seriously?
+#
+#Yes.
+#
+#Well whatever then. Kill me.
+#So much for being peaceful.
+#
+#I shall.

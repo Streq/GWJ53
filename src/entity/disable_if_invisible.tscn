@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/entity/pause_if_invisible.gd" type="Script" id=1]
+
+[node name="disable_if_invisible" type="VisibilityEnabler2D"]
+process_parent = true
+physics_process_parent = true
+script = ExtResource( 1 )

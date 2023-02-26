@@ -35,6 +35,10 @@ description = "Beat the game in one sitting without dying."
 title = "Overqualified"
 description = "Beat the boss without taking any kind of damage."
 
+[node name="pacifist" parent="list" instance=ExtResource( 1 )]
+title = "I do come in peace though"
+description = "Beat the game in one sitting without killing anything. Killing eyes is ok."
+
 [node name="storage" type="Node" parent="."]
 script = ExtResource( 3 )
 
