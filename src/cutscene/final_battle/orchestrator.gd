@@ -281,6 +281,10 @@ func boss_fight():
 		meteor.queue_free()
 	else:
 		yield(meteor,"dying")
+		Achievements.complete("beat_boss")
+		if !player_got_hurt:
+			Achievements.complete("beat_boss_no_damage")
+	
 	SessionState.skip_meteor_fight = true
 	Music.stop()
 	get_tree().call_group("air","queue_free")
@@ -293,9 +297,6 @@ func boss_fight():
 	
 	boss_hud.queue_free()
 	SessionState.has_beaten_meteor = true
-	Achievements.complete("beat_boss")
-	if !player_got_hurt:
-		Achievements.complete("beat_boss_no_damage")
 	if !skip_talking:
 		Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
 		Text.say_array(["Then maybe let me go and take a nap bozo"])
@@ -406,11 +407,10 @@ func boss_fight():
 			Text.say_array(["Oh man I WISH I could just TELEPORT out of here."])
 		else:
 			Text.say_array(["Okay this isn't going anywhere. Do you wanna know how to get out of here?"])
-			Text.say_array(["If that's the case, check the latest message in the logs (by pressing Enter)"])
 			yield(Text,"finished")
 			Text.say("Just move toward the edge of the ring, press A, and then S right after, the ship will move through the ring unharmed (since it's not a living thing), and you will teleport outside the ring")
-			Text.say("")
-
+			Text.say_array(["If that's the case, check the latest message in the logs (by pressing Enter)"])
+			
 	
 		yield(Text,"finished")
 	

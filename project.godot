@@ -203,6 +203,7 @@ MenuStack="*res://src/Menu/MenuStack.tscn"
 LocaleMenu="*res://src/Menu/LocaleMenu.tscn"
 SaveMenu="*res://src/Menu/SaveMenu.tscn"
 Achievements="*res://src/global/Achievements/Achievements.tscn"
+NGIO="*res://src/util/global/newgrounds.io/NGIO.gd"
 
 [display]
 

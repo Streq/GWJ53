@@ -195,7 +195,7 @@ onready var bio_sample_radar: Node2D = $"%bio_sample_radar"
 
 func _on_ship_components_HUD_ship_complete() -> void:
 	if !SessionState.has_all_flowers():
-		
+		Achievements.complete("full_ship")
 		Text.say_array([
 			"Well that's it! I'm done here",
 			"Let's power the ship and get out",
@@ -215,9 +215,10 @@ func _on_ship_components_HUD_ship_complete() -> void:
 		get_tree().call_group("bio_sample","make_important")
 		
 		yield(bio_sample_hud,"done")
-	
-	bio_sample_hud.show()
 		
+	bio_sample_hud.show()
+	
+	Achievements.complete("flowers")
 	Text.say_array([
 		"Well that's it! I'm done here",
 		"Let's power the ship and get out",
