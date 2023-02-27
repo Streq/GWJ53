@@ -7,7 +7,18 @@
 [node name="orchestrator" parent="." index="1"]
 skip_intro = true
 skip_fight = true
-lava_deaths_override = 9
+
+[node name="CollisionShape2D13" parent="leave_world_area" index="12"]
+disabled = true
+
+[node name="CollisionShape2D14" parent="leave_world_area" index="13"]
+disabled = true
+
+[node name="CollisionShape2D15" parent="leave_world_area" index="14"]
+disabled = true
+
+[node name="CollisionShape2D16" parent="leave_world_area" index="15"]
+disabled = true
 
 [editable path="map/terrain/air_area"]
 [editable path="map/terrain/water_area"]

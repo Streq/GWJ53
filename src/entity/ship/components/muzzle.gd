@@ -27,6 +27,7 @@ export var pool_name := "bullet" setget set_pool_name
 var pool
 
 func _ready() -> void:
+	set_pool_name(pool_name)
 	pool = ObjectPool.map[pool_name]
 	pass
 func shoot():
@@ -79,4 +80,7 @@ func instance_bullet(wearer):
 
 func set_pool_name(val):
 	pool_name = val
+	if !is_inside_tree() or !ObjectPool.map.has(pool_name):
+		return
 	pool = ObjectPool.map[pool_name]
+	

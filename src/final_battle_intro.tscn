@@ -574,21 +574,21 @@ rotation = 3.14159
 shape = SubResource( 15 )
 
 [node name="CollisionShape2D13" type="CollisionShape2D" parent="leave_world_area"]
-position = Vector2( -64, -777 )
+position = Vector2( -64, -1158 )
 shape = SubResource( 16 )
 
 [node name="CollisionShape2D14" type="CollisionShape2D" parent="leave_world_area"]
-position = Vector2( 763, 22 )
+position = Vector2( 1111, 22 )
 rotation = 1.57079
 shape = SubResource( 16 )
 
 [node name="CollisionShape2D15" type="CollisionShape2D" parent="leave_world_area"]
-position = Vector2( -894, 28 )
+position = Vector2( -1258, 28 )
 rotation = 1.57079
 shape = SubResource( 16 )
 
 [node name="CollisionShape2D16" type="CollisionShape2D" parent="leave_world_area"]
-position = Vector2( -91, 786 )
+position = Vector2( -91, 1210 )
 rotation = 3.14159
 shape = SubResource( 16 )
 

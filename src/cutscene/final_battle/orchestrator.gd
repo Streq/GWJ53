@@ -292,31 +292,40 @@ func boss_fight():
 	
 	SessionState.skip_meteor_fight = true
 	Music.stop()
+	
+	var skip_cutscene := SessionState.lava_ring_deaths > 0
+	
+	
 	get_tree().call_group("air","queue_free")
 	get_tree().call_group("water","queue_free")
 	dead_meteor_sprite.global_position = meteor.global_position
 	yield(meteor,"tree_exiting")
-	dead_meteor_sprite.show()
+	
+	if !skip_cutscene:
+		dead_meteor_sprite.show()
+	else:
+		map.hide()
 #	TODO
 #	show_meteor_dead()
 	
 	boss_hud.queue_free()
 	SessionState.has_beaten_meteor = true
-	if !skip_talking:
+	
+	if !skip_talking and !skip_cutscene:
 		Text.say_array(["I am exhausted, I can fight no longer"],"meteor")
 		Text.say_array(["Then maybe let me go and take a nap bozo"])
 		Text.say_array(["No, you will not get your way, I will not let you destroy this place."],"meteor")
 		yield(Text,"finished")
 	
-	meteor_shake.play("play")
-	var lava_ring_cast_sound: AudioStreamPlayer2D = $"%lava_ring_cast_sound"
-	lava_ring_cast_sound.play()
+		meteor_shake.play("play")
+		var lava_ring_cast_sound: AudioStreamPlayer2D = $"%lava_ring_cast_sound"
+		lava_ring_cast_sound.play()
 	
-	yield(get_tree().create_timer(1.0),"timeout")
+		yield(get_tree().create_timer(1.0),"timeout")
 	
-	meteor_shake.play("RESET")
+		meteor_shake.play("RESET")
 	
-	if !skip_talking:
+	
 		if SessionState.lava_ring_deaths == 0:
 			Text.say_array(["What are you doing?"])
 			yield(Text,"finished")
@@ -331,7 +340,10 @@ func boss_fight():
 	lava_ring.global_position = dude.global_position
 	leave_world_area.global_position = dude.global_position
 	shrink_sound.global_position = dude.global_position
-	shrink_sound.play()
+	
+	if !skip_cutscene:
+		shrink_sound.play()
+	
 	lava_ring.trigger()
 	
 	yield(get_tree().create_timer(0.95),"timeout")
@@ -339,7 +351,7 @@ func boss_fight():
 	detect_inside_lava_bubble.set_physics_process(true)
 	pause_client.set_paused_at_level(PauseState.Level.WORLD)
 	
-	if !skip_talking:
+	if !skip_talking and !skip_cutscene:
 		if SessionState.lava_ring_deaths < 3:
 			Text.say_array(["This is an antinuclear matter bubble"],"meteor")
 			Text.say_array(["It will instantly decompose every living thing it touches."],"meteor")
@@ -386,26 +398,28 @@ func boss_fight():
 		
 		yield(Text,"finished")
 	
-	var tween = create_tween().set_loops(5)
-	tween.tween_callback(dead_meteor_sprite,"set_visible",[true]).set_delay(0.1)
-	tween.tween_callback(dead_meteor_sprite,"set_visible",[false]).set_delay(0.1)
-	yield(tween,"finished")
-	yield(get_tree().create_timer(0.1),"timeout")
-	tween = create_tween().set_loops(5)
-	tween.tween_callback(map,"set_visible",[true]).set_delay(0.1)
-	tween.tween_callback(map,"set_visible",[false]).set_delay(0.1)
-	yield(tween,"finished")
+		var tween = create_tween().set_loops(5)
+		tween.tween_callback(dead_meteor_sprite,"set_visible",[true]).set_delay(0.1)
+		tween.tween_callback(dead_meteor_sprite,"set_visible",[false]).set_delay(0.1)
+		yield(tween,"finished")
+		yield(get_tree().create_timer(0.1),"timeout")
+		tween = create_tween().set_loops(5)
+		tween.tween_callback(map,"set_visible",[true]).set_delay(0.1)
+		tween.tween_callback(map,"set_visible",[false]).set_delay(0.1)
+		yield(tween,"finished")
+		
 	dead_meteor_sprite.queue_free()
 	map.queue_free()
-	
+		
 	yield(get_tree().create_timer(1.0),"timeout")
 	
 	set_controller.disabled = true
 	player_controller.disabled = false
 	
 	if !skip_talking:
-		if SessionState.lava_ring_deaths <= 3:
+		if SessionState.lava_ring_deaths == 0:
 			Text.say_array(["Dumbass"])
+		if SessionState.lava_ring_deaths <= 3:
 			Text.say_array(["Okay, don't panic, there must be SOME way to get out of here"])
 			Text.say_array(["The meteor said it decomposes \"living things\", maybe the ship itself is immune, but if *I* pass through it I'm done?"])
 		elif SessionState.lava_ring_deaths <= 6:
