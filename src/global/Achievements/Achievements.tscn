@@ -50,7 +50,8 @@ id_map = {
 "beat_game": 72846,
 "beat_game_no_deaths": 72848,
 "flowers": 72832,
-"full_ship": 72831
+"full_ship": 72831,
+"pacifist": 0
 }
 
 [connection signal="changed" from="." to="storage" method="save_to_file"]
