@@ -1,5 +1,6 @@
 extends Node2D
 signal fire()
+signal process()
 
 export var BULLET : PackedScene
 export var firing := false setget set_firing  
@@ -31,3 +32,6 @@ func _physics_process(delta: float) -> void:
 		emit_signal("fire")
 		cooldown.start()
 		autofire_cooldown.start()
+
+func _process(delta: float) -> void:
+	emit_signal("process")

@@ -54,8 +54,8 @@ var SAVE_PATH := "user://stranded.save"
 
 var loading = false
 func _save():
-	print("loaded_game:",is_loaded_game)
-	print("deaths:",deaths)
+#	print("loaded_game:",is_loaded_game)
+#	print("deaths:",deaths)
 	
 	if loading:
 		return

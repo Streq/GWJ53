@@ -214,6 +214,7 @@ window/size/test_width=640
 window/size/test_height=352
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+window/size/always_on_top.debug=true
 
 [editor_plugins]
 

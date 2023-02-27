@@ -24,7 +24,7 @@ func get_one():
 	
 	var instance  = unused_objects.pop_back()
 	
-	print(unused_objects.size())
+#	print(unused_objects.size())
 	instance.spawn()
 	return instance
 	
@@ -42,5 +42,5 @@ func new_instance():
 
 func _on_instance_despawn(instance):
 	unused_objects.append(instance)
-	print(unused_objects.size())
+#	print(unused_objects.size())
 	pass
