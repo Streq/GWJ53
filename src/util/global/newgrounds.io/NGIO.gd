@@ -10,7 +10,7 @@ func _ready() -> void:
 	if sensitive:
 		app_id = sensitive.app_id
 		aes_key = sensitive.aes_key
-
+ 
 # To add this NewGrounds.io helper script to your Godot project as an AutoLoad:
 #   Save this file as ngio.gd anywhere in your project
 #   In the top menu bar: Project -> Project Settings... -> AutoLoad tab
