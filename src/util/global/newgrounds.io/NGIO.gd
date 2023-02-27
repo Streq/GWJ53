@@ -1,9 +1,15 @@
 extends Node
 
-var app_id = "***REMOVED***" # Put your app ID from NewGrounds here
-var aes_key = "***REMOVED***" # Put your AES-128/Base64 encryption key 
-var show_cloudsave_results = true # Whether to show API call results in Developer Tools - Console
+var app_id = "" # Put your app ID from NewGrounds here
+var aes_key = "" # Put your AES-128/Base64 encryption key 
+var show_cloudsave_results = false # Whether to show API call results in Developer Tools - Console
 #                                   You might want to turn that false in the final published version
+
+func _ready() -> void:
+	var sensitive = load("res://sensitive/newgrounds.gd")
+	if sensitive:
+		app_id = sensitive.app_id
+		aes_key = sensitive.aes_key
 
 # To add this NewGrounds.io helper script to your Godot project as an AutoLoad:
 #   Save this file as ngio.gd anywhere in your project
@@ -60,6 +66,7 @@ var session_id
 var gateway_uri = "https://newgrounds.io/gateway_v3.php"
 
 func request(component, parameters, func_ref = null, on_load_function = null):
+	
 	if OS.has_feature('JavaScript'):
 		newgroundsio_request = HTTPRequest.new()
 		add_child(newgroundsio_request)
