@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/global/Achievements/achievement.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/global/Achievements/Achievements.gd" type="Script" id=2]
 [ext_resource path="res://src/global/Achievements/storage.gd" type="Script" id=3]
 [ext_resource path="res://src/global/Achievements/newgrounds_notifier.gd" type="Script" id=4]
+[ext_resource path="res://assets/texture/beat_boss_achievement32.png" type="Texture" id=5]
+[ext_resource path="res://assets/texture/full_ship_achievement32.png" type="Texture" id=6]
+[ext_resource path="res://assets/texture/flowers_achievement32.png" type="Texture" id=7]
+[ext_resource path="res://assets/texture/beat_game_achievement32.png" type="Texture" id=8]
+[ext_resource path="res://assets/texture/beat_boss_no_damage_achievement32.png" type="Texture" id=9]
+[ext_resource path="res://assets/texture/beat_game_no_deaths_achievement32.png" type="Texture" id=10]
 
 [node name="Achievements" type="Node"]
 script = ExtResource( 2 )
@@ -14,30 +20,36 @@ unique_name_in_owner = true
 [node name="full_ship" parent="list" instance=ExtResource( 1 )]
 title = "Now We Are Cooking"
 description = "Rebuild your ship"
+icon_texture = ExtResource( 6 )
 
 [node name="flowers" parent="list" instance=ExtResource( 1 )]
 title = "Earning Your Salary"
 description = "Collect all the biosamples"
+icon_texture = ExtResource( 7 )
 
 [node name="beat_boss" parent="list" instance=ExtResource( 1 )]
 title = "Messed With The Wrong Fella"
 description = "Beat the boss"
+icon_texture = ExtResource( 5 )
 
 [node name="beat_game" parent="list" instance=ExtResource( 1 )]
 title = "Say Goodbye To This Face"
 description = "Beat the game!"
+icon_texture = ExtResource( 8 )
 
 [node name="beat_game_no_deaths" parent="list" instance=ExtResource( 1 )]
 title = "Like The Palm Of My Hand"
 description = "Beat the game in one sitting without dying."
+icon_texture = ExtResource( 10 )
 
 [node name="beat_boss_no_damage" parent="list" instance=ExtResource( 1 )]
 title = "Overqualified"
 description = "Beat the boss without taking any kind of damage."
+icon_texture = ExtResource( 9 )
 
 [node name="pacifist" parent="list" instance=ExtResource( 1 )]
 title = "I do come in peace though"
-description = "Beat the game in one sitting without killing anything. Killing eyes is ok."
+description = "Beat the game in one sitting without dying or killing anything. Killing eyes is ok."
 
 [node name="storage" type="Node" parent="."]
 script = ExtResource( 3 )

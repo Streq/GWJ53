@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
 [ext_resource path="res://assets/texture/white_square.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://src/Menu/change_palette_with_arrows.gd" type="Script" id=9]
 [ext_resource path="res://assets/texture/dither50black.png" type="Texture" id=10]
 [ext_resource path="res://src/Menu/change_language.gd" type="Script" id=11]
+[ext_resource path="res://src/Menu/view_achievements.gd" type="Script" id=12]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 2 )
@@ -37,15 +38,14 @@ custom_styles/panel = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="panel"]
 margin_right = 208.0
-margin_bottom = 48.0
+margin_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="title" type="Label" parent="panel/VBoxContainer"]
-margin_top = 2.0
 margin_right = 208.0
-margin_bottom = 10.0
+margin_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource( 1 )
@@ -55,9 +55,9 @@ valign = 1
 
 [node name="options" type="VBoxContainer" parent="panel/VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 14.0
+margin_top = 12.0
 margin_right = 208.0
-margin_bottom = 46.0
+margin_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -82,11 +82,22 @@ text = "View Log"
 [node name="view_log" type="Node" parent="panel/VBoxContainer/options/log"]
 script = ExtResource( 6 )
 
-[node name="change_language" parent="panel/VBoxContainer/options" instance=ExtResource( 3 )]
+[node name="achievements" parent="panel/VBoxContainer/options" instance=ExtResource( 3 )]
 margin_left = 0.0
 margin_top = 24.0
 margin_right = 208.0
 margin_bottom = 32.0
+focus_mode = 2
+text = "Achievements"
+
+[node name="view_achievements" type="Node" parent="panel/VBoxContainer/options/achievements"]
+script = ExtResource( 12 )
+
+[node name="change_language" parent="panel/VBoxContainer/options" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 36.0
+margin_right = 208.0
+margin_bottom = 44.0
 focus_mode = 2
 text = "Change Language"
 
@@ -125,4 +136,5 @@ stretch_mode = 4
 
 [connection signal="selected" from="panel/VBoxContainer/options/resume" to="panel/VBoxContainer/options/resume/resume" method="trigger"]
 [connection signal="selected" from="panel/VBoxContainer/options/log" to="panel/VBoxContainer/options/log/view_log" method="trigger"]
+[connection signal="selected" from="panel/VBoxContainer/options/achievements" to="panel/VBoxContainer/options/achievements/view_achievements" method="trigger"]
 [connection signal="selected" from="panel/VBoxContainer/options/change_language" to="panel/VBoxContainer/options/change_language/change_language" method="trigger"]
