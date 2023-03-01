@@ -36,9 +36,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("START"):
 		get_tree().set_input_as_handled()
 		MenuStack.clear()
-	elif event.is_action_pressed("B"):
-		get_tree().set_input_as_handled()
-		MenuStack.pop()
+#	elif event.is_action_pressed("B"):
+#		get_tree().set_input_as_handled()
+#		MenuStack.pop()
 
 func pause():
 	Pause.pause(PauseState.Level.MENU)
