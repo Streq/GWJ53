@@ -16,7 +16,10 @@ func enter():
 	show()
 	set_enabled(true)
 	background.show()
-	options.get_child(0).grab_focus()
+	var focusable = options.get_child(0)
+	while focusable.focus_mode != Control.FOCUS_ALL:
+		focusable = focusable.get_child(0)
+	focusable.grab_focus()
 	emit_signal("entered")
 
 func exit():
@@ -31,6 +34,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("START"):
+		get_tree().set_input_as_handled()
+		MenuStack.clear()
+	elif event.is_action_pressed("B"):
 		get_tree().set_input_as_handled()
 		MenuStack.pop()
 

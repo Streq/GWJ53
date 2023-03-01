@@ -18,38 +18,39 @@ script = ExtResource( 2 )
 unique_name_in_owner = true
 
 [node name="full_ship" parent="list" instance=ExtResource( 1 )]
-title = "Now We Are Cooking"
-description = "Rebuild your ship"
+title = "full_ship"
+description = "full_ship_requirement"
 icon_texture = ExtResource( 6 )
 
 [node name="flowers" parent="list" instance=ExtResource( 1 )]
-title = "Earning Your Salary"
-description = "Collect all the biosamples"
+title = "flowers"
+description = "flowers_requirement"
 icon_texture = ExtResource( 7 )
 
 [node name="beat_boss" parent="list" instance=ExtResource( 1 )]
-title = "Messed With The Wrong Fella"
-description = "Beat the boss"
+title = "beat_boss"
+description = "beat_boss_requirement"
 icon_texture = ExtResource( 5 )
 
 [node name="beat_game" parent="list" instance=ExtResource( 1 )]
-title = "Say Goodbye To This Face"
-description = "Beat the game!"
+title = "beat_game"
+description = "beat_game_requirement"
 icon_texture = ExtResource( 8 )
 
 [node name="beat_game_no_deaths" parent="list" instance=ExtResource( 1 )]
-title = "Like The Palm Of My Hand"
-description = "Beat the game in one sitting without dying."
+title = "beat_game_no_deaths"
+description = "beat_game_no_deaths_requirement"
 icon_texture = ExtResource( 10 )
 
 [node name="beat_boss_no_damage" parent="list" instance=ExtResource( 1 )]
-title = "Overqualified"
-description = "Beat the boss without taking any kind of damage."
+title = "beat_boss_no_damage"
+description = "beat_boss_no_damage_requirement"
 icon_texture = ExtResource( 9 )
 
 [node name="pacifist" parent="list" instance=ExtResource( 1 )]
-title = "I do come in peace though"
-description = "Beat the game in one sitting without dying or killing anything. Killing eyes is ok."
+title = "pacifist"
+description = "pacifist_requirement"
+hidden = true
 
 [node name="storage" type="Node" parent="."]
 script = ExtResource( 3 )

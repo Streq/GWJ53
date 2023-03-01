@@ -22,11 +22,17 @@ func complete(achievement_name):
 		emit_signal("complete",achievement_name)
 		print("Achievement \"%s\" unlocked" % achievement.title)
 		emit_signal("changed")
+		
 func is_complete(achievement_name):
 	if map.has(achievement_name):
 		var achievement : Achievement = map[achievement_name]
 		return achievement.completed
 	return false
+
+func sync_achievements():
+	for achievement in map.values():
+		if achievement.completed:
+			emit_signal("complete", achievement.name)
 
 func clear():
 	for achievement in map.values():

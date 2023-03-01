@@ -69,6 +69,7 @@ func _save():
 		save[prop.name] = val
 	
 	save_game.store_var(save)
+	Achievements.sync_achievements()
 
 func _load():
 	loading = true
