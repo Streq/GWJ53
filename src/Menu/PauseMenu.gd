@@ -1,6 +1,8 @@
 extends CanvasLayer
 onready var options: VBoxContainer = $"%options"
 onready var background: CanvasLayer = $"%background"
+onready var notification: Panel = $"%notification"
+
 signal entered()
 signal exited()
 

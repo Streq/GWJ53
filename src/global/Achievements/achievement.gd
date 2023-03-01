@@ -9,7 +9,9 @@ export var completed := false setget set_completed
 export var icon_texture : Texture
 export var hidden := false
 
-func set_completed(val):
+func set_completed(val: bool):
+	var updated := completed != val
 	completed = val
-	if completed:
+	if completed and updated:
 		emit_signal("completed")
+	

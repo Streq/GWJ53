@@ -462,15 +462,17 @@ func boss_fight():
 	pause_client.set_paused_at_level(PauseState.Level.MENU)
 	player_HUD.hide()
 	
-	Achievements.complete("beat_game")
-	if SessionState.deaths == 0 and !SessionState.is_loaded_game:
-		Achievements.complete("beat_game_no_deaths")
 	
 	var song = Music.play("end_song")
 #	var song = Music.play("chill")
 	yield(ending_second_version(),"completed")
 	
 	Text.say("THE END")
+	
+	Achievements.complete("beat_game")
+	if SessionState.deaths == 0 and !SessionState.is_loaded_game:
+		Achievements.complete("beat_game_no_deaths")
+	
 	yield(get_tree().create_timer(5.0),"timeout")
 	song.continue_looping = false
 	yield(song, "finished")

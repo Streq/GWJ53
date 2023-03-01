@@ -2,7 +2,8 @@ extends Node
 
 signal changed()
 
-signal complete(achievement)
+signal complete(achievement_name)
+signal completed(achievement)
 
 var map = {}
 onready var list: Node = $"%list"
@@ -20,6 +21,7 @@ func complete(achievement_name):
 		achievement.completed = true
 		
 		emit_signal("complete",achievement_name)
+		emit_signal("completed",achievement)
 		print("Achievement \"%s\" unlocked" % achievement.title)
 		emit_signal("changed")
 		
