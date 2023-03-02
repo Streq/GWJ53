@@ -228,6 +228,8 @@ func _on_ship_components_HUD_ship_complete() -> void:
 		"No I'm just kidding I got no idea what that is", 
 		"Ok let's bounce"
 		])
+	yield(Text,"finished")
+	Text.say("GET_OUT",7.5)
 
 onready var eye_spawner: Node2D = $"%eye_spawner"
 onready var rumble: AudioStreamPlayer2D = $"%rumble"

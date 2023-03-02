@@ -72,7 +72,7 @@ I'm sorry for calling you rude if that's the case,I'm sorry for calling you rude
 I'm gonna go find my ship now.,I'm gonna go find my ship now.,"Bueno, me voy."
 Good luck with the walking.,Good luck with the walking.,Chau.
 Ok no talking,Ok no talking,Listo me callo
-I better avoid these,I better avoid these red thingies,Esto rojo mejor no lo tocamos
+I better avoid these,I better avoid these pointy thingies,Esto que pincha mejor no lo tocamos
 "And so he bounced, he bounced as hard as he could","And so he bounced, he bounced as hard as he could","Y se fue, se fue con todas sus fuerzas"
 But he couldn't leave.,But he couldn't leave.,Pero no pudo salir.
 What the..?,What the..?,Uia y esto..?
@@ -223,3 +223,5 @@ beat_boss_no_damage_requirement,Beat the boss without taking any kind of damage.
 pacifist_requirement,Beat the game in one sitting without dying or killing anything. Killing eyes is ok.,Ganá el juego en una sesión sin lastimar a otras criaturas. Matar ojos vale. 
 Achievements,Achievements,Logros
 Achievement Unlocked:,Achievement Unlocked:,Logro Desbloqueado:
+GET_OUT,Get out of this planet!,Salí de este planeta!
+TOGGLE_FULLSCREEN,Toggle Fullscreen,Alternar Pantalla Completa

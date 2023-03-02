@@ -18,8 +18,9 @@ func _ready() -> void:
 func complete(achievement_name):
 	if map.has(achievement_name):
 		var achievement : Achievement = map[achievement_name]
+		if achievement.completed:
+			return
 		achievement.completed = true
-		
 		emit_signal("complete",achievement_name)
 		emit_signal("completed",achievement)
 		print("Achievement \"%s\" unlocked" % achievement.title)
