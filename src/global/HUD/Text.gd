@@ -58,6 +58,7 @@ func clear():
 	for label in label_map.values():
 		label.force_finish()
 		label.text = ""
+	emit_signal("player_pressed_A")
 
 func clear_queue():
 	queue = []

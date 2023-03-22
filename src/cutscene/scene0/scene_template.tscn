@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/cutscene/appearing_label.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/global/HUD/appearing_label.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/cutscene/scene.gd" type="Script" id=3]
 
 [node name="scene0" type="Control"]

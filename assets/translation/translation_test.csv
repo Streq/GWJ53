@@ -36,7 +36,7 @@ The DOWN JET will allow the ship to move DOWN,The DOWN JET will allow the ship t
 The GUN will allow the ship to GUN,The GUN will allow the ship to GUN,El CAÑÓN nos va a permitir CAÑONEAR
 "Finally, we don't have to worry about oxygen if the ship has this thing","Finally, we don't have to worry about oxygen if the ship has this thing","Al fin, no nos vamos a tener que preocupar por oxígeno nunca más si la nave tiene esta cosa."
 "That's the teleporter antenna!!, if I put it on the ship I'll be able to teleport by pressing S","That's the teleporter antenna!!, if I put it on the ship I'll be able to teleport by pressing S",Esa es la antena de teletransportación!! Si la pongo en la nave me voy a poder teletransportar apretando S
-"Great, now if I'm away from the ship, I can get back to it by pressing S","Great, now if I'm away from the ship, I can get back to it by pressing S. Keep in mind there's a little pause before I can teleport, during which I'll be frozen in space.","Buenísimo, ahora si estoy lejos de la nave, puedo volver apretando S. Tené en cuenta que va a haber una pequeña pausa antes de teletransportarme, durante la cual voy a estár congelado en el espacio."
+"Great, now if I'm away from the ship, I can get back to it by pressing S","Great, now if I'm away from the ship, I can get back to it by pressing S.","Buenísimo, ahora si estoy lejos de la nave, puedo volver apretando S."
 "Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no Dome to keep the air inside the ship","Hell yes!!, now we can actually FLY, I can't leave yet though, since there's no Dome to keep the air inside the ship","Vamos todavía! Ahora podemos VOLAR, igual todavía no me puedo ir, porque no tengo la Cúpula que mantiene el aire dentro de la nave."
 Well that's it! I'm done here,Well that's it! I'm done here,Bueno listo! Me las tomo.
 Let's power the ship and get out,Let's power the ship and get out,Arranquemos la nave y vayámonos.
@@ -225,3 +225,6 @@ Achievements,Achievements,Logros
 Achievement Unlocked:,Achievement Unlocked:,Logro Desbloqueado:
 GET_OUT,Get out of this planet!,Salí de este planeta!
 TOGGLE_FULLSCREEN,Toggle Fullscreen,Alternar Pantalla Completa
+RESTART_GAME,Restart,Reiniciar
+JUMP_WITH_Z,I can jump by pressing Z,Puedo saltar apretando Z
+MY EYES,MY EYES,MIS OJOS

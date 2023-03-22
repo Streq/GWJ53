@@ -1,8 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/cutscene/continue.gd" type="Script" id=1]
 [ext_resource path="res://src/global/HUD/Text.gd" type="Script" id=2]
-[ext_resource path="res://src/cutscene/appearing_label.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/global/HUD/appearing_label.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/global/clients/pause_client.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/shader/palette.gdshader" type="Shader" id=5]
 [ext_resource path="res://src/util/color/palette_client.tscn" type="PackedScene" id=6]
@@ -10,11 +10,10 @@
 [ext_resource path="res://assets/audio/sfx/meteor_text3.wav" type="AudioStream" id=8]
 [ext_resource path="res://assets/audio/sfx/narrator_text10.wav" type="AudioStream" id=9]
 [ext_resource path="res://assets/theme/narrator.tres" type="Theme" id=10]
-[ext_resource path="res://assets/shader/black_background_material.tres" type="Material" id=11]
 
-[sub_resource type="Image" id=6]
+[sub_resource type="Image" id=9]
 data = {
-"data": PoolByteArray( 60, 60, 2, 255, 0, 0, 3, 255, 255, 255, 0, 255, 126, 126, 1, 255 ),
+"data": PoolByteArray( 60, 60, 2, 255, 126, 126, 1, 255, 0, 0, 3, 255, 255, 255, 0, 255 ),
 "format": "RGBA8",
 "height": 1,
 "mipmaps": false,
@@ -24,7 +23,7 @@ data = {
 [sub_resource type="ImageTexture" id=4]
 flags = 0
 flags = 0
-image = SubResource( 6 )
+image = SubResource( 9 )
 size = Vector2( 4, 1 )
 
 [sub_resource type="ShaderMaterial" id=5]
@@ -35,6 +34,30 @@ shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
 shader_param/alpha_factor = 1.0
 shader_param/palette = SubResource( 4 )
+
+[sub_resource type="Image" id=10]
+data = {
+"data": PoolByteArray( 60, 60, 2, 255, 0, 0, 3, 255, 255, 255, 0, 255, 126, 126, 1, 255 ),
+"format": "RGBA8",
+"height": 1,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="ImageTexture" id=7]
+flags = 0
+flags = 0
+image = SubResource( 10 )
+size = Vector2( 4, 1 )
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/palette_size = 4
+shader_param/offset = 0
+shader_param/blue_index_offset = 0.0
+shader_param/alpha_factor = 1.0
+shader_param/palette = SubResource( 7 )
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -79,7 +102,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="default" parent="labels" instance=ExtResource( 3 )]
-material = ExtResource( 11 )
+material = SubResource( 5 )
 margin_left = 40.0
 margin_top = -20.0
 margin_right = 240.0
@@ -91,7 +114,7 @@ unique_name_in_owner = true
 index = 9
 
 [node name="meteor" parent="labels" instance=ExtResource( 3 )]
-material = SubResource( 5 )
+material = SubResource( 8 )
 margin_left = 40.0
 margin_top = -20.0
 margin_right = 240.0
@@ -106,7 +129,7 @@ stream = ExtResource( 8 )
 index = 11
 
 [node name="narrator" parent="labels" instance=ExtResource( 3 )]
-material = ExtResource( 11 )
+material = SubResource( 5 )
 margin_left = 40.0
 margin_top = -20.0
 margin_right = 240.0

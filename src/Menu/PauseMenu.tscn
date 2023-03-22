@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
 [ext_resource path="res://assets/texture/white_square.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://src/Menu/change_language.gd" type="Script" id=11]
 [ext_resource path="res://src/Menu/view_achievements.gd" type="Script" id=12]
 [ext_resource path="res://src/Menu/toggle_fullscreen.gd" type="Script" id=13]
+[ext_resource path="res://src/Menu/restart_game.gd" type="Script" id=14]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 2 )
@@ -39,7 +40,7 @@ custom_styles/panel = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="panel"]
 margin_right = 208.0
-margin_bottom = 68.0
+margin_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -58,7 +59,7 @@ valign = 1
 unique_name_in_owner = true
 margin_top = 12.0
 margin_right = 208.0
-margin_bottom = 68.0
+margin_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -116,6 +117,17 @@ text = "TOGGLE_FULLSCREEN"
 [node name="toggle_fullscreen" type="Node" parent="panel/VBoxContainer/options/full_screen"]
 script = ExtResource( 13 )
 
+[node name="start_menu" parent="panel/VBoxContainer/options" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 60.0
+margin_right = 208.0
+margin_bottom = 68.0
+focus_mode = 2
+text = "RESTART_GAME"
+
+[node name="restart_game" type="Node" parent="panel/VBoxContainer/options/start_menu"]
+script = ExtResource( 14 )
+
 [node name="background" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 80
@@ -151,3 +163,4 @@ stretch_mode = 4
 [connection signal="selected" from="panel/VBoxContainer/options/achievements" to="panel/VBoxContainer/options/achievements/view_achievements" method="trigger"]
 [connection signal="selected" from="panel/VBoxContainer/options/change_language" to="panel/VBoxContainer/options/change_language/change_language" method="trigger"]
 [connection signal="selected" from="panel/VBoxContainer/options/full_screen" to="panel/VBoxContainer/options/full_screen/toggle_fullscreen" method="trigger"]
+[connection signal="selected" from="panel/VBoxContainer/options/start_menu" to="panel/VBoxContainer/options/start_menu/restart_game" method="trigger"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://src/map/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://src/entity/ship/components/jet_component/jet_component_down.tscn" type="PackedScene" id=2]
@@ -94,6 +94,9 @@ extents = Vector2( 38.5, 10 )
 
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 4, 10 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 13.5, 10 )
 
 [node name="main" type="Node2D" groups=["world"]]
 script = ExtResource( 40 )
@@ -794,7 +797,31 @@ collision_layer = 0
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D/player_got_past"]
-position = Vector2( 9, -19 )
+position = Vector2( 10, -20 )
+shape = SubResource( 13 )
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2( -298, 182 )
+collision_layer = 0
+collision_mask = 32
+script = ExtResource( 57 )
+text_to_say = "JUMP_WITH_Z"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2( -3.5, 0 )
+shape = SubResource( 14 )
+
+[node name="Timer" type="Timer" parent="Area2D2"]
+process_mode = 0
+wait_time = 4.0
+one_shot = true
+
+[node name="player_got_past" type="Area2D" parent="Area2D2"]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2/player_got_past"]
+position = Vector2( 17, -8 )
 shape = SubResource( 13 )
 
 [connection signal="restart" from="." to="terrain/reset_tiles_on_respawn" method="trigger"]

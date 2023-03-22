@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
-[ext_resource path="res://assets/audio/sfx/flap4.wav" type="AudioStream" id=2]
-[ext_resource path="res://src/cutscene/appearing_label.gd" type="Script" id=3]
+[ext_resource path="res://assets/audio/sfx/flap4.wav" type="AudioStream" id=1]
+[ext_resource path="res://assets/theme/default.tres" type="Theme" id=2]
+[ext_resource path="res://src/global/HUD/appearing_label.gd" type="Script" id=3]
 [ext_resource path="res://assets/shader/black_background.tres" type="Material" id=4]
 [ext_resource path="res://src/audio/pool_audio_player.gd" type="Script" id=5]
-[ext_resource path="res://src/cutscene/translate.tscn" type="PackedScene" id=6]
 
 [node name="appearing_label" type="Label"]
 material = ExtResource( 4 )
@@ -18,7 +17,7 @@ margin_top = -59.0
 margin_right = 106.0
 margin_bottom = -45.0
 grow_horizontal = 2
-theme = ExtResource( 1 )
+theme = ExtResource( 2 )
 text = "So there's this guy right?"
 align = 1
 valign = 1
@@ -26,9 +25,7 @@ autowrap = true
 script = ExtResource( 3 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
+stream = ExtResource( 1 )
 volume_db = -24.0
 script = ExtResource( 5 )
 cooldown = 0.0166667
-
-[node name="translate" parent="." instance=ExtResource( 6 )]
