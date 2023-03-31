@@ -184,7 +184,7 @@ X key,X key,tecla X
 S key,S key,tecla S
 passive,passive,pasiva
 X - talk,X - talk,X – hablar
-choose your palette using the arrow keys and press Z,choose your palette using the arrow keys and press Z,elegí tu paleta usando las flechitas y apretá Z
+choose your palette using the arrow keys and press Z,Choose your palette using the arrow keys and press Z,Elegí tu paleta usando las flechitas y apretá Z
 X - Grab,X - Grab,X – Agarrar
 X - Put,X - Put,X – Colocar
 Continue,Continue,Continuar
@@ -228,3 +228,16 @@ TOGGLE_FULLSCREEN,Toggle Fullscreen,Alternar Pantalla Completa
 RESTART_GAME,Restart,Reiniciar
 JUMP_WITH_Z,I can jump by pressing Z,Puedo saltar apretando Z
 MY EYES,MY EYES,MIS OJOS
+Default,Default,Default
+Lighter,Lighter,Más Claro
+Duller,Duller,Apagado
+Yellow,Yellow,Amarillo
+Marine Green,Marine Green,Verde Marino
+Orange You Glad,Orange You Glad,Naranjoso
+Cappuccino,Cappuccino,Capuchino
+Green & Blue,Green & Blue,Verde & Azul
+Green & Purple,Green & Purple,Verde & Violeta
+Red & Blue,Red & Blue,Rojo & Azul
+Beach,Beach,Playa
+Mono,Mono,Mono
+Mono Yellow,Mono Yellow,Mono Amarillo

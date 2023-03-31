@@ -685,7 +685,7 @@ tracks/4/keys = {
 "values": [ 8.0, 9.0 ]
 }
 
-[sub_resource type="Image" id=39]
+[sub_resource type="Image" id=121]
 data = {
 "data": PoolByteArray( 255, 255, 0, 255, 126, 126, 1, 255, 60, 60, 2, 255, 0, 0, 3, 255 ),
 "format": "RGBA8",
@@ -694,20 +694,20 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=37]
+[sub_resource type="ImageTexture" id=119]
 flags = 0
 flags = 0
-image = SubResource( 39 )
+image = SubResource( 121 )
 size = Vector2( 4, 1 )
 
-[sub_resource type="ShaderMaterial" id=38]
+[sub_resource type="ShaderMaterial" id=120]
 resource_local_to_scene = true
 shader = ExtResource( 20 )
 shader_param/palette_size = 4
 shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
-shader_param/alpha_factor = 0.0
-shader_param/palette = SubResource( 37 )
+shader_param/alpha_factor = 1.0
+shader_param/palette = SubResource( 119 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 2, 3 )
@@ -886,8 +886,8 @@ tracks/0/keys = {
 }
 
 [node name="dude" groups=["player"] instance=ExtResource( 1 )]
-speed = 45.0
-jump_speed = 50.0
+speed = 50.0
+jump_speed = 51.0
 water_gravity = -15.0
 water_damping = 2.0
 horizontal_air_acceleration = 250.0
@@ -936,6 +936,10 @@ script = ExtResource( 14 )
 process_mode = 0
 one_shot = true
 script = ExtResource( 42 )
+
+[node name="available_actions" type="VBoxContainer" parent="HUD" index="2"]
+margin_right = 40.0
+margin_bottom = 40.0
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource( 5 )
@@ -1000,7 +1004,7 @@ animation = "ledge_up"
 on_finish_goto_state = "idle"
 
 [node name="Sprite" type="Sprite" parent="pivot" index="0"]
-material = SubResource( 38 )
+material = SubResource( 120 )
 texture = ExtResource( 3 )
 hframes = 4
 vframes = 4

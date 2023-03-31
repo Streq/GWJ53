@@ -24,6 +24,8 @@ export var disabled := false
 
 onready var ship_components_hud: VBoxContainer = $"%ship_components_HUD"
 onready var ship: KinematicBody2D = $"%ship"
+onready var dude: KinematicBody2D = $"%dude"
+onready var rear_jet_branch: StaticBody2D = $"%rear_jet_branch"
 
 func _ready() -> void:
 	
@@ -120,8 +122,12 @@ func unpause():
 func _on_ship_health_full() -> void:
 	if SessionState.has_repaired_ship:
 		return
-	SessionState.has_repaired_ship = true
 	
+	if dude.state_machine.current.name != "repair":
+		ship.get_node("%health").bar.value = 1
+		return
+	SessionState.has_repaired_ship = true
+	rear_jet_branch.queue_free()
 	if ship_health_full:
 		return
 	ship_health_full = true

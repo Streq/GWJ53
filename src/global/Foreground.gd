@@ -10,7 +10,9 @@ onready var choose_your_palette: Control = $choose_your_palette
 
 var index = 0
 
+var palette = null
 
+signal palette_updated(name)
 
 func _ready() -> void:
 	exit()
@@ -40,7 +42,9 @@ func update_palette():
 	var pals = palettes.get_children()
 	for palette in pals:
 		palette.hide()
-	pals[index].show()
+	palette = pals[index]
+	palette.show()
+	emit_signal("palette_updated", palette.name)
 	
 func palette_selected():
 	yield(get_tree(),"idle_frame")

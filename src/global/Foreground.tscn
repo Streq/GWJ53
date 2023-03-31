@@ -35,7 +35,7 @@ shader = ExtResource( 11 )
 shader_param/palette_size = 4
 shader_param/offset = 0
 shader_param/blue_index_offset = 0.0
-shader_param/alpha_factor = 0.0
+shader_param/alpha_factor = 1.0
 shader_param/palette = SubResource( 119 )
 
 [sub_resource type="Image" id=150]
@@ -113,7 +113,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=130]
+[sub_resource type="ImageTexture" id=128]
 flags = 0
 flags = 0
 image = SubResource( 153 )
@@ -124,7 +124,7 @@ shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
-shader_param/palette = SubResource( 130 )
+shader_param/palette = SubResource( 128 )
 
 [sub_resource type="Image" id=154]
 data = {
@@ -135,7 +135,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=128]
+[sub_resource type="ImageTexture" id=130]
 flags = 0
 flags = 0
 image = SubResource( 154 )
@@ -146,7 +146,7 @@ shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
-shader_param/palette = SubResource( 128 )
+shader_param/palette = SubResource( 130 )
 
 [sub_resource type="Image" id=155]
 data = {
@@ -157,7 +157,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=148]
+[sub_resource type="ImageTexture" id=132]
 flags = 0
 flags = 0
 image = SubResource( 155 )
@@ -168,7 +168,7 @@ shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
-shader_param/palette = SubResource( 148 )
+shader_param/palette = SubResource( 132 )
 
 [sub_resource type="Image" id=156]
 data = {
@@ -179,7 +179,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=132]
+[sub_resource type="ImageTexture" id=134]
 flags = 0
 flags = 0
 image = SubResource( 156 )
@@ -190,7 +190,7 @@ shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
-shader_param/palette = SubResource( 132 )
+shader_param/palette = SubResource( 134 )
 
 [sub_resource type="Image" id=157]
 data = {
@@ -311,7 +311,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=134]
+[sub_resource type="ImageTexture" id=146]
 flags = 0
 flags = 0
 image = SubResource( 162 )
@@ -322,7 +322,7 @@ shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
-shader_param/palette = SubResource( 134 )
+shader_param/palette = SubResource( 146 )
 
 [sub_resource type="Image" id=163]
 data = {
@@ -333,7 +333,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="ImageTexture" id=146]
+[sub_resource type="ImageTexture" id=148]
 flags = 0
 flags = 0
 image = SubResource( 163 )
@@ -344,7 +344,7 @@ shader = ExtResource( 8 )
 shader_param/palette_size = 4
 shader_param/offset = null
 shader_param/blue_index_offset = 0.0
-shader_param/palette = SubResource( 146 )
+shader_param/palette = SubResource( 148 )
 
 [node name="Foreground" type="CanvasLayer"]
 pause_mode = 2
