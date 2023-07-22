@@ -14,3 +14,5 @@ func _ready() -> void:
 	MenuStack.clear()
 	yield(get_tree(),"idle_frame")
 	MenuStack.push_array([SaveMenu,Foreground,LocaleMenu])
+	if OS.has_feature("pc"):
+		OS.window_fullscreen = true

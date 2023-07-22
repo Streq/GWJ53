@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/theme/default.tres" type="Theme" id=1]
 [ext_resource path="res://assets/texture/white_square.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://src/Menu/palette_name.gd" type="Script" id=15]
 [ext_resource path="res://assets/shader/palette.gdshader" type="Shader" id=16]
 [ext_resource path="res://src/util/color/palette_client.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/Menu/quit.gd" type="Script" id=18]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 2 )
@@ -67,7 +68,7 @@ custom_styles/panel = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="panel"]
 margin_right = 208.0
-margin_bottom = 80.0
+margin_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -86,7 +87,7 @@ valign = 1
 unique_name_in_owner = true
 margin_top = 12.0
 margin_right = 208.0
-margin_bottom = 80.0
+margin_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -155,6 +156,17 @@ text = "RESTART_GAME"
 [node name="restart_game" type="Node" parent="panel/VBoxContainer/options/start_menu"]
 script = ExtResource( 14 )
 
+[node name="quit" parent="panel/VBoxContainer/options" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_top = 72.0
+margin_right = 208.0
+margin_bottom = 80.0
+focus_mode = 2
+text = "Quit"
+
+[node name="quit" type="Node" parent="panel/VBoxContainer/options/quit"]
+script = ExtResource( 18 )
+
 [node name="background" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 80
@@ -212,3 +224,4 @@ stretch_mode = 4
 [connection signal="selected" from="panel/VBoxContainer/options/change_language" to="panel/VBoxContainer/options/change_language/change_language" method="trigger"]
 [connection signal="selected" from="panel/VBoxContainer/options/full_screen" to="panel/VBoxContainer/options/full_screen/toggle_fullscreen" method="trigger"]
 [connection signal="selected" from="panel/VBoxContainer/options/start_menu" to="panel/VBoxContainer/options/start_menu/restart_game" method="trigger"]
+[connection signal="selected" from="panel/VBoxContainer/options/quit" to="panel/VBoxContainer/options/quit/quit" method="trigger"]
